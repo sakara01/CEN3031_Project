@@ -44,7 +44,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	oneData := []myData{ //test data, replace soon
 		{"Test1111", "one", 12},
 		{"Test2222", "two", 13},
-		{"Test3333", "three", 14},
+		{"Test444", "four", 14},
 	}
 
 	finalJson, err := json.Marshal(oneData) //encodes json data to send to frontend
