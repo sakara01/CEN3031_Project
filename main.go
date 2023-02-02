@@ -26,9 +26,6 @@ func main() { //starts server using go's http package
 func enableCors(w *http.ResponseWriter) { //allows frontend and backend to communicate
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 	(*w).Header().Set("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS")
-
-	//(*w).Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	//(*w).Header().Set("Access-Control-Allow-Headers", "application/json")
 	(*w).Header().Set("Access-Control-Allow-Headers", "access-control-allow-origin, Content-Type")
 	(*w).Header().Set("Access-Control-Allow-Credentials", "true")
 }
@@ -78,15 +75,16 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("received: %v\n", myLoc) //prints user location to debug console in vscode
 
-	latitude := fmt.Sprintf("%f", myLoc.Lat)
+	latitude := fmt.Sprintf("%f", myLoc.Lat) //converts location to string
 	longitude := fmt.Sprintf("%f", myLoc.Long)
 
-	locationString := "location=" + latitude + "," + longitude
+	locationString := "location=" + latitude + "," + longitude //concatonate to put inside url
 
 	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" + locationString + "&radius=1500&type=cafe&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k"
 
 	method := "GET"
 
+	//request nearby places data from Places API
 	client := &http.Client{}
 	req, err := http.NewRequest(method, url, nil)
 
