@@ -7,8 +7,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkN57eDvu3va5pDHMPUVCpSAKD5nn59AQ"></script>
+  <script>
+    function loadMap() {
+      var mapOptions = {
+        center: new google.maps.LatLng(29.6516, -82.3248),
+        zoom: 10
+      }
+      var map = new google.maps.Map(document.getElementById("sample"), mapOptions);
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(29.6516, -82.3248),
+        map: map,
+      });
+    }
+  </script>
 </head>
-<body>
+<body onload = "loadMap()">
+  <div id = "sample" style = "width:1490px; height:840px;"></div>
   <app-root></app-root>
 </body>
 </html>
