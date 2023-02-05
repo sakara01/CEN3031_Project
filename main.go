@@ -30,12 +30,15 @@ func enableCors(w *http.ResponseWriter) { //allows frontend and backend to commu
 	(*w).Header().Set("Access-Control-Allow-Credentials", "true")
 }
 
-func getHandler(w http.ResponseWriter, r *http.Request) { //DONT REALLY NEED THIS, but dont delete
+//DONT REALLY NEED THIS, but dont delete, since we'll find the user location in postHandler()
+//finds user location from input (url)
+//for example, right now it's centered at the Metropolitan Museum of Art
+func getHandler(w http.ResponseWriter, r *http.Request) { 
 	enableCors(&w)
 
 	//geoLocationUrl := "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k"
 
-	url := "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Museum%20of%20Contemporary%20Art%20Australia&inputtype=textquery&fields=formatted_address,name,rating,opening_hours,geometry&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k"
+	url := "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Metropolitan%20Museum%20of%20Art%20Art&inputtype=textquery&fields=formatted_address,name,rating,opening_hours,geometry&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k"
 	method := "GET"
 
 	client := &http.Client{}
@@ -64,21 +67,28 @@ func getHandler(w http.ResponseWriter, r *http.Request) { //DONT REALLY NEED THI
 	w.Write(body) //writes json data to localhost:8080
 }
 
+//finds user location
+//then gets the nearby places around location coordinates
+//filter nearby places in the url
 func postHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 
+	//receives user location from front end?
 	var myLoc Location
 	err2 := json.NewDecoder(r.Body).Decode(&myLoc)
 	if err2 != nil {
 		log.Fatal("error reading body", err2)
 	}
 
-	log.Printf("received: %v\n", myLoc) //prints user location to debug console in vscode
+	//prints user location to console in VSCODE
+	fmt.Println("received user location: %v\n", myLoc)
 
-	latitude := fmt.Sprintf("%f", myLoc.Lat) //converts location to string
+	//converts location to string
+	latitude := fmt.Sprintf("%f", myLoc.Lat) 
 	longitude := fmt.Sprintf("%f", myLoc.Long)
 
-	locationString := "location=" + latitude + "," + longitude //concatonate to put inside url
+	 //concatonate to put inside url
+	locationString := "location=" + latitude + "," + longitude
 
 	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" + locationString + "&radius=1500&type=cafe&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k"
 
@@ -100,10 +110,12 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 	defer res.Body.Close()
 
 	body, err := io.ReadAll(res.Body) // ALL PLACES API DATA IS STORED IN 'body'
+
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+	
 	fmt.Println(string(body)) //prints to debug console in VS code
 
 	w.Header().Set("Content-Type", "application/json") //sets localhost:8080 to display json
