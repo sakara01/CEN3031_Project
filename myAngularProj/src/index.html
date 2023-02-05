@@ -15,18 +15,13 @@
       }
       var map = new google.maps.Map(document.getElementById("sample"), mapOptions);
 
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log(
-          `lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`
-        );
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-          map: map,
-          icon: {
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(29.6516, -82.3248),
+        map: map,
+        icon: {
           url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
         }
-        });
-      });
+      })
       // Displayed Markers for coffee shops in Gainesville
       // Starbucks on 1614 NW 13th St
       marker = new google.maps.Marker ({
