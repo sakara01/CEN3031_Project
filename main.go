@@ -11,8 +11,8 @@ import (
 )
 
 type Location struct { //test struct, replace soon
-	Lat  float64
-	Long float64
+	Lat  float64 `json:"lat"`
+	Long float64 `json:"lng"`
 }
 
 func main() { //starts server using go's http package
@@ -30,10 +30,10 @@ func enableCors(w *http.ResponseWriter) { //allows frontend and backend to commu
 	(*w).Header().Set("Access-Control-Allow-Credentials", "true")
 }
 
-//DONT REALLY NEED THIS, but dont delete, since we'll find the user location in postHandler()
-//finds user location from input (url)
-//for example, right now it's centered at the Metropolitan Museum of Art
-func getHandler(w http.ResponseWriter, r *http.Request) { 
+// DONT REALLY NEED THIS, but dont delete, since we'll find the user location in postHandler()
+// finds user location from input (url)
+// for example, right now it's centered at the Metropolitan Museum of Art
+func getHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 
 	//geoLocationUrl := "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k"
@@ -67,9 +67,9 @@ func getHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(body) //writes json data to localhost:8080
 }
 
-//finds user location
-//then gets the nearby places around location coordinates
-//filter nearby places in the url
+// finds user location
+// then gets the nearby places around location coordinates
+// filter nearby places in the url
 func postHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 
@@ -84,13 +84,13 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("received user location: %v\n", myLoc)
 
 	//converts location to string
-	latitude := fmt.Sprintf("%f", myLoc.Lat) 
+	latitude := fmt.Sprintf("%f", myLoc.Lat)
 	longitude := fmt.Sprintf("%f", myLoc.Long)
 
-	 //concatonate to put inside url
+	//concatonate to put inside url
 	locationString := "location=" + latitude + "," + longitude
 
-	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" + locationString + "&radius=1500&type=cafe&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k"
+	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" + locationString + "&radius=2000&type=cafe&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k"
 
 	method := "GET"
 
@@ -115,7 +115,7 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		return
 	}
-	
+
 	fmt.Println(string(body)) //prints to debug console in VS code
 
 	w.Header().Set("Content-Type", "application/json") //sets localhost:8080 to display json

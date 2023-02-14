@@ -15,20 +15,19 @@ export class AppComponent implements OnInit {
   public postJsonValue: any;
   
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient){
+  }
 
   ngOnInit():void{
-    //this.getMethod();
-    //this.postMethod();
     this.getUserLocation();
-
-    navigator.geolocation.getCurrentPosition((position) => {
-      console.log(
-        `lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`
-      );
-    });
     this.watchPosition();
   }
+
+  display: any;
+  center: any;
+  zoom=14;
+  markerOptions: google.maps.MarkerOptions={draggable: false};
+  markers: google.maps.LatLngLiteral[]=[];
 
   watchPosition() {
     let desLat = 0;
@@ -38,6 +37,7 @@ export class AppComponent implements OnInit {
         console.log(
           `lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`
         ); 
+        
         if(position.coords.latitude == desLat) {
           navigator.geolocation.clearWatch(id);
         }
@@ -64,43 +64,38 @@ export class AppComponent implements OnInit {
   //bc local cafes are stored in 'body' variable, which is read in this function
   public getUserLocation(){  //gets user's location and sends to backend
     
-      //gets user location
-      navigator.geolocation.getCurrentPosition((position) => { 
-        let lat = 29.650711581658616;
-        let long = -82.33353313281813;
+        //gets user location
+        navigator.geolocation.getCurrentPosition((position) => { 
+          this.center={lat:position.coords.latitude, lng:position.coords.longitude};
+          this.zoom=14;
 
-        const header = new HttpHeaders().set('access-control-allow-origin',"*");  //allow cors request
-        
-        // body = coordinates of where user is
-        let body = {
-          Lat: lat,
-          Long: long,
-        }
-
-        //sends body data (user coordinates) to BACKEND
-        //posts to backend and returns JSON of nearby coffee shops
-        this.http.post('http://localhost:8080/', body, {headers: header}).subscribe((data)=>{  
-          //data = JSON of all nearby places sent by Places API
-
-          //convert JSON into nearbyPlaces objects
-          //JSON > string > objects
-          let placesString:string = JSON.stringify(data)
-          var placesObj  = JSON.parse(placesString)
-
-          //array to hold all of the placesObj objects
-          var nearbyPlaces: typeof placesObj[] = placesObj.results;
+          const header = new HttpHeaders().set('access-control-allow-origin',"*");  //allow cors request
           
-          //example on how to access the name
-          console.log(nearbyPlaces[0]);
-          //example on how to access latitude
-          console.log(nearbyPlaces[0].geometry.location.lat);
+          //sends body data (user coordinates) to BACKEND
+          //posts to backend and returns JSON of nearby coffee shops
+          this.http.post('http://localhost:8080/', this.center, {headers: header}).subscribe((data)=>{  
+            //data = JSON of all nearby places sent by Places API
 
-          this.postJsonValue = "POST successful";
+            //convert JSON into nearbyPlaces objects
+            //JSON > string > objects
+            let placesString:string = JSON.stringify(data)
+            var placesObj  = JSON.parse(placesString)
+
+            //array to hold all of the placesObj objects
+            var nearbyPlaces: typeof placesObj[] = placesObj.results;
+            
+            //example on how to access the name
+            console.log(nearbyPlaces[0]);
+            //example on how to access latitude
+            console.log(nearbyPlaces[0].geometry.location.lat);
+
+            for (let i=0; i<nearbyPlaces.length;i++){
+              this.postJsonValue = nearbyPlaces[i].geometry.location;
+              this.markers.push(this.postJsonValue);
+            }
         });
       })     
   }
-
-
 
 }
 

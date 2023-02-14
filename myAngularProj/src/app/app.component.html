@@ -1,9 +1,18 @@
+<!--ONLY PUT BODY ELEMENTS HERE, no javascript-->
 
+<google-map 
+            width="100%"
+            height="100%"
+            [center]="center"
+            [zoom]="zoom">
 
-<div >
-    <p>{{postJsonValue}}</p>
-</div>
-  
-  
+      <map-marker
+        *ngFor="let marker of markers"
+        [position]="marker"
+        [options]="markerOptions"
+      >
+      </map-marker>
+</google-map>
+
 <router-outlet></router-outlet>
-  
+
