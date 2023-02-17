@@ -1,26 +1,18 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!--ONLY PUT BODY ELEMENTS HERE, no javascript-->
 
-<style>
-  
-</style>
+<google-map 
+            width="100%"
+            height="100%"
+            [center]="center"
+            [zoom]="zoom">
 
-<div >
-  
-  <h1>Get</h1>
-  <p>{{getJsonValue | json}}</p>
-
-  <h1>Post</h1>
-  <p>{{postJsonValue | json}}</p>
-
-</div>
-
-
+      <map-marker
+        *ngFor="let marker of markers"
+        [position]="marker"
+        [options]="markerOptions"
+      >
+      </map-marker>
+</google-map>
 
 <router-outlet></router-outlet>
+
