@@ -10,9 +10,17 @@
         *ngFor="let marker of markers"
         [position]="marker"
         [options]="markerOptions"
+        (mapClick)="markerClicked(marker)"
       >
       </map-marker>
 </google-map>
+
+<div id="detailPane">  
+  <div id="name"></div>
+  <div id="rating"></div>
+  <div id="address"></div>
+
+</div>
 
 <router-outlet></router-outlet>
 

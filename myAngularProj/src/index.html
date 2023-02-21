@@ -7,17 +7,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k"></script>
+  <style>
+    #container{
+      margin: 0;
+    }
+
+  </style>
 </head>
 <body id="container">
   <app-root></app-root> <!-- app root copies app.component.html code here-->
-  <!--ONLY ADD SCRIPT FUNCTIONS IN INDEX.HTML, add all 'body' elements inside app.component.html-->
+  <!--put all elements inside app.component.html-->
+
 </body>
-<script>
-  window.onload=resize_page();
-  function resize_page(){
-            winHeight= window.innerHeight;
-            h2=parseInt(winHeight)+"px";
-            document.getElementById("container").style.height = h2;
-  }
-</script>
 </html>
