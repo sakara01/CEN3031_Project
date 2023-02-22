@@ -8,15 +8,18 @@
               [center]="center"
               [zoom]="zoom">
 
-        <map-marker
-          *ngFor="let marker of markers"
-          [position]="marker"
-          [options]="markerOptions"
-          (mapClick)="markerClicked(marker)"
-        >
-        </map-marker>
-  </google-map>
-</div>
+      <map-marker
+        *ngFor="let marker of markers"
+        [position]="marker"
+        [options]="markerOptions"
+        (mapClick)="markerClicked(marker)"
+      >
+      </map-marker>
+      <map-marker
+        [position]="center"
+        [options]="userMarker">
+      </map-marker>
+</google-map>
 
 <div id="detailPane">  
   <div id="name"></div>
