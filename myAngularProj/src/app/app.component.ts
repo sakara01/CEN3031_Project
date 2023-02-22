@@ -120,9 +120,8 @@ export class AppComponent implements OnInit {
     document.getElementById("detailPane") as HTMLFormElement;
     let winHeight=window.innerHeight;
     let winWidth=window.innerWidth;
-    let h2=winHeight.toString()+"px";
-    (document.getElementById("container")as HTMLFormElement).style.height = h2;
-    (document.getElementById("detailPane")as HTMLFormElement).style.height = h2;
+    (document.getElementById("container")as HTMLFormElement).style.height = (winHeight-44).toString()+"px";
+    (document.getElementById("detailPane")as HTMLFormElement).style.height = (winHeight-44).toString()+"px";
     (document.getElementById("detailPane")as HTMLFormElement).style.width = (240 + winWidth/10).toString()+"px";
     
   }

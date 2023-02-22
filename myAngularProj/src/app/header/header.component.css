@@ -1,11 +1,18 @@
 h5{
 
-    background-color:darkseagreen;
+    background-color: #A36431;
     color:white;
-    padding: 20px;
+    padding: 5px;
+    padding-left: 10px;
     margin: 0;
-    text-align: center;
-    font-family: 'Marker Felt';
-    font-size: x-large;
+    text-align: left;
+    font-family: 'Yellowtail';
+    font-weight: 100;
+    font-size: 30px;
+}
 
+#header{
+    z-index: 1000;
+    position: absolute;
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
 }

@@ -16,7 +16,8 @@ import { HeaderComponent } from './header/header.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
