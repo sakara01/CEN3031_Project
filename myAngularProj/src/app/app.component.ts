@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
                                               };
   markers: google.maps.LatLngLiteral[] = [];
   userMarker: google.maps.MarkerOptions = { draggable: false,
-    icon: '../assets/user-location.png',
+    icon: '../assets/map-marker (1).gif'
   };
 
   ngOnInit(): void {
