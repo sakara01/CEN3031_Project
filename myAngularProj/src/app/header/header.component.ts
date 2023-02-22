@@ -10,7 +10,9 @@ export class HeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
+    let winWidth= window.innerWidth;
+    winWidth.toString()+"px";
+    (document.getElementById("header")as HTMLFormElement).style.width = winWidth.toString()+"px";
   }
 
 }
