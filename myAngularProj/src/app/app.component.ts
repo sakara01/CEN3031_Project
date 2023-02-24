@@ -21,9 +21,10 @@ export class AppComponent implements OnInit {
   display: any;
   center: any;
   zoom = 14;
-  markerOptions: google.maps.MarkerOptions = { draggable: false ,
-                                               icon: '../assets/coffeeIcon(3).png',
-                                              };
+  markerOptions: google.maps.MarkerOptions = 
+  { draggable: false ,
+    icon: '../assets/coffeeIcon(3).png',
+  };
   markers: google.maps.LatLngLiteral[] = [];
   userMarker: google.maps.MarkerOptions = { draggable: false,
     icon: '../assets/map-marker (1).gif'
@@ -59,10 +60,16 @@ export class AppComponent implements OnInit {
 
   markerClicked(myMarker: google.maps.LatLngLiteral) {
     this.openDetailPane();
+
+    // loop thru all nearby places
     for (let i=0; i<this.nearbyPlaces.length; i++){
+
+      //find the marker the user clicked on
       if (this.nearbyPlaces[i].geometry.location.lat == myMarker.lat){
-        this.coffeeShop= this.nearbyPlaces[i];
+        this.coffeeShop = this.nearbyPlaces[i];
         console.log(this.coffeeShop);
+
+        //attributes that are outputted in side bar panel
         (document.getElementById("name") as HTMLFormElement).innerHTML= this.coffeeShop.name;
         (document.getElementById("rating") as HTMLFormElement).innerHTML= this.coffeeShop.rating;
         (document.getElementById("address") as HTMLFormElement).innerHTML= this.coffeeShop.vicinity;
