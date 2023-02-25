@@ -75,13 +75,13 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 
 	//receives user location from front end?
 	var myLoc Location
-	err2 := json.NewDecoder(r.Body).Decode(&myLoc)
-	if err2 != nil {
-		log.Fatal("error reading body", err2)
+	err := json.NewDecoder(r.Body).Decode(&myLoc)
+	if err != nil {
+		log.Fatal("error reading body", err)
 	}
 
 	//prints user location to console in VSCODE
-	fmt.Println("received user location: %v\n", myLoc)
+	//fmt.Println("received user location: %v\n", myLoc)
 
 	//converts location to string
 	latitude := fmt.Sprintf("%f", myLoc.Lat)
@@ -97,11 +97,11 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 	//request nearby places data from Places API
 	client := &http.Client{}
 	req, err := http.NewRequest(method, url, nil)
-
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+
 	res, err := client.Do(req)
 	if err != nil {
 		fmt.Println(err)
@@ -110,7 +110,6 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 	defer res.Body.Close()
 
 	body, err := io.ReadAll(res.Body) // ALL PLACES API DATA IS STORED IN 'body'
-
 	if err != nil {
 		fmt.Println(err)
 		return
