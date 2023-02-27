@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
-import { google } from "google-maps";
 
 /*import { ConsoleReporter } from 'jasmine';
 */
