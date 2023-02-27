@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 
 /*import { ConsoleReporter } from 'jasmine';
 */
@@ -9,6 +9,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  @Input() label='';
+  @Output() clicked= new EventEmitter()
+  
   title = 'myAngularFile';
 
   public coffeeShop: any;
