@@ -7,7 +7,7 @@ import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() label='';
+  @Input() label=''; title="header";
   @Output() clicked= new EventEmitter()
   
   constructor() { }
@@ -16,6 +16,10 @@ export class HeaderComponent implements OnInit {
     let winWidth= window.innerWidth;
     winWidth.toString()+"px";
     (document.getElementById("header")as HTMLFormElement).style.width = winWidth.toString()+"px";
+  }
+
+  searchClicked(){
+    console.log("search clicked");
   }
 
 }

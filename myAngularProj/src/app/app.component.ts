@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
 
 /*import { ConsoleReporter } from 'jasmine';
 */
@@ -153,8 +154,8 @@ export class AppComponent implements OnInit {
     (document.getElementById("container")as HTMLFormElement).style.height = (winHeight-44).toString()+"px";
     (document.getElementById("detailPane")as HTMLFormElement).style.height = (winHeight-44).toString()+"px";
     (document.getElementById("detailPane")as HTMLFormElement).style.width = (240 + winWidth/10).toString()+"px";
-    
   }
+
 
 }
 
