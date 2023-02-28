@@ -24,7 +24,7 @@
 
 /* side bar icon images */
 img {
-    max-width: 30px;
+    max-width: 25px;
 }
 
 .DetailChunk{
@@ -37,6 +37,7 @@ img {
     /* makes it stay in place to the left */
     /* margin-right: auto; */
     margin-left: 10px;
+    padding-top: 10px;
 }
 
 
@@ -49,6 +50,7 @@ img {
     margin-right: auto;
     margin-left: 10px;
     padding-right: 10px;
+    padding-top: 10px;
     /* padding-left: 10px; */
 }
   
