@@ -39,7 +39,7 @@ export class SidebarComponent {
         //get and set the image, check if null!
         if(this.sidebarShop.photos != null){
           //will display weird map image if exceeds available quota :(
-          imageAddy = "https://maps.googleapis.com/maps/api/place/photo?photo_reference=";
+          imageAddy = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=";
           imageAddy += this.sidebarShop.photos[0].photo_reference;
           imageAddy += "&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k";
         } else {

@@ -72,6 +72,9 @@ export class AppComponent implements OnInit {
         this.coffeeShop = this.nearbyPlaces[i];
         this.sidebar.sidebarShop=this.coffeeShop;  //send coffee shop data to sidebar component
         this.sidebar.openSidebar();    
+
+        //show coffee shop details in console
+        console.log(this.sidebar.sidebarShop);
       } 
     }
   }
