@@ -1,0 +1,61 @@
+/* side bar to hold all places detail */
+#detailPane{
+
+    /* overall design */
+    background-color: rgb(255, 255, 255);
+    position:absolute;
+    top:50px;
+    left:0;
+    visibility: hidden;
+    filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+}
+
+#name{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 25px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+
+    display: flex;
+    align-items: center; /* puts items vertically in center */
+    justify-content: left;
+}
+
+/* side bar icon images */
+img {
+    max-width: 25px;
+}
+
+/* for image of the place in side bar */
+#PlaceImage{
+    max-width: 100%;
+}
+
+.DetailChunk{
+    display: flex;
+    align-items: center; /* puts items vertically in center */
+    justify-content: center;
+}
+
+.sideBarIcon {
+    /* makes it stay in place to the left */
+    /* margin-right: auto; */
+    max-width: 25px;
+    margin-left: 10px;
+    padding-top: 10px;
+}
+
+
+/* place information on leftside bar */
+.PlaceDetails {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 14px;
+
+    /* text stays to the left */
+    margin-right: auto;
+    margin-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    /* padding-left: 10px; */
+}
