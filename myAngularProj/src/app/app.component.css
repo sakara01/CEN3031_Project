@@ -27,6 +27,11 @@ img {
     max-width: 25px;
 }
 
+/* for image of the place in side bar */
+#PlaceImage{
+    max-width: 100%;
+}
+
 .DetailChunk{
     display: flex;
     align-items: center; /* puts items vertically in center */
@@ -36,6 +41,7 @@ img {
 .sideBarIcon {
     /* makes it stay in place to the left */
     /* margin-right: auto; */
+    max-width: 25px;
     margin-left: 10px;
     padding-top: 10px;
 }
