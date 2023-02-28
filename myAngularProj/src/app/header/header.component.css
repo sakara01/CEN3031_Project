@@ -1,0 +1,39 @@
+h5{
+    color:white;
+    padding: 5px;
+    padding-left: 10px;
+    margin: 0;
+    text-align: left;
+    font-family: 'Yellowtail';
+    font-weight: 100;
+    font-size: 30px;
+}
+
+#header{
+    z-index: 1000;
+    position: absolute;
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
+}
+
+#myAddress{
+    z-index: 2000;
+    position: absolute;
+    top: 10px;;
+    right:80px;
+    width:300px;
+    height:28px;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+#searchBtn{
+    z-index: 2000;
+    position: absolute;
+
+    border: 1px solid black;
+    border-radius: 2px;
+    top: 10px;;
+    right:20px;
+    width:50px;
+    height:31.5px;
+}
