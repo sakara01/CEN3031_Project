@@ -78,7 +78,7 @@ export class AppComponent implements OnInit {
         (document.getElementById("address") as HTMLFormElement).innerHTML= this.coffeeShop.vicinity;
 
         //opening hours - check if shop is open
-        if(this.coffeeShop.opening_hours){
+        if(this.coffeeShop.opening_hours.open_now && this.coffeeShop.opening_hours.open_now != null){
           (document.getElementById("openNow") as HTMLFormElement).innerHTML = "open";
         }
         else {
