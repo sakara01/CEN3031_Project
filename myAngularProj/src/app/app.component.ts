@@ -94,7 +94,20 @@ export class AppComponent implements OnInit {
           (document.getElementById("priceLevel") as HTMLFormElement).innerHTML= this.coffeeShop.price_level;
         }
 
+        var imageAddy = "";
+        //get and set the image, check if null!
+        if(this.coffeeShop.photos != null){
+          //will display weird map image if exceeds available quota :(
+          imageAddy = "https://maps.googleapis.com/maps/api/place/photo?photo_reference=";
+          imageAddy += this.coffeeShop.photos[0].photo_reference;
+          imageAddy += "&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k";
+        } else {
+          imageAddy = "https://www.pngkit.com/png/detail/115-1152476_cafe-shop-png-image-coffee-shop-svg.png";
+        }
         
+        //set the image! 
+        (<HTMLImageElement>document.getElementById("PlaceImage")).src = imageAddy;
+        // (<HTMLImageElement>document.querySelector("PlaceImage"))!.setAttribute( 'src', "https://pbs.twimg.com/media/Fa3UJahWAAEUH8i.jpg:large");        
       } 
     }
   }
