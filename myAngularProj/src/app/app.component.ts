@@ -73,6 +73,9 @@ export class AppComponent implements OnInit {
         this.sidebar.sidebarShop=this.coffeeShop;  //send coffee shop data to sidebar component
         console.log(this.sidebar.sidebarShop);
         this.sidebar.openSidebar();    
+
+        //show coffee shop details in console
+        console.log(this.sidebar.sidebarShop);
       } 
     }
   }
