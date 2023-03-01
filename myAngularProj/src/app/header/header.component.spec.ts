@@ -29,7 +29,7 @@ describe('HeaderComponent', () => {
     expect(myColor).toBe('rgb(163, 100, 49)');
   })
 
-  it('should click search button', fakeAsync(()=> {
+  it('should check search button click', fakeAsync(()=> {
     spyOn(component,'searchClicked');
     let searchBtn = fixture.debugElement.nativeElement.querySelector('#searchBtn');
     searchBtn.click();

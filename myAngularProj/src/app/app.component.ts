@@ -71,6 +71,7 @@ export class AppComponent implements OnInit {
       if (this.nearbyPlaces[i].geometry.location.lat == myMarker.lat){
         this.coffeeShop = this.nearbyPlaces[i];
         this.sidebar.sidebarShop=this.coffeeShop;  //send coffee shop data to sidebar component
+        console.log(this.sidebar.sidebarShop);
         this.sidebar.openSidebar();    
       } 
     }
@@ -127,7 +128,7 @@ export class AppComponent implements OnInit {
     let winHeight=window.innerHeight;
     let winWidth=window.innerWidth;
     (document.getElementById("container")as HTMLFormElement).style.height = (winHeight-44).toString()+"px";
-    (document.getElementById("detailPane")as HTMLFormElement).style.height = (winHeight-44).toString()+"px";
+    (document.getElementById("detailPane")as HTMLFormElement).style.height = (winHeight-50).toString()+"px";
     (document.getElementById("detailPane")as HTMLFormElement).style.width = (240 + winWidth/10).toString()+"px";
   }
 
