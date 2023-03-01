@@ -1,5 +1,6 @@
 import { HeaderComponent } from "./header.component"
 import { RouterTestingModule } from "@angular/router/testing"
+import { Component } from "@angular/core"
 
 describe('HeaderComponent', () => {
 
@@ -7,10 +8,15 @@ describe('HeaderComponent', () => {
         cy.mount(HeaderComponent)
     })
 
-    //tests only the search button's click
-    it('button can be clicked', () => {
+    //tests if searchClicked is called when button is clicked
+    it('searchClicked called when button clicked', () => {
         cy.mount(HeaderComponent)
+        .then((wrapper)=>{
+            cy.spy(wrapper.component,'searchClicked').as('searchClicked')
+        })
         cy.get('#header > #searchBtn').click()
+        cy.get('@searchClicked').should('have.been.calledOnce')
+        
       })
 
 })
