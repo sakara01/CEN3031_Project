@@ -92,5 +92,17 @@ describe('SidebarComponent', () => {
     expect(component.imgHeight).toBeGreaterThan(0);
   });
 
+  //some details may be missing from places object
+  //but check that the necessary details are included: place name and address
+  
+  //place name
+  it('should check if cafe name displays',() =>{
+    expect(component.coffeeShopName).toBeDefined();
+  });
+
+  //place address
+  it('should check if cafe address displays',() =>{
+    expect(component.coffeeShopAddress).toBeDefined();
+  });
 
 });
