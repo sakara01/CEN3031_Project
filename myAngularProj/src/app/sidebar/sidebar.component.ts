@@ -35,7 +35,20 @@ export class SidebarComponent {
     //unit testing
     this.coffeeShopName = this.sidebarShop.name; 
 
+    //rating
     (document.getElementById("rating") as HTMLFormElement).innerHTML = this.sidebarShop.rating;
+    //check if user total rating is available
+    if (this.sidebarShop.user_ratings_total != null) {
+      (document.getElementById("totalRatings") as HTMLFormElement).innerHTML = this.sidebarShop.user_ratings_total;
+      // (document.getElementById("totalText1") as HTMLFormElement).style.visibility = 'visible';
+      // (document.getElementById("totalText2") as HTMLFormElement).style.visibility = 'visible';
+    } 
+    else {
+      (document.getElementById("totalText1") as HTMLFormElement).style.visibility = 'hidden';
+      (document.getElementById("totalText2") as HTMLFormElement).style.visibility = 'hidden';
+    }
+
+    (document.getElementById("totalRatings") as HTMLFormElement).innerHTML = this.sidebarShop.user_ratings_total;
 
     (document.getElementById("address") as HTMLFormElement).innerHTML = this.sidebarShop.vicinity;
     //unit testing
