@@ -11,6 +11,8 @@ export class SidebarComponent {
   constructor(/*private AppComponent: AppComponent*/) { };
   sidebarShop: any;
   imgHeight: any;
+  coffeeShopName: any;
+  coffeeShopAddress: any;
 
   openSidebar() {
     this.openDetailPane();
@@ -30,8 +32,27 @@ export class SidebarComponent {
 
     //attributes that are outputted in side bar panel
     (document.getElementById("name") as HTMLFormElement).innerHTML = this.sidebarShop.name;
+    //unit testing
+    this.coffeeShopName = this.sidebarShop.name; 
+
+    //rating
     (document.getElementById("rating") as HTMLFormElement).innerHTML = this.sidebarShop.rating;
+    //check if user total rating is available
+    if (this.sidebarShop.user_ratings_total != null) {
+      (document.getElementById("totalRatings") as HTMLFormElement).innerHTML = this.sidebarShop.user_ratings_total;
+      // (document.getElementById("totalText1") as HTMLFormElement).style.visibility = 'visible';
+      // (document.getElementById("totalText2") as HTMLFormElement).style.visibility = 'visible';
+    } 
+    else {
+      (document.getElementById("totalText1") as HTMLFormElement).style.visibility = 'hidden';
+      (document.getElementById("totalText2") as HTMLFormElement).style.visibility = 'hidden';
+    }
+
+    (document.getElementById("totalRatings") as HTMLFormElement).innerHTML = this.sidebarShop.user_ratings_total;
+
     (document.getElementById("address") as HTMLFormElement).innerHTML = this.sidebarShop.vicinity;
+    //unit testing
+    this.coffeeShopAddress = this.sidebarShop.vicinity;
 
     //opening hours - check if shop is open
     if (this.sidebarShop.opening_hours != undefined && this.sidebarShop.opening_hours.open_now && this.sidebarShop.opening_hours.open_now != null) {
