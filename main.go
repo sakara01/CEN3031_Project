@@ -80,6 +80,8 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal("error reading body", err)
 	}
 
+	//if location is not found = Google HQ by default
+
 	//converts location to string
 	latitude := fmt.Sprintf("%f", myLoc.Lat)
 	longitude := fmt.Sprintf("%f", myLoc.Long)
