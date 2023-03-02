@@ -8,12 +8,12 @@ Link to video:
 https://drive.google.com/file/d/1ZACPkNgOu586TSO4sNKCC_YodJ_A43l5/view?usp=sharing 
 
 
-User Stories completed:
+## **User Stories Completed**
 - As a user, I want to be able to click on the pin of a specific coffee shop and be presented with the following details: name, opening hours, address, rating, price level, potential photo(s) of the place.
 - As a user, I want to be able to automatically see my current location on the map and have it be distinguishable from the other pins on the map.
 
 
-Work completed:
+## **Work Completed**
 - Custom map marker for User’s location.
 - Custom markers for coffee shops.
 - Marker click opens up the side panel with coffee shop details.
@@ -22,7 +22,7 @@ Work completed:
 - Added text input box for manually entered address and search button
 - Fixed minor coffee shop image formatting issues.
 
-**Frontend Unit Tests**
+## **Frontend Unit Tests**
 - Header Component: 
     - Create component
     - Checks title and color of header
@@ -38,11 +38,11 @@ Work completed:
     - Checks clicking the header button calls the function searchClicked correctly. 
     - Checks that the sidebar panel successfully displays with place details.
 
-**Backend Unit Tests**
+## **Backend Unit Tests**
 - Checks Status of request and verifies data received matches expected data.
 - Checks if the backend throws an error when coordinates are empty.
 
-**BACKEND API DOCUMENTATION**
+## **Backend API Documentation**
 
 Overview: 
 
