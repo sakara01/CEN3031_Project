@@ -1,7 +1,6 @@
-Group 96
-Lauren Escarcha
-Karen Tong
-Saloni Karanth
+Group 96: Lauren Escarcha,
+Karen Tong,
+Saloni Karanth,
 Justus Geslani
 
 
