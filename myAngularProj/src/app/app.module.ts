@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 
@@ -15,6 +16,7 @@ import { HeaderComponent } from './header/header.component';
   declarations: [
     AppComponent,
     HeaderComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,7 +24,7 @@ import { HeaderComponent } from './header/header.component';
     HttpClientModule,
     GoogleMapsModule,
   ],
-  providers: [AppComponent],
+  providers: [AppComponent,SidebarComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

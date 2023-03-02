@@ -80,8 +80,7 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal("error reading body", err)
 	}
 
-	//prints user location to console in VSCODE
-	//fmt.Println("received user location: %v\n", myLoc)
+	//if location is not found = Google HQ by default
 
 	//converts location to string
 	latitude := fmt.Sprintf("%f", myLoc.Lat)
@@ -129,5 +128,4 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Error: %s", err)
 	}
 	*/
-
 }

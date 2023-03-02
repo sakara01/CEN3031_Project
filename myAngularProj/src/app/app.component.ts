@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 /*import { ConsoleReporter } from 'jasmine';
 */
@@ -19,8 +20,7 @@ export class AppComponent implements OnInit {
   public nearbyPlaces: any;  //declare as global so markerClicked() can access it
 
 
-
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private sidebar: SidebarComponent) {}
 
   display: any;
   center: any;
@@ -63,7 +63,6 @@ export class AppComponent implements OnInit {
   }
 
   markerClicked(myMarker: google.maps.LatLngLiteral) {
-    this.openDetailPane();
 
     // loop thru all nearby places
     for (let i=0; i<this.nearbyPlaces.length; i++){
@@ -71,50 +70,17 @@ export class AppComponent implements OnInit {
       //find the marker the user clicked on
       if (this.nearbyPlaces[i].geometry.location.lat == myMarker.lat){
         this.coffeeShop = this.nearbyPlaces[i];
-        console.log(this.coffeeShop);
+        this.sidebar.sidebarShop=this.coffeeShop;  //send coffee shop data to sidebar component
+        console.log(this.sidebar.sidebarShop);
+        this.sidebar.openSidebar();    
 
-        //attributes that are outputted in side bar panel
-        (document.getElementById("name") as HTMLFormElement).innerHTML= this.coffeeShop.name;
-        (document.getElementById("rating") as HTMLFormElement).innerHTML= this.coffeeShop.rating;
-        (document.getElementById("address") as HTMLFormElement).innerHTML= this.coffeeShop.vicinity;
-
-        //opening hours - check if shop is open
-        if(this.coffeeShop.opening_hours.open_now && this.coffeeShop.opening_hours.open_now != null){
-          (document.getElementById("openNow") as HTMLFormElement).innerHTML = "open";
-        }
-        else {
-          (document.getElementById("openNow") as HTMLFormElement).innerHTML= "closed";
-        }
-
-        //price levels - check if element is undefined
-        if(this.coffeeShop.price_level == null){
-          (document.getElementById("priceLevel") as HTMLFormElement).innerHTML = "price level not found";
-        }
-        else {
-          (document.getElementById("priceLevel") as HTMLFormElement).innerHTML= this.coffeeShop.price_level;
-        }
-
-        var imageAddy = "";
-        //get and set the image, check if null!
-        if(this.coffeeShop.photos != null){
-          //will display weird map image if exceeds available quota :(
-          imageAddy = "https://maps.googleapis.com/maps/api/place/photo?photo_reference=";
-          imageAddy += this.coffeeShop.photos[0].photo_reference;
-          imageAddy += "&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k";
-        } else {
-          imageAddy = "https://www.pngkit.com/png/detail/115-1152476_cafe-shop-png-image-coffee-shop-svg.png";
-        }
-        
-        //set the image! 
-        (<HTMLImageElement>document.getElementById("PlaceImage")).src = imageAddy;
-        // (<HTMLImageElement>document.querySelector("PlaceImage"))!.setAttribute( 'src', "https://pbs.twimg.com/media/Fa3UJahWAAEUH8i.jpg:large");        
+        //show coffee shop details in console
+        console.log(this.sidebar.sidebarShop);
       } 
     }
   }
 
-  openDetailPane(){
-    (document.getElementById("detailPane") as HTMLFormElement).style.visibility='visible';
-  }
+  
 
   /*
   //finds user location, but we are doing that in the getUserLocation func
@@ -165,7 +131,7 @@ export class AppComponent implements OnInit {
     let winHeight=window.innerHeight;
     let winWidth=window.innerWidth;
     (document.getElementById("container")as HTMLFormElement).style.height = (winHeight-44).toString()+"px";
-    (document.getElementById("detailPane")as HTMLFormElement).style.height = (winHeight-44).toString()+"px";
+    (document.getElementById("detailPane")as HTMLFormElement).style.height = (winHeight-50).toString()+"px";
     (document.getElementById("detailPane")as HTMLFormElement).style.width = (240 + winWidth/10).toString()+"px";
   }
 
