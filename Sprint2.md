@@ -29,7 +29,7 @@ https://drive.google.com/file/d/1ZACPkNgOu586TSO4sNKCC_YodJ_A43l5/view?usp=shari
     - Checks if the function searchClicked() is called when the search button is clicked.
 
 - Sidebar Component:
-- Create component
+    - Create component
     - Checks that the visibility of Detail Panel is set to visible when component function openSidebar() is called.
     - Checks that the image associated with a particular coffee shop exists and is imported correctly.
     - Checks that the name and address of the coffee shop is displayed correctly.
