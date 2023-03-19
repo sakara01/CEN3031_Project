@@ -79,4 +79,9 @@ export class SidebarComponent {
     (document.getElementById("detailPane") as HTMLFormElement).style.visibility = 'visible';
   }
 
+  closeDetailPane(){
+    (document.getElementById("detailPane") as HTMLFormElement).style.visibility = 'hidden';
+
+  }
+
 }
