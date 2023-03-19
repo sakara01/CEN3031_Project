@@ -123,6 +123,11 @@ export class AppComponent implements OnInit {
           this.markers.push(this.nearbyPlaces[i].geometry.location);
         }
       });
+        
+     
+
+      
+
     })
   }
  

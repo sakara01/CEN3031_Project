@@ -1,4 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import { LoginComponent } from '../login/login.component';
+
 
 @Component({
   selector: 'app-header',
@@ -10,7 +12,7 @@ export class HeaderComponent implements OnInit {
   @Input() label=''; title="header";
   @Output() clicked= new EventEmitter()
   
-  constructor() { }
+  constructor(private login: LoginComponent) {}
 
   ngOnInit(): void {
     let winWidth= window.innerWidth;
@@ -20,6 +22,10 @@ export class HeaderComponent implements OnInit {
 
   searchClicked(){
     console.log("search clicked");
+  }
+  
+  startLoginComp(){
+    this.login.openLoginModal()
   }
 
 }

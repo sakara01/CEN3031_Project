@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -17,6 +18,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     AppComponent,
     HeaderComponent,
     SidebarComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +26,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     HttpClientModule,
     GoogleMapsModule,
   ],
-  providers: [AppComponent,SidebarComponent],
+  providers: [AppComponent,SidebarComponent,LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

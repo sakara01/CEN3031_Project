@@ -4,30 +4,34 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
+	"strings"
 
 	"github.com/gorilla/mux"
 )
 
-type Location struct { //test struct, replace soon
+type Location struct {
 	Lat  float64 `json:"lat"`
 	Long float64 `json:"lng"`
 }
 
+type Login struct {
+	Username string `json:"username"`
+}
+
 func main() { //starts server using go's http package
 	mux := mux.NewRouter()
-	mux.HandleFunc("/", getHandler).Methods("GET", "OPTIONS")
+	mux.HandleFunc("/mimi", loginHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/", postHandler).Methods("POST", "OPTIONS")
 	http.ListenAndServe(":8080", mux)
 
 }
 
 func enableCors(w *http.ResponseWriter) { //allows frontend and backend to communicate
-	(*w).Header().Set("Access-Control-Allow-Origin", "*")
-	(*w).Header().Set("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS")
-	(*w).Header().Set("Access-Control-Allow-Headers", "access-control-allow-origin, Content-Type")
-	(*w).Header().Set("Access-Control-Allow-Credentials", "true")
+	(*w).Header().Add("Access-Control-Allow-Origin", "*")
+	(*w).Header().Add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS")
+	(*w).Header().Add("Access-Control-Allow-Headers", "access-control-allow-origin, Content-Type")
+	(*w).Header().Add("Access-Control-Allow-Credentials", "true")
 }
 
 // DONT REALLY NEED THIS, but dont delete, since we'll find the user location in postHandler()
@@ -74,11 +78,16 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 
 	//receives user location from front end?
+	//MIGHT be unnecessary???
+	buf := new(strings.Builder)
+	_, err := io.Copy(buf, r.Body)
+	// check errors
+	fmt.Println(buf.String())
+
 	var myLoc Location
-	err := json.NewDecoder(r.Body).Decode(&myLoc)
-	if err != nil {
-		log.Fatal("error reading body", err)
-	}
+	json.Unmarshal([]byte(buf.String()), &myLoc)
+
+	fmt.Println(myLoc.Lat)
 
 	//if location is not found = Google HQ by default
 
@@ -114,7 +123,7 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(string(body)) //prints to debug console in VS code
+	//fmt.Println(string(body)) //prints to debug console in VS code
 
 	w.Header().Set("Content-Type", "application/json") //sets localhost:8080 to display json
 
@@ -128,4 +137,36 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Error: %s", err)
 	}
 	*/
+}
+
+func loginHandler(w http.ResponseWriter, r *http.Request) {
+	(w).Header().Add("Access-Control-Allow-Origin", "*")
+	(w).Header().Add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS")
+	(w).Header().Add("Access-Control-Allow-Headers", "access-control-allow-origin, Content-Type")
+	(w).Header().Add("Access-Control-Allow-Credentials", "true")
+
+	//if location is not found = Google HQ by default
+	//fmt.Println("login handler")
+
+	//for some reason this version of stringifying and decoding works much better and doesnt cause cors errors.
+	buf := new(strings.Builder)
+	_, err := io.Copy(buf, r.Body)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(buf.String())
+	loginString := buf.String()
+
+	var user1 Login
+	json.Unmarshal([]byte(loginString), &user1)
+
+	fmt.Println(user1.Username)
+
+	//TODO: return list of favorited coffee shops or something
+	w.Header().Set("Content-Type", "application/json") //sets localhost:8080 to display json
+
+	w.Write([]byte(loginString)) //writes json data to localhost:8080
+
 }

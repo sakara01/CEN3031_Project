@@ -1,0 +1,18 @@
+
+#loginModal{
+    visibility: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 30;
+    height: 200px;
+    width: 360px;
+    background-color: whitesmoke;
+}
+
+#closeBtn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
