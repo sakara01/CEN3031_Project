@@ -25,10 +25,19 @@ export class LoginComponent {
 
     //sends body data (user coordinates) to BACKEND
     //posts to backend and returns JSON of nearby coffee shops
-    this.http.post('http://localhost:8080/mimi', this.userData, { headers: header }).subscribe((data) => {
+    this.http.post('http://localhost:8080/mimi', this.userData, { headers: header }).subscribe((data: any) => {
       //data = username object
-      let placesString: string = JSON.stringify(data)
-     
+      var favShops = data
+      console.log(favShops)
+
+      if (favShops.allMyShops == null){
+        console.log("favorites is null")
+      }
+      else if (favShops.allMyShops == "noUser"){
+        console.log("No username like that")
+      }
+      //array to hold all of the placesObj objects
+      //this.nearbyPlaces= placesObj.results;
     });
   }
 

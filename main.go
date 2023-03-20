@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/gorilla/mux"
@@ -19,12 +21,21 @@ type Login struct {
 	Username string `json:"username"`
 }
 
+type Shop struct {
+	Placeid  string `json:"placeid"`
+	Name     string `json:"name"`
+	Photoref string `json:"photoref"`
+}
+
+type AllShops struct {
+	AllMyShops []Shop `json:"allMyShops"`
+}
+
 func main() { //starts server using go's http package
 	mux := mux.NewRouter()
 	mux.HandleFunc("/mimi", loginHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/", postHandler).Methods("POST", "OPTIONS")
 	http.ListenAndServe(":8080", mux)
-
 }
 
 func enableCors(w *http.ResponseWriter) { //allows frontend and backend to communicate
@@ -82,12 +93,12 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 	buf := new(strings.Builder)
 	_, err := io.Copy(buf, r.Body)
 	// check errors
-	fmt.Println(buf.String())
+	//fmt.Println(buf.String())
 
 	var myLoc Location
 	json.Unmarshal([]byte(buf.String()), &myLoc)
 
-	fmt.Println(myLoc.Lat)
+	//fmt.Println(myLoc.Lat)
 
 	//if location is not found = Google HQ by default
 
@@ -145,9 +156,6 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	(w).Header().Add("Access-Control-Allow-Headers", "access-control-allow-origin, Content-Type")
 	(w).Header().Add("Access-Control-Allow-Credentials", "true")
 
-	//if location is not found = Google HQ by default
-	//fmt.Println("login handler")
-
 	//for some reason this version of stringifying and decoding works much better and doesnt cause cors errors.
 	buf := new(strings.Builder)
 	_, err := io.Copy(buf, r.Body)
@@ -156,17 +164,83 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(buf.String())
+	//fmt.Println(buf.String())
 	loginString := buf.String()
-
 	var user1 Login
-	json.Unmarshal([]byte(loginString), &user1)
 
-	fmt.Println(user1.Username)
+	json.Unmarshal([]byte(loginString), &user1) // user1.Username has username
+	var shopData []byte
 
-	//TODO: return list of favorited coffee shops or something
+	if checkUser(user1.Username) {
+		shopData = returnUserData(user1.Username)
+	} else {
+		shopData = []byte(`{"allMyShops": "noUser"}`)
+	}
+
+	//TODO: return array of favorited coffee shops or something. maybe {shops: [cafe1,cafe2,cafe3]} idk
 	w.Header().Set("Content-Type", "application/json") //sets localhost:8080 to display json
+	w.Write(shopData)                                  //writes json data to localhost:8080
 
-	w.Write([]byte(loginString)) //writes json data to localhost:8080
+}
 
+func updateDB() {
+	//to add a new user
+	f, err := os.OpenFile("users.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	if err != nil {
+		panic(err)
+	}
+
+	defer f.Close()
+
+	if _, err = f.WriteString("username" + " " + "place id" + "name" + "photo ref" + "\n"); err != nil {
+		panic(err)
+	}
+
+}
+
+func returnUserData(username string) []byte {
+	//fmt.Println("this is username:" + username)
+
+	f, err := os.Open("users.txt")
+	if err != nil {
+		fmt.Print("There has been an error!: ", err)
+	}
+	defer f.Close()
+
+	var myCafe Shop
+	var omgShops AllShops
+
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		line := scanner.Bytes()
+		lineStr := strings.Split(string(line), "|")
+		if lineStr[0] == username { //replace sakara with dynamically receieved username
+			myCafe.Placeid = lineStr[1]
+			myCafe.Name = lineStr[2]
+			myCafe.Photoref = lineStr[3]
+			omgShops.AllMyShops = append(omgShops.AllMyShops, myCafe)
+		}
+	}
+
+	//fmt.Println(omgShops)
+	out, _ := json.Marshal(&omgShops)
+	return out
+}
+
+func checkUser(username string) bool {
+	f, err := os.Open("usernames.txt")
+	if err != nil {
+		fmt.Print("There has been an error!: ", err)
+		panic(err)
+	}
+	defer f.Close()
+
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		line := scanner.Bytes()
+		if string(line) == username { //replace sakara with dynamically receieved username
+			return true
+		}
+	}
+	return false
 }
