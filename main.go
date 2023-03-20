@@ -19,6 +19,7 @@ type Location struct {
 
 type Login struct {
 	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 type Shop struct {
@@ -34,6 +35,7 @@ type AllShops struct {
 func main() { //starts server using go's http package
 	mux := mux.NewRouter()
 	mux.HandleFunc("/mimi", loginHandler).Methods("POST", "OPTIONS")
+	mux.HandleFunc("/create", createHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/", postHandler).Methods("POST", "OPTIONS")
 	http.ListenAndServe(":8080", mux)
 }
@@ -88,12 +90,8 @@ func getHandler(w http.ResponseWriter, r *http.Request) {
 func postHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 
-	//receives user location from front end?
-	//MIGHT be unnecessary???
 	buf := new(strings.Builder)
 	_, err := io.Copy(buf, r.Body)
-	// check errors
-	//fmt.Println(buf.String())
 
 	var myLoc Location
 	json.Unmarshal([]byte(buf.String()), &myLoc)
@@ -134,19 +132,12 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//fmt.Println(string(body)) //prints to debug console in VS code
-
 	w.Header().Set("Content-Type", "application/json") //sets localhost:8080 to display json
 
 	w.Write(body) //writes json data to localhost:8080
 
 	/* NO longer needed
 	coordinates := Location{123.2, 456.3} //make this Places API data
-
-	finalJson, err := json.Marshal(coordinates) //encodes json data to send to frontend
-	if err != nil {
-		fmt.Fprintf(w, "Error: %s", err)
-	}
 	*/
 }
 
@@ -171,7 +162,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	json.Unmarshal([]byte(loginString), &user1) // user1.Username has username
 	var shopData []byte
 
-	if checkUser(user1.Username) {
+	if checkUser(user1.Username, user1.Password) {
 		shopData = returnUserData(user1.Username)
 	} else {
 		shopData = []byte(`{"allMyShops": "noUser"}`)
@@ -183,7 +174,43 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func updateDB() {
+func createHandler(w http.ResponseWriter, r *http.Request) {
+	(w).Header().Add("Access-Control-Allow-Origin", "*")
+	(w).Header().Add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS")
+	(w).Header().Add("Access-Control-Allow-Headers", "access-control-allow-origin, Content-Type")
+	(w).Header().Add("Access-Control-Allow-Credentials", "true")
+
+	//for some reason this version of stringifying and decoding works much better and doesnt cause cors errors.
+	buf := new(strings.Builder)
+	_, err := io.Copy(buf, r.Body)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	//fmt.Println(buf.String())
+	loginString := buf.String()
+	var user1 Login
+
+	json.Unmarshal([]byte(loginString), &user1) // user1.Username has username
+	var shopData []byte
+
+	if checkUser(user1.Username, user1.Password) {
+		//user Exists
+		shopData = []byte(`{"status": "userAlreadyExists"}`)
+	} else {
+		//add user to db
+		addUser(user1.Username, user1.Password)
+		shopData = []byte(`{"status": "userAdded"}`)
+	}
+
+	//TODO: return array of favorited coffee shops or something. maybe {shops: [cafe1,cafe2,cafe3]} idk
+	w.Header().Set("Content-Type", "application/json") //sets localhost:8080 to display json
+	w.Write(shopData)                                  //writes json data to localhost:8080
+
+}
+
+func updateFavs() {
 	//to add a new user
 	f, err := os.OpenFile("users.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 	if err != nil {
@@ -227,7 +254,7 @@ func returnUserData(username string) []byte {
 	return out
 }
 
-func checkUser(username string) bool {
+func checkUser(username string, password string) bool {
 	f, err := os.Open("usernames.txt")
 	if err != nil {
 		fmt.Print("There has been an error!: ", err)
@@ -238,9 +265,23 @@ func checkUser(username string) bool {
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
 		line := scanner.Bytes()
-		if string(line) == username { //replace sakara with dynamically receieved username
+		lineStr := strings.Split(string(line), "|")
+		if lineStr[0] == username && lineStr[1] == password {
 			return true
 		}
 	}
 	return false
+}
+
+func addUser(username string, password string) {
+	f, err := os.OpenFile("usernames.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	if err != nil {
+		panic(err)
+	}
+
+	defer f.Close()
+
+	if _, err = f.WriteString(username + "|" + password + "\n"); err != nil {
+		panic(err)
+	}
 }

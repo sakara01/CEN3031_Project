@@ -18,3 +18,28 @@
     top: 10px;
     right: 10px;
 }
+
+#loginStatus{
+    padding-top: 5px;
+    font-size: 12px;
+    color: rgb(47, 47, 47);
+}
+
+#logout{
+    height: 40px;
+    position: absolute;
+    right: 10px;
+    bottom:2px;   
+    font-size: 14px; 
+    color: rgb(47, 47, 47);
+}
+
+#createAcct{
+    height: 40px;
+    position: absolute;
+    width:100px;
+    left:10px;
+    bottom: 2px;
+    font-size: 14px;
+    color: rgb(47, 47, 47);
+}

@@ -14,6 +14,8 @@ export class HeaderComponent implements OnInit {
   
   constructor(private login: LoginComponent) {}
 
+  counter =0
+
   ngOnInit(): void {
     let winWidth= window.innerWidth;
     winWidth.toString()+"px";
@@ -25,7 +27,17 @@ export class HeaderComponent implements OnInit {
   }
   
   startLoginComp(){
-    this.login.openLoginModal()
+    this.login.openLoginModal();
   }
 
+  updateName(user: string){
+    if (user == "Logged out"){
+      (document.getElementById("loginName")as HTMLFormElement).innerHTML = user;
+      setTimeout(()=> {
+        (document.getElementById("loginName")as HTMLFormElement).innerHTML = "";
+      },2000);
+    }else {
+      (document.getElementById("loginName")as HTMLFormElement).innerHTML = "Welcome, " + user;
+    }
+  }
 }

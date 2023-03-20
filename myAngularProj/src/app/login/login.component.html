@@ -2,10 +2,17 @@
     <div><h2>Login</h2></div>
     <div>
         <input type="text" placeholder="Enter Username" id ="nameGiven">
+    </div>
+    <div>
+        <input type="text" placeholder="Enter Password" id ="passGiven">
+    </div>
+    <div style="padding-top: 5px;">
         <input type="submit" value="submit" (click)="getLoginUser()"> 
     </div>
     <div><button id="closeBtn" (click)="closeModal()">X</button></div>
-
+    <div id="loginStatus"></div>
+    <div id="createAcct" (click)="createAcct()"><p>Create Account</p></div>
+    <div id="logout" (click)="clearModal()"><p>Log out -></p></div>
 </div>
 
 <!--credit to login icon: https://www.onlinewebfonts.com/icon/311846-->
