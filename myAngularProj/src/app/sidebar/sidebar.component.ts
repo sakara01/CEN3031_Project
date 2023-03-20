@@ -84,4 +84,7 @@ export class SidebarComponent {
 
   }
 
+  directionsClicked(){
+    console.log("directions clicked");
+  }
 }

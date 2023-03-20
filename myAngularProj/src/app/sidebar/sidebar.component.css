@@ -71,3 +71,15 @@ img {
     top:10px;
     right:10px;
 }
+
+#directionsBtn{
+    z-index: 20;
+    position: absolute;
+
+    border: 1px solid black;
+    border-radius: 2px;
+    top: 10px;
+    width:70px;
+    height:31.5px;
+    left: 10px;
+}
