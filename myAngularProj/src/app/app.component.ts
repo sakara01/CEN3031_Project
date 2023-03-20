@@ -23,7 +23,8 @@ export class AppComponent implements OnInit {
   constructor(private http: HttpClient, private sidebar: SidebarComponent) {}
 
   display: any;
-  center: any;
+  public center: any;
+  route: any;
   zoom = 14;
   markerOptions: google.maps.MarkerOptions = 
   { draggable: false ,
@@ -78,6 +79,10 @@ export class AppComponent implements OnInit {
         console.log(this.sidebar.sidebarShop);
       } 
     }
+    this.route = [
+      { lat: this.coffeeShop.geometry.location.lat, lng: this.coffeeShop.geometry.location.lng },
+      { lat: this.center.lat, lng: this.center.lng },
+      ];
   }
 
   
@@ -100,8 +105,8 @@ export class AppComponent implements OnInit {
     //gets user location
     navigator.geolocation.getCurrentPosition((position) => {
       this.center = { lat: position.coords.latitude, lng: position.coords.longitude };
+      console.log(this.center);
       this.zoom = 14;
-
       const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
 
       //sends body data (user coordinates) to BACKEND
