@@ -27,6 +27,11 @@ export class LoginComponent {
     this.userData = { username: nameGiven, password: passGiven};
     this.publicUsername = nameGiven;
 
+    if (nameGiven == "" || passGiven ==""){
+      (document.getElementById("loginStatus")as HTMLElement).innerHTML = "Username or password does not exist, try again";
+      return;
+    }
+
     const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
 
     //sends body data (user coordinates) to BACKEND

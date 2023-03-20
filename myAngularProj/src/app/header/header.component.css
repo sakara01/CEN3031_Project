@@ -1,5 +1,5 @@
 h5{
-    color:white;
+    color:black;
     padding: 5px;
     padding-left: 10px;
     margin: 0;
@@ -15,39 +15,43 @@ h5{
     filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
 }
 
-#myAddress{
+#addressInput{
     z-index: 20;
     position: absolute;
     top: 10px;;
-    right:80px;
-    width:300px;
+    right:18px;
+    width:260px;
     height:28px;
-    border: 1px solid black;
-    border-radius: 2px;
+    border: 1.4px solid black;
+    border-radius: 3px;
+    background-color: rgb(236, 236, 236);
+}
+
+#addressInput:focus{
+    outline: none;
 }
 
 #searchBtn{
-    z-index: 20;
+    z-index: 30;
     position: absolute;
-
-    border: 1px solid black;
-    border-radius: 2px;
     top: 10px;;
     right:20px;
-    width:50px;
+    width:32px;
     height:31.5px;
+    background-color: transparent;
+    border: none;
 }
 
 #loginButton{
     z-index: 4000;
     position: absolute;
     top:8px;
-    left:710px;
+    right:290px;
 }
 
 #loginName{
     z-index: 4000;
     position: absolute;
-    top:2px;
-    left:570px;
+    top:1px;
+    right: 350px;
 }
