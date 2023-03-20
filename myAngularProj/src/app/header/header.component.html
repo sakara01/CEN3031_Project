@@ -1,8 +1,12 @@
+<app-login (login)="updateName($event)"></app-login>
+
 <div id="header">
     <h5 style="background-color: #A36431;">Caffinder</h5>
+    <p id="loginName"></p>
     <button id="loginButton" (click)="startLoginComp()" style="background-color: transparent; border-color: transparent;">
         <img src = "../../assets/loginIcon.png" style="width: 30px;" (click)="startLoginComp()"/>
     </button>
     <input type="text" id="myAddress" name="address" >
     <button id="searchBtn" (click)="searchClicked()">search</button>
 </div>
+

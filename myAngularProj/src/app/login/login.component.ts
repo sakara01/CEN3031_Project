@@ -9,6 +9,9 @@ import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
 })
 export class LoginComponent {
 
+  publicUsername: string = "empty";
+  @Output() login = new EventEmitter<string>();
+
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -16,10 +19,13 @@ export class LoginComponent {
 
   userData: any;
   nameVar: any;
+  
 
   public getLoginUser() {  //gets user's location and sends to backend
     let nameGiven = (document.getElementById("nameGiven")as HTMLInputElement).value;
-    this.userData = { username: nameGiven};
+    let passGiven = (document.getElementById("passGiven")as HTMLInputElement).value;
+    this.userData = { username: nameGiven, password: passGiven};
+    this.publicUsername = nameGiven;
 
     const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
 
@@ -29,25 +35,58 @@ export class LoginComponent {
       //data = username object
       var favShops = data
       console.log(favShops)
-
-      if (favShops.allMyShops == null){
-        console.log("favorites is null")
+      
+      if (favShops.allMyShops == "noUser"){
+        console.log("No username like that");
+        (document.getElementById("loginStatus")as HTMLElement).innerHTML = "Username or password incorrect, please try again.";
+      }else {
+        //User exists
+        (document.getElementById("loginStatus")as HTMLElement).innerHTML = "Logged in Successfully!";
+        this.login.emit(this.publicUsername);
+        setTimeout(()=> {
+          (document.getElementById("loginModal")as HTMLElement).style.visibility = "hidden";
+        },1000);
       }
-      else if (favShops.allMyShops == "noUser"){
-        console.log("No username like that")
-      }
-      //array to hold all of the placesObj objects
-      //this.nearbyPlaces= placesObj.results;
     });
   }
 
-  openLoginModal(){
+  public openLoginModal(){
     (document.getElementById("loginModal")as HTMLElement).style.visibility = "visible";
-
   }
 
+  clearModal(){
+    (document.getElementById("loginModal")as HTMLElement).style.visibility = "hidden";
+    (document.getElementById("loginStatus")as HTMLElement).innerHTML = "";
+    (document.getElementById("nameGiven")as HTMLInputElement).value = "";
+    (document.getElementById("passGiven")as HTMLInputElement).value = "";
+    this.publicUsername = "Logged out"
+    this.login.emit(this.publicUsername);
+  }
   closeModal(){
     (document.getElementById("loginModal")as HTMLElement).style.visibility = "hidden";
   }
- 
+
+  createAcct(){
+    let nameGiven = (document.getElementById("nameGiven")as HTMLInputElement).value;
+    let passGiven = (document.getElementById("passGiven")as HTMLInputElement).value;
+    this.userData = { username: nameGiven, password: passGiven};
+    if (nameGiven == "" || passGiven ==""){
+      (document.getElementById("loginStatus")as HTMLElement).innerHTML = "Username or password not possible, try again";
+      return;
+    }
+
+
+    const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
+    console.log("should not print if empty");
+    this.http.post('http://localhost:8080/create', this.userData, { headers: header }).subscribe((data: any) => {
+      //data = username object
+      if (data.status == "userAlreadyExists"){
+        (document.getElementById("loginStatus")as HTMLElement).innerHTML = "User Already Exists! Login or make a new account";
+      }else if (data.status == "userAdded"){
+        (document.getElementById("loginStatus")as HTMLElement).innerHTML = "User Added! Login now";
+        (document.getElementById("nameGiven")as HTMLInputElement).value = "";
+        (document.getElementById("passGiven")as HTMLInputElement).value = "";
+      }
+    });
+  }
 }
