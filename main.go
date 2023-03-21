@@ -223,35 +223,53 @@ func favoriteHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	//fmt.Println(buf.String())
 	loginString := buf.String()
 	var myFav Favorite
 
 	json.Unmarshal([]byte(loginString), &myFav) // user1.Username has username
 	var shopData []byte
 
-	addFavorite(myFav)
-
-	shopData = []byte(`{"status": "favAdded"}`)
+	if addFavorite(myFav) {
+		shopData = []byte(`{"status": "favAdded"}`)
+	} else {
+		shopData = []byte(`{"status": "alreadyFav"}`)
+	}
 	//TODO: return array of favorited coffee shops or something. maybe {shops: [cafe1,cafe2,cafe3]} idk
 	w.Header().Set("Content-Type", "application/json") //sets localhost:8080 to display json
 	w.Write(shopData)                                  //writes json data to localhost:8080
 
 }
 
-func addFavorite(myFav Favorite) {
-	f, err := os.OpenFile("users.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+func addFavorite(myFav Favorite) bool {
+	f, err := os.OpenFile("users.txt", os.O_APPEND|os.O_CREATE, 0600)
 	if err != nil {
 		panic(err)
 	}
-
 	defer f.Close()
 
 	var res = strings.ReplaceAll(myFav.Username, "Welcome, ", "")
+	var matched bool = false
 
-	if _, err = f.WriteString(res + "|" + myFav.Placeid + "|" + myFav.Name + "|" + myFav.Photoref + "\n"); err != nil {
-		panic(err)
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		line := scanner.Bytes()
+		lineStr := strings.Split(string(line), "|")
+		if lineStr[0] == res && lineStr[1] == myFav.Placeid && lineStr[2] == myFav.Name {
+			matched = true
+			//return false if shop already favorited and nothing is added
+		}
 	}
+
+	if matched == true {
+		return false
+	} else if matched == false {
+		if _, err = f.WriteString(res + "|" + myFav.Placeid + "|" + myFav.Name + "|" + myFav.Photoref + "\n"); err != nil {
+			panic(err)
+		}
+		//return true if favorite successfully added
+		return true
+	}
+	return false
 }
 
 func returnUserData(username string) []byte {

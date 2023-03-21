@@ -2,5 +2,3 @@ sakara|pass123
 makara|umpass2
 example|lolpass
 asdf|asdf
-uiop|uiop
-vbnm|vbnm

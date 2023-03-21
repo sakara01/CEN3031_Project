@@ -75,6 +75,9 @@ export class SidebarComponent {
       (document.getElementById("priceLevel") as HTMLFormElement).innerHTML = this.sidebarShop.price_level;
     }
 
+    //to be able to use placeid in post request to favoriteHandler
+    (document.getElementById("placeid") as HTMLFormElement).innerHTML = this.sidebarShop.place_id; 
+
   }
 
   openDetailPane() {
@@ -98,7 +101,7 @@ export class SidebarComponent {
   favoriteThis(){
     let usernameRaw = (document.getElementById("loginName") as HTMLFormElement).innerHTML;
     let name = (document.getElementById("name") as HTMLFormElement).innerHTML;
-    let placeid = 'nvm';
+    let placeid = (document.getElementById("placeid") as HTMLFormElement).innerHTML;
     let photoref = (document.getElementById("PlaceImage") as HTMLImageElement).src;
     this.favData = { username: usernameRaw, name: name, placeid: placeid, photoref: photoref};
     console.log(this.favData)
