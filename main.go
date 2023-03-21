@@ -70,22 +70,19 @@ func getHandler(w http.ResponseWriter, r *http.Request) {
 	req, err := http.NewRequest(method, url, nil)
 
 	if err != nil {
-		fmt.Println(err)
-		return
+		panic(err)
 	}
 	res, err := client.Do(req)
 	if err != nil {
-		fmt.Println(err)
-		return
+		panic(err)
 	}
 	defer res.Body.Close()
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
-		return
+		panic(err)
 	}
-	fmt.Println(string(body))
+	//fmt.Println(string(body))
 
 	w.Header().Set("Content-Type", "application/json")
 
@@ -123,21 +120,18 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 	client := &http.Client{}
 	req, err := http.NewRequest(method, url, nil)
 	if err != nil {
-		fmt.Println(err)
-		return
+		panic(err)
 	}
 
 	res, err := client.Do(req)
 	if err != nil {
-		fmt.Println(err)
-		return
+		panic(err)
 	}
 	defer res.Body.Close()
 
 	body, err := io.ReadAll(res.Body) // ALL PLACES API DATA IS STORED IN 'body'
 	if err != nil {
-		fmt.Println(err)
-		return
+		panic(err)
 	}
 
 	w.Header().Set("Content-Type", "application/json") //sets localhost:8080 to display json
@@ -159,8 +153,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	buf := new(strings.Builder)
 	_, err := io.Copy(buf, r.Body)
 	if err != nil {
-		fmt.Println(err)
-		return
+		panic(err)
 	}
 
 	//fmt.Println(buf.String())
@@ -192,8 +185,7 @@ func createHandler(w http.ResponseWriter, r *http.Request) {
 	buf := new(strings.Builder)
 	_, err := io.Copy(buf, r.Body)
 	if err != nil {
-		fmt.Println(err)
-		return
+		panic(err)
 	}
 
 	//fmt.Println(buf.String())
@@ -228,8 +220,7 @@ func favoriteHandler(w http.ResponseWriter, r *http.Request) {
 	buf := new(strings.Builder)
 	_, err := io.Copy(buf, r.Body)
 	if err != nil {
-		fmt.Println(err)
-		return
+		panic(err)
 	}
 
 	//fmt.Println(buf.String())
@@ -268,7 +259,7 @@ func returnUserData(username string) []byte {
 
 	f, err := os.Open("users.txt")
 	if err != nil {
-		fmt.Print("There has been an error!: ", err)
+		panic(err)
 	}
 	defer f.Close()
 
@@ -287,7 +278,12 @@ func returnUserData(username string) []byte {
 		}
 	}
 
-	//fmt.Println(omgShops)
+	if len(omgShops.AllMyShops) == 0 {
+		//fmt.Println("allMyShops is empty")
+		out := []byte(`{"allMyShops": "empty"}`)
+		return out
+	}
+
 	out, _ := json.Marshal(&omgShops)
 	return out
 }
@@ -295,7 +291,7 @@ func returnUserData(username string) []byte {
 func checkUser(username string, password string) bool {
 	f, err := os.Open("usernames.txt")
 	if err != nil {
-		fmt.Print("There has been an error!: ", err)
+		fmt.Print("There has been an error reading a file!: ", err)
 		panic(err)
 	}
 	defer f.Close()
@@ -314,6 +310,7 @@ func checkUser(username string, password string) bool {
 func addUser(username string, password string) {
 	f, err := os.OpenFile("usernames.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 	if err != nil {
+		fmt.Print("There has been an error reading a file!: ", err)
 		panic(err)
 	}
 

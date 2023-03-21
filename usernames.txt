@@ -1,9 +1,6 @@
 sakara|pass123
 makara|umpass2
 example|lolpass
-asdf|asdf|
-qwer|qwer
-|
-yuio|yuio
-hjkl|hjkl
-vbmn|vbnm
+asdf|asdf
+uiop|uiop
+vbnm|vbnm

@@ -3,6 +3,9 @@
 <div id="header">
     <h5 style="background-color: #A36431;">Caffinder</h5>
     <p id="loginName"></p>
+    <button id="showFavs" (click)="showFavsPanel()">
+        <img src = "../../assets/heart.png" style="width: 30px;" (click)="showFavsPanel()"/>
+    </button>
     <button id="loginButton" (click)="startLoginComp()" style="background-color: transparent; border-color: transparent;">
         <img src = "../../assets/loginIcon.png" style="width: 30px;" (click)="startLoginComp()"/>
     </button>

@@ -83,9 +83,8 @@ export class LoginComponent {
       return;
     }
 
-
     const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
-    console.log("should not print if empty");
+
     this.http.post('http://localhost:8080/create', this.userData, { headers: header }).subscribe((data: any) => {
       //data = username object
       if (data.status == "userAlreadyExists"){
@@ -94,13 +93,14 @@ export class LoginComponent {
         (document.getElementById("loginStatus")as HTMLElement).innerHTML = "User Added! Login now";
         (document.getElementById("nameGiven")as HTMLInputElement).value = "";
         (document.getElementById("passGiven")as HTMLInputElement).value = "";
-        setTimeout(this.getLoginUser,1000);
+        //setTimeout(this.getLoginUser,1000);
       }
     });
   }
 
   setFavorites(){
     console.log(this.favShops.allMyShops[0]);
+    (document.getElementById("showFavs")as HTMLElement).style.visibility = "visible";
     (document.getElementById("name1")as HTMLElement).innerHTML = this.favShops.allMyShops[0].name;
     (document.getElementById("name2")as HTMLElement).innerHTML = this.favShops.allMyShops[1].name;
     (document.getElementById("name3")as HTMLElement).innerHTML = this.favShops.allMyShops[2].name;

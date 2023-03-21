@@ -37,9 +37,14 @@ export class HeaderComponent implements OnInit {
       (document.getElementById("loginName")as HTMLFormElement).innerHTML = user;
       setTimeout(()=> {
         (document.getElementById("loginName")as HTMLFormElement).innerHTML = "";
+        (document.getElementById("showFavs")as HTMLElement).style.visibility = "hidden";
       },2000);
     }else {
       (document.getElementById("loginName")as HTMLFormElement).innerHTML = "Welcome, " + user;
     }
+  }
+
+  showFavsPanel(){
+    (document.getElementById("favsPane")as HTMLFormElement).style.visibility = "visible";
   }
 }
