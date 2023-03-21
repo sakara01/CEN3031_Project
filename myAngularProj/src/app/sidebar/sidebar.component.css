@@ -83,3 +83,10 @@ img {
     height:31.5px;
     left: 10px;
 }
+
+#favoriteBtn{
+    visibility: hidden;
+    float:right;
+    margin-right: 10px;
+    margin-top: 20px;
+}

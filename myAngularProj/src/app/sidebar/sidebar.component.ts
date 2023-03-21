@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { AppComponent } from '../app.component';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
+import { FavoritesComponent } from 'app/favorites/favorites.component';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -8,11 +9,12 @@ import { AppComponent } from '../app.component';
 })
 export class SidebarComponent {
 
-  constructor(/*private AppComponent: AppComponent*/) { };
+  constructor(private http: HttpClient,) { };
   sidebarShop: any;
   imgHeight: any;
   coffeeShopName: any;
   coffeeShopAddress: any;
+  favData: any;
 
   openSidebar() {
     this.openDetailPane();
@@ -77,14 +79,36 @@ export class SidebarComponent {
 
   openDetailPane() {
     (document.getElementById("detailPane") as HTMLFormElement).style.visibility = 'visible';
+    //check if loginName is empty, if empty, user not logged in
+    if((document.getElementById("loginName") as HTMLFormElement).innerHTML != ""){
+      (document.getElementById("favoriteBtn") as HTMLFormElement).style.visibility = 'visible';
+    }
   }
 
   closeDetailPane(){
     (document.getElementById("detailPane") as HTMLFormElement).style.visibility = 'hidden';
+    (document.getElementById("favoriteBtn") as HTMLFormElement).style.visibility = 'hidden';
 
   }
 
   directionsClicked(){
     console.log("directions clicked");
+  }
+
+  favoriteThis(){
+    let usernameRaw = (document.getElementById("loginName") as HTMLFormElement).innerHTML;
+    let name = (document.getElementById("name") as HTMLFormElement).innerHTML;
+    let placeid = 'nvm';
+    let photoref = (document.getElementById("PlaceImage") as HTMLImageElement).src;
+    this.favData = { username: usernameRaw, name: name, placeid: placeid, photoref: photoref};
+    console.log(this.favData)
+
+    const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
+
+    this.http.post('http://localhost:8080/favorite', this.favData, { headers: header }).subscribe((data: any) => {
+      //data = username object
+      console.log("idk in post now");
+    });
+    
   }
 }

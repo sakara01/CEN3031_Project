@@ -1,6 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
+import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
 /*import { ConsoleReporter } from 'jasmine';
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
   public nearbyPlaces: any;  //declare as global so markerClicked() can access it
 
 
-  constructor(private http: HttpClient, private sidebar: SidebarComponent) {}
+  constructor(private http: HttpClient, private sidebar: SidebarComponent, private header: HeaderComponent) {}
 
   display: any;
   public center: any;
@@ -105,7 +106,7 @@ export class AppComponent implements OnInit {
     //gets user location
     navigator.geolocation.getCurrentPosition((position) => {
       this.center = { lat: position.coords.latitude, lng: position.coords.longitude };
-      console.log(this.center);
+      //console.log(this.center);
       this.zoom = 14;
       const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
 
@@ -131,7 +132,29 @@ export class AppComponent implements OnInit {
     
     })
   }
- 
+
+  // tried to get geocoder to work
+  dummyFunc(address: string){
+    alert("Sorry, Geocoding development in progress");
+    /*
+    var coords : any
+    var geocoder = new google.maps.Geocoder();
+    var request: google.maps.GeocoderRequest = { address: address }
+    
+    geocoder
+    .geocode(request)
+    .then((result) => {
+      const { results } = result;
+      console.log(results[0].geometry.viewport.getNorthEast);
+      return results;
+    })
+    .catch((e) => {
+      alert("Geocode was not successful for the following reason: " + e);
+    });
+    */
+  }
+  
+
   resizePage(){  //set container and detail pane height and width on window load.
     document.getElementById("detailPane") as HTMLFormElement;
     let winHeight=window.innerHeight;
@@ -139,6 +162,8 @@ export class AppComponent implements OnInit {
     (document.getElementById("container")as HTMLFormElement).style.height = (winHeight-44).toString()+"px";
     (document.getElementById("detailPane")as HTMLFormElement).style.height = (winHeight-50).toString()+"px";
     (document.getElementById("detailPane")as HTMLFormElement).style.width = (240 + winWidth/10).toString()+"px";
+    (document.getElementById("favsPane")as HTMLFormElement).style.height = (winHeight-50).toString()+"px";
+    (document.getElementById("favsPane")as HTMLFormElement).style.width = (240 + winWidth/10).toString()+"px";
   }
 
 

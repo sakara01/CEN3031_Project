@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
+import { FavoritesComponent } from 'app/favorites/favorites.component';
 
 @Component({
   selector: 'app-login',
@@ -12,13 +13,14 @@ export class LoginComponent {
   publicUsername: string = "empty";
   @Output() login = new EventEmitter<string>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private favorites: FavoritesComponent) {}
 
   ngOnInit(): void {
   }
 
   userData: any;
   nameVar: any;
+  favShops: any;
   
 
   public getLoginUser() {  //gets user's location and sends to backend
@@ -38,15 +40,16 @@ export class LoginComponent {
     //posts to backend and returns JSON of nearby coffee shops
     this.http.post('http://localhost:8080/mimi', this.userData, { headers: header }).subscribe((data: any) => {
       //data = username object
-      var favShops = data
-      console.log(favShops)
+      this.favShops = data
+      console.log(this.favShops)
       
-      if (favShops.allMyShops == "noUser"){
+      if (this.favShops.allMyShops == "noUser"){
         console.log("No username like that");
         (document.getElementById("loginStatus")as HTMLElement).innerHTML = "Username or password incorrect, please try again.";
       }else {
         //User exists
         (document.getElementById("loginStatus")as HTMLElement).innerHTML = "Logged in Successfully!";
+        this.setFavorites();  //update the favorites panel to reflect real data
         this.login.emit(this.publicUsername);
         setTimeout(()=> {
           (document.getElementById("loginModal")as HTMLElement).style.visibility = "hidden";
@@ -91,7 +94,19 @@ export class LoginComponent {
         (document.getElementById("loginStatus")as HTMLElement).innerHTML = "User Added! Login now";
         (document.getElementById("nameGiven")as HTMLInputElement).value = "";
         (document.getElementById("passGiven")as HTMLInputElement).value = "";
+        setTimeout(this.getLoginUser,1000);
       }
     });
+  }
+
+  setFavorites(){
+    console.log(this.favShops.allMyShops[0]);
+    (document.getElementById("name1")as HTMLElement).innerHTML = this.favShops.allMyShops[0].name;
+    (document.getElementById("name2")as HTMLElement).innerHTML = this.favShops.allMyShops[1].name;
+    (document.getElementById("name3")as HTMLElement).innerHTML = this.favShops.allMyShops[2].name;
+    (<HTMLImageElement>document.getElementById("shop1Image")).src = this.favShops.allMyShops[0].photoref;
+    (<HTMLImageElement>document.getElementById("shop2Image")).src = this.favShops.allMyShops[1].photoref;
+    (<HTMLImageElement>document.getElementById("shop3Image")).src = this.favShops.allMyShops[2].photoref;
+
   }
 }

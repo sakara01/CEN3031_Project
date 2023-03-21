@@ -28,6 +28,13 @@ type Shop struct {
 	Photoref string `json:"photoref"`
 }
 
+type Favorite struct {
+	Username string `json:"username"`
+	Placeid  string `json:"placeid"`
+	Name     string `json:"name"`
+	Photoref string `json:"photoref"`
+}
+
 type AllShops struct {
 	AllMyShops []Shop `json:"allMyShops"`
 }
@@ -36,6 +43,7 @@ func main() { //starts server using go's http package
 	mux := mux.NewRouter()
 	mux.HandleFunc("/mimi", loginHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/create", createHandler).Methods("POST", "OPTIONS")
+	mux.HandleFunc("/favorite", favoriteHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/", postHandler).Methods("POST", "OPTIONS")
 	http.ListenAndServe(":8080", mux)
 }
@@ -210,8 +218,37 @@ func createHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func updateFavs() {
-	//to add a new user
+func favoriteHandler(w http.ResponseWriter, r *http.Request) {
+	(w).Header().Add("Access-Control-Allow-Origin", "*")
+	(w).Header().Add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS")
+	(w).Header().Add("Access-Control-Allow-Headers", "access-control-allow-origin, Content-Type")
+	(w).Header().Add("Access-Control-Allow-Credentials", "true")
+
+	//for some reason this version of stringifying and decoding works much better and doesnt cause cors errors.
+	buf := new(strings.Builder)
+	_, err := io.Copy(buf, r.Body)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	//fmt.Println(buf.String())
+	loginString := buf.String()
+	var myFav Favorite
+
+	json.Unmarshal([]byte(loginString), &myFav) // user1.Username has username
+	var shopData []byte
+
+	addFavorite(myFav)
+
+	shopData = []byte(`{"status": "favAdded"}`)
+	//TODO: return array of favorited coffee shops or something. maybe {shops: [cafe1,cafe2,cafe3]} idk
+	w.Header().Set("Content-Type", "application/json") //sets localhost:8080 to display json
+	w.Write(shopData)                                  //writes json data to localhost:8080
+
+}
+
+func addFavorite(myFav Favorite) {
 	f, err := os.OpenFile("users.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 	if err != nil {
 		panic(err)
@@ -219,10 +256,11 @@ func updateFavs() {
 
 	defer f.Close()
 
-	if _, err = f.WriteString("username" + " " + "place id" + "name" + "photo ref" + "\n"); err != nil {
+	var res = strings.ReplaceAll(myFav.Username, "Welcome, ", "")
+
+	if _, err = f.WriteString(res + "|" + myFav.Placeid + "|" + myFav.Name + "|" + myFav.Photoref + "\n"); err != nil {
 		panic(err)
 	}
-
 }
 
 func returnUserData(username string) []byte {
