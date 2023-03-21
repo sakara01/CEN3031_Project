@@ -1,5 +1,6 @@
 
 #loginModal{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     visibility: hidden;
     position: absolute;
     top: 50%;
@@ -8,24 +9,27 @@
     z-index: 30;
     height: 200px;
     width: 360px;
-    background-color: whitesmoke;
+    background-color: #A36431;
     border: 1px solid black;
     padding-left: 10px;
 }
 
 #closeBtn{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     position: absolute;
     top: 10px;
     right: 10px;
 }
 
 #loginStatus{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     padding-top: 5px;
     font-size: 12px;
     color: rgb(47, 47, 47);
 }
 
 #logout{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     height: 40px;
     position: absolute;
     right: 10px;
@@ -35,11 +39,12 @@
 }
 
 #createAcct{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     height: 40px;
     position: absolute;
     width:100px;
     left:10px;
-    bottom: 2px;
+    bottom:10px;
     font-size: 14px;
     color: rgb(47, 47, 47);
 }

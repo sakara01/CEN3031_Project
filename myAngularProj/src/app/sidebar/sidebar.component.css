@@ -75,13 +75,17 @@ img {
 #directionsBtn{
     z-index: 20;
     position: absolute;
-
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     border: 1px solid black;
     border-radius: 2px;
     top: 10px;
-    width:70px;
+    width:82px;
     height:31.5px;
     left: 10px;
+<<<<<<< HEAD
+    padding-left: 10px;
+    padding-right: 10px;
+=======
 }
 
 #favoriteBtn{
@@ -89,4 +93,5 @@ img {
     float:right;
     margin-right: 10px;
     margin-top: 20px;
+>>>>>>> 46677a2cefdbde04c74b60d6a5cbc6eadc698cc2
 }
