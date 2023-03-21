@@ -10,7 +10,7 @@ import { LoginComponent } from '../login/login.component';
 export class HeaderComponent implements OnInit {
 
   @Input() label=''; title="header";
-  @Output() clicked= new EventEmitter()
+  @Output() header= new EventEmitter()
   
   constructor(private login: LoginComponent) {}
 
@@ -24,6 +24,8 @@ export class HeaderComponent implements OnInit {
 
   searchClicked(){
     console.log("search clicked");
+    let address = (document.getElementById("addressInput")as HTMLInputElement).value;
+    this.header.emit(address);
   }
   
   startLoginComp(){

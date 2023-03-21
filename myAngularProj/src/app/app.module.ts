@@ -8,6 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LoginComponent } from './login/login.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 
 
@@ -19,6 +20,7 @@ import { LoginComponent } from './login/login.component';
     HeaderComponent,
     SidebarComponent,
     LoginComponent,
+    FavoritesComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,7 @@ import { LoginComponent } from './login/login.component';
     HttpClientModule,
     GoogleMapsModule,
   ],
-  providers: [AppComponent,SidebarComponent,LoginComponent],
+  providers: [AppComponent,HeaderComponent,SidebarComponent,LoginComponent,FavoritesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

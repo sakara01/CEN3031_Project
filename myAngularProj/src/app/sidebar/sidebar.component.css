@@ -82,6 +82,16 @@ img {
     width:82px;
     height:31.5px;
     left: 10px;
+<<<<<<< HEAD
     padding-left: 10px;
     padding-right: 10px;
+=======
+}
+
+#favoriteBtn{
+    visibility: hidden;
+    float:right;
+    margin-right: 10px;
+    margin-top: 20px;
+>>>>>>> 46677a2cefdbde04c74b60d6a5cbc6eadc698cc2
 }
