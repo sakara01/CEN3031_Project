@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   public coffeeShop: any;
   public nearbyPlaces: any;  //declare as global so markerClicked() can access it
 
+  appSidebarData: any;  //test parent to child communication
 
   constructor(private http: HttpClient, private sidebar: SidebarComponent, private header: HeaderComponent) {}
 
@@ -72,12 +73,10 @@ export class AppComponent implements OnInit {
       //find the marker the user clicked on
       if (this.nearbyPlaces[i].geometry.location.lat == myMarker.lat){
         this.coffeeShop = this.nearbyPlaces[i];
+        this.appSidebarData = this.coffeeShop; //so other functions in sidebar component can use it
         this.sidebar.sidebarShop=this.coffeeShop;  //send coffee shop data to sidebar component
-        console.log(this.sidebar.sidebarShop);
+        console.log(this.appSidebarData);
         this.sidebar.openSidebar();    
-
-        //show coffee shop details in console
-        console.log(this.sidebar.sidebarShop);
       } 
     }
     this.route = [

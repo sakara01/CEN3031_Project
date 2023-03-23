@@ -49,11 +49,12 @@ export class LoginComponent {
       }else {
         //User exists
         (document.getElementById("loginStatus")as HTMLElement).innerHTML = "Logged in Successfully!";
-        this.setFavorites();  //update the favorites panel to reflect real data
+        this.favorites.favShops= this.favShops; //send data to favorites component
         this.login.emit(this.publicUsername);
         setTimeout(()=> {
           (document.getElementById("loginModal")as HTMLElement).style.visibility = "hidden";
         },1000);
+        this.favorites.setFavorites();  //update the favorites panel to reflect real data
       }
     });
   }
@@ -98,15 +99,4 @@ export class LoginComponent {
     });
   }
 
-  setFavorites(){
-    console.log(this.favShops.allMyShops[0]);
-    (document.getElementById("showFavs")as HTMLElement).style.visibility = "visible";
-    (document.getElementById("name1")as HTMLElement).innerHTML = this.favShops.allMyShops[0].name;
-    (document.getElementById("name2")as HTMLElement).innerHTML = this.favShops.allMyShops[1].name;
-    (document.getElementById("name3")as HTMLElement).innerHTML = this.favShops.allMyShops[2].name;
-    (<HTMLImageElement>document.getElementById("shop1Image")).src = this.favShops.allMyShops[0].photoref;
-    (<HTMLImageElement>document.getElementById("shop2Image")).src = this.favShops.allMyShops[1].photoref;
-    (<HTMLImageElement>document.getElementById("shop3Image")).src = this.favShops.allMyShops[2].photoref;
-
-  }
 }

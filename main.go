@@ -247,14 +247,13 @@ func addFavorite(myFav Favorite) bool {
 	}
 	defer f.Close()
 
-	var res = strings.ReplaceAll(myFav.Username, "Welcome, ", "")
 	var matched bool = false
 
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
 		line := scanner.Bytes()
 		lineStr := strings.Split(string(line), "|")
-		if lineStr[0] == res && lineStr[1] == myFav.Placeid && lineStr[2] == myFav.Name {
+		if lineStr[0] == myFav.Username && lineStr[1] == myFav.Placeid && lineStr[2] == myFav.Name {
 			matched = true
 			//return false if shop already favorited and nothing is added
 		}
@@ -263,7 +262,7 @@ func addFavorite(myFav Favorite) bool {
 	if matched == true {
 		return false
 	} else if matched == false {
-		if _, err = f.WriteString(res + "|" + myFav.Placeid + "|" + myFav.Name + "|" + myFav.Photoref + "\n"); err != nil {
+		if _, err = f.WriteString(myFav.Username + "|" + myFav.Placeid + "|" + myFav.Name + "|" + myFav.Photoref + "\n"); err != nil {
 			panic(err)
 		}
 		//return true if favorite successfully added

@@ -9,6 +9,8 @@ import { FavoritesComponent } from 'app/favorites/favorites.component';
 })
 export class SidebarComponent {
 
+  @Input() sidebarData: any;
+
   constructor(private http: HttpClient,) { };
   sidebarShop: any;
   imgHeight: any;
@@ -75,9 +77,6 @@ export class SidebarComponent {
       (document.getElementById("priceLevel") as HTMLFormElement).innerHTML = this.sidebarShop.price_level;
     }
 
-    //to be able to use placeid in post request to favoriteHandler
-    (document.getElementById("placeid") as HTMLFormElement).innerHTML = this.sidebarShop.place_id; 
-
   }
 
   openDetailPane() {
@@ -99,10 +98,14 @@ export class SidebarComponent {
   }
 
   favoriteThis(){
-    let usernameRaw = (document.getElementById("loginName") as HTMLFormElement).innerHTML;
-    let name = (document.getElementById("name") as HTMLFormElement).innerHTML;
-    let placeid = (document.getElementById("placeid") as HTMLFormElement).innerHTML;
-    let photoref = (document.getElementById("PlaceImage") as HTMLImageElement).src;
+    let usernameRaw = (document.getElementById("nameGiven") as HTMLInputElement).value;
+    let name = this.sidebarData.name;
+    let placeid = this.sidebarData.place_id;
+    let photoref = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photo_reference=" + this.sidebarData.photos[0].photo_reference +"&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k";
+
+    //let name = (document.getElementById("name") as HTMLFormElement).innerHTML;
+    //let placeid = (document.getElementById("placeid") as HTMLFormElement).innerHTML;
+    //let photoref = (document.getElementById("PlaceImage") as HTMLImageElement).src;
     this.favData = { username: usernameRaw, name: name, placeid: placeid, photoref: photoref};
     console.log(this.favData)
 

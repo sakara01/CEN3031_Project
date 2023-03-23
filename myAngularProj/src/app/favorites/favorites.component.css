@@ -10,26 +10,22 @@
 }
 
 .imgHolder{
-    width:140px;
-    height:140px;
-    overflow: hidden;
-    align-content: center;
-    display: grid;
-    position:relative;
-
     margin-left: 10px;
+    float:left;
+    max-height: 90px;
+    overflow-y: hidden;
+    overflow-x: hidden;
     border-radius: 3px;
     border: 1px solid black;
-    float:left;
 }
 img{
     width: 140px;
-    
+    border-radius: 3px;
+    border: 1px solid black;
 }
 
 .shop{
     width:360px;
-    height:150px;
     padding-top: 20px;
     display: inline-block;
 }
