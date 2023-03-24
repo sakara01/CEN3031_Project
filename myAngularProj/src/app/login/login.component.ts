@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
-import { FavoritesComponent } from 'app/favorites/favorites.component';
+//import { FavoritesComponent } from 'app/favorites/favorites.component';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ export class LoginComponent {
   publicUsername: string = "empty";
   @Output() login = new EventEmitter<string>();
 
-  constructor(private http: HttpClient, private favorites: FavoritesComponent) {}
+  constructor(private http: HttpClient /*, private favorites: FavoritesComponent*/) {}
 
   ngOnInit(): void {
   }
@@ -38,8 +38,20 @@ export class LoginComponent {
 
     //sends body data (user coordinates) to BACKEND
     //posts to backend and returns JSON of nearby coffee shops
-    this.http.post('http://localhost:8080/mimi', this.userData, { headers: header }).subscribe((data: any) => {
-      //data = username object
+    this.http.post('http://localhost:8080/login', this.userData, { headers: header }).subscribe((data: any) => {
+      if (data.status == "userExists"){
+        (document.getElementById("loginStatus")as HTMLElement).innerHTML = "Logged in Successfully!";
+        //this.favorites.favShops= this.favShops; //send data to favorites component
+        this.login.emit(this.publicUsername);
+        setTimeout(()=> {
+          (document.getElementById("loginModal")as HTMLElement).style.visibility = "hidden";
+        },1000);
+        //this.favorites.setFavorites();  //update the favorites panel to reflect real data
+      }else{
+        //user does not exist
+        (document.getElementById("loginStatus")as HTMLElement).innerHTML = "Username or password incorrect, please try again.";
+      }
+      /*
       this.favShops = data
       console.log(this.favShops)
       
@@ -56,6 +68,7 @@ export class LoginComponent {
         },1000);
         this.favorites.setFavorites();  //update the favorites panel to reflect real data
       }
+      */
     });
   }
 

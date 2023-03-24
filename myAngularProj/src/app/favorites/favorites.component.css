@@ -4,6 +4,7 @@
     position:absolute;
     top:50px;
     left:0;
+    z-index: 40;
     visibility: hidden;
     overflow-y: scroll;
     filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
@@ -13,12 +14,13 @@
     margin-left: 10px;
     float:left;
     max-height: 90px;
+    max-width: 140px;
     overflow-y: hidden;
     overflow-x: hidden;
     border-radius: 3px;
     border: 1px solid black;
 }
-img{
+.shopimage{
     width: 140px;
     border-radius: 3px;
     border: 1px solid black;
@@ -26,7 +28,8 @@ img{
 
 .shop{
     width:360px;
-    padding-top: 20px;
+    padding-top: 14px;
+    padding-bottom: 6px;
     display: inline-block;
 }
 

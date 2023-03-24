@@ -1,31 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ViewEncapsulation } from '@angular/core';
+import { initial } from 'cypress/types/lodash';
 
 @Component({
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',
-  styleUrls: ['./favorites.component.css']
+  styleUrls: ['./favorites.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class FavoritesComponent {
+  @Input() transfer: any;  //not needed
 
   constructor() { };
 
   favShops: any;
-
-  closeFavsPane(){
-    (document.getElementById("favsPane") as HTMLFormElement).style.visibility = 'hidden';
-
-  }
   
   setFavorites(){
-    console.log(this.favShops.allMyShops);
-    (document.getElementById("showFavs")as HTMLElement).style.visibility = "visible";
-    (document.getElementById("name1")as HTMLElement).innerHTML = this.favShops.allMyShops[0].name;
-    (document.getElementById("name2")as HTMLElement).innerHTML = this.favShops.allMyShops[1].name;
-    (document.getElementById("name3")as HTMLElement).innerHTML = this.favShops.allMyShops[2].name;
-    (<HTMLImageElement>document.getElementById("shop1Image")).src = this.favShops.allMyShops[0].photoref;
-    (<HTMLImageElement>document.getElementById("shop2Image")).src = this.favShops.allMyShops[1].photoref;
-    (<HTMLImageElement>document.getElementById("shop3Image")).src = this.favShops.allMyShops[2].photoref;
+    console.log(this.favShops);
+    (document.getElementById("favsPane")as HTMLFormElement).style.visibility = "visible";
 
+    let img = new Image();
+    /*
+    (document.getElementById("name1")as HTMLElement).innerHTML = this.favShops.allMyShops[0].name;
+    (<HTMLImageElement>document.getElementById("shop3Image")).src = this.favShops.allMyShops[2].photoref;
+    */
+
+    for (let i =0; i< this.favShops.allMyShops.length; i++){
+      (document.getElementById("favsPane") as HTMLFormElement).innerHTML += `<div class="shop" >
+                                                                                <div class="imgHolder">
+                                                                                    <img class="shopimage" id="image${i}" src="${this.favShops.allMyShops[i].photoref}"/>
+                                                                                </div>
+
+                                                                                <div class="shopname" id="name${i}">${this.favShops.allMyShops[i].name}</div>
+                                                                            </div>`;
+            
+      img.src = this.favShops.allMyShops[i].photoref;  
+      if (img.naturalHeight < img.naturalWidth){
+        (document.getElementById("image"+i) as HTMLFormElement).style.height="90px";
+        (document.getElementById("image"+i) as HTMLFormElement).style.width="auto";
+      }
+    }
+
+    const button = document.getElementById('closeFavs');
+    button?.addEventListener('click', function handleClick(event) {
+      (document.getElementById("favsPane") as HTMLFormElement).style.visibility = 'hidden';
+    });
   }
 
 }

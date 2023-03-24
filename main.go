@@ -41,9 +41,10 @@ type AllShops struct {
 
 func main() { //starts server using go's http package
 	mux := mux.NewRouter()
-	mux.HandleFunc("/mimi", loginHandler).Methods("POST", "OPTIONS")
+	mux.HandleFunc("/login", loginHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/create", createHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/favorite", favoriteHandler).Methods("POST", "OPTIONS")
+	mux.HandleFunc("/request", requestHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/", postHandler).Methods("POST", "OPTIONS")
 	http.ListenAndServe(":8080", mux)
 }
@@ -164,9 +165,10 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	var shopData []byte
 
 	if checkUser(user1.Username, user1.Password) {
-		shopData = returnUserData(user1.Username)
+		shopData = []byte(`{"status": "userExists"}`)
+		//shopData = returnUserData(user1.Username)
 	} else {
-		shopData = []byte(`{"allMyShops": "noUser"}`)
+		shopData = []byte(`{"status": "noUser"}`)
 	}
 
 	//TODO: return array of favorited coffee shops or something. maybe {shops: [cafe1,cafe2,cafe3]} idk
@@ -203,6 +205,34 @@ func createHandler(w http.ResponseWriter, r *http.Request) {
 		addUser(user1.Username, user1.Password)
 		shopData = []byte(`{"status": "userAdded"}`)
 	}
+
+	//TODO: return array of favorited coffee shops or something. maybe {shops: [cafe1,cafe2,cafe3]} idk
+	w.Header().Set("Content-Type", "application/json") //sets localhost:8080 to display json
+	w.Write(shopData)                                  //writes json data to localhost:8080
+
+}
+
+func requestHandler(w http.ResponseWriter, r *http.Request) {
+	(w).Header().Add("Access-Control-Allow-Origin", "*")
+	(w).Header().Add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS")
+	(w).Header().Add("Access-Control-Allow-Headers", "access-control-allow-origin, Content-Type")
+	(w).Header().Add("Access-Control-Allow-Credentials", "true")
+
+	//for some reason this version of stringifying and decoding works much better and doesnt cause cors errors.
+	buf := new(strings.Builder)
+	_, err := io.Copy(buf, r.Body)
+	if err != nil {
+		panic(err)
+	}
+
+	//fmt.Println(buf.String())
+	loginString := buf.String()
+	var user1 Login
+
+	json.Unmarshal([]byte(loginString), &user1) // user1.Username has username
+	//var shopData []byte
+
+	shopData := returnUserData(user1.Username)
 
 	//TODO: return array of favorited coffee shops or something. maybe {shops: [cafe1,cafe2,cafe3]} idk
 	w.Header().Set("Content-Type", "application/json") //sets localhost:8080 to display json
