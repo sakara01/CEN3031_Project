@@ -20,4 +20,12 @@ describe('FavoritesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
+   it('should check favsPane visbility on marker click', () =>{
+    (document.getElementById("favsPane") as HTMLFormElement).style.visibility = 'visible';
+    const pane= fixture.debugElement.nativeElement.querySelector('#favsPane');
+    const vis= getComputedStyle(pane).getPropertyValue("visibility");
+    expect(vis).toBe("visible");
+  })
+  
 });
