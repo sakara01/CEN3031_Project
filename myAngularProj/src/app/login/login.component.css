@@ -1,6 +1,7 @@
 
 #loginModal{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color:rgb(255, 255, 255);
     visibility: hidden;
     position: absolute;
     top: 50%;
@@ -29,22 +30,22 @@
 }
 
 #logout{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Yellowtail';
     height: 40px;
     position: absolute;
     right: 10px;
-    bottom:2px;   
-    font-size: 14px; 
-    color: rgb(47, 47, 47);
+    bottom:8px;   
+    font-size: 18px; 
+    color: rgb(255, 255, 255);
 }
 
 #createAcct{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Yellowtail';
     height: 40px;
     position: absolute;
     width:100px;
     left:10px;
-    bottom:10px;
-    font-size: 14px;
-    color: rgb(47, 47, 47);
+    bottom:8px;
+    font-size: 18px;
+    color: rgb(255, 255, 255);
 }
