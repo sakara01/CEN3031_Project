@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit {
       setTimeout(()=> {
         (document.getElementById("loginName")as HTMLFormElement).innerHTML = "";
         (document.getElementById("showFavs")as HTMLElement).style.visibility = "hidden";
-      },2000);
+      },1500);
     }else {
       (document.getElementById("loginName")as HTMLFormElement).innerHTML = "Welcome, " + user;
       (document.getElementById("showFavs")as HTMLElement).style.visibility = "visible";
