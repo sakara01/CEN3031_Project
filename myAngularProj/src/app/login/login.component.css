@@ -1,7 +1,7 @@
 
 #loginModal{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color:rgb(255, 255, 255);
+    color:black;
     visibility: hidden;
     position: absolute;
     top: 50%;
@@ -36,7 +36,7 @@
     right: 10px;
     bottom:8px;   
     font-size: 18px; 
-    color: rgb(255, 255, 255);
+    color: rgb(47, 47, 47);
 }
 
 #createAcct{
@@ -47,5 +47,5 @@
     left:10px;
     bottom:8px;
     font-size: 18px;
-    color: rgb(255, 255, 255);
+    color: rgb(47, 47, 47);
 }

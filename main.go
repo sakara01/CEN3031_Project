@@ -59,6 +59,7 @@ func enableCors(w *http.ResponseWriter) { //allows frontend and backend to commu
 // DONT REALLY NEED THIS, but dont delete, since we'll find the user location in postHandler()
 // finds user location from input (url)
 // for example, right now it's centered at the Metropolitan Museum of Art
+/*
 func getHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 
@@ -89,6 +90,7 @@ func getHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Write(body) //writes json data to localhost:8080
 }
+*/
 
 // finds user location
 // then gets the nearby places around location coordinates
@@ -101,10 +103,6 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 
 	var myLoc Location
 	json.Unmarshal([]byte(buf.String()), &myLoc)
-
-	//fmt.Println(myLoc.Lat)
-
-	//if location is not found = Google HQ by default
 
 	//converts location to string
 	latitude := fmt.Sprintf("%f", myLoc.Lat)
@@ -157,7 +155,6 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	//fmt.Println(buf.String())
 	loginString := buf.String()
 	var user1 Login
 
@@ -166,14 +163,12 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 
 	if checkUser(user1.Username, user1.Password) {
 		shopData = []byte(`{"status": "userExists"}`)
-		//shopData = returnUserData(user1.Username)
 	} else {
 		shopData = []byte(`{"status": "noUser"}`)
 	}
 
-	//TODO: return array of favorited coffee shops or something. maybe {shops: [cafe1,cafe2,cafe3]} idk
-	w.Header().Set("Content-Type", "application/json") //sets localhost:8080 to display json
-	w.Write(shopData)                                  //writes json data to localhost:8080
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(shopData)
 
 }
 
@@ -190,7 +185,6 @@ func createHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	//fmt.Println(buf.String())
 	loginString := buf.String()
 	var user1 Login
 
@@ -206,9 +200,8 @@ func createHandler(w http.ResponseWriter, r *http.Request) {
 		shopData = []byte(`{"status": "userAdded"}`)
 	}
 
-	//TODO: return array of favorited coffee shops or something. maybe {shops: [cafe1,cafe2,cafe3]} idk
-	w.Header().Set("Content-Type", "application/json") //sets localhost:8080 to display json
-	w.Write(shopData)                                  //writes json data to localhost:8080
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(shopData)
 
 }
 
@@ -225,18 +218,15 @@ func requestHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	//fmt.Println(buf.String())
 	loginString := buf.String()
 	var user1 Login
 
 	json.Unmarshal([]byte(loginString), &user1) // user1.Username has username
-	//var shopData []byte
 
 	shopData := returnUserData(user1.Username)
 
-	//TODO: return array of favorited coffee shops or something. maybe {shops: [cafe1,cafe2,cafe3]} idk
-	w.Header().Set("Content-Type", "application/json") //sets localhost:8080 to display json
-	w.Write(shopData)                                  //writes json data to localhost:8080
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(shopData)
 
 }
 
@@ -264,9 +254,9 @@ func favoriteHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		shopData = []byte(`{"status": "alreadyFav"}`)
 	}
-	//TODO: return array of favorited coffee shops or something. maybe {shops: [cafe1,cafe2,cafe3]} idk
-	w.Header().Set("Content-Type", "application/json") //sets localhost:8080 to display json
-	w.Write(shopData)                                  //writes json data to localhost:8080
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(shopData)
 
 }
 
@@ -302,7 +292,6 @@ func addFavorite(myFav Favorite) bool {
 }
 
 func returnUserData(username string) []byte {
-	//fmt.Println("this is username:" + username)
 
 	f, err := os.Open("users.txt")
 	if err != nil {
@@ -326,7 +315,6 @@ func returnUserData(username string) []byte {
 	}
 
 	if len(omgShops.AllMyShops) == 0 {
-		//fmt.Println("allMyShops is empty")
 		out := []byte(`{"allMyShops": "empty"}`)
 		return out
 	}

@@ -45,7 +45,7 @@ export class LoginComponent {
         this.login.emit(this.publicUsername);
         setTimeout(()=> {
           (document.getElementById("loginModal")as HTMLElement).style.visibility = "hidden";
-        },1000);
+        },800);
         //this.favorites.setFavorites();  //update the favorites panel to reflect real data
       }else{
         //user does not exist
