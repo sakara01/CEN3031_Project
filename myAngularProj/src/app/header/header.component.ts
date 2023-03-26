@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
-import { FavoritesComponent } from 'app/favorites/favorites.component';
+import { FavoritesComponent } from '../favorites/favorites.component';
 import { LoginComponent } from '../login/login.component';
 
 

@@ -23,8 +23,8 @@ describe('LoginComponent', () => {
   });
   
   it('should display Login title', () => {
-    const h2: HTMLElement = fixture.nativeElement.querySelector('h2');
-    expect(h2.innerHTML).toBe("Login");
+    const title: HTMLElement = fixture.debugElement.nativeElement.querySelector('#logintext');
+    expect(title.innerHTML).toBe("Sign In");
   });
 
   it('should display option to enter Username and Password',()=>{

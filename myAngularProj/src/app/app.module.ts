@@ -28,6 +28,10 @@ import { FavoritesComponent } from './favorites/favorites.component';
     HttpClientModule,
     GoogleMapsModule,
   ],
+  exports:[
+    LoginComponent,
+    FavoritesComponent,
+  ],
   providers: [AppComponent,HeaderComponent,SidebarComponent,LoginComponent,FavoritesComponent],
   bootstrap: [AppComponent]
 })

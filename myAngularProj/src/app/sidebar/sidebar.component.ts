@@ -82,7 +82,7 @@ export class SidebarComponent {
   openDetailPane() {
     (document.getElementById("detailPane") as HTMLFormElement).style.visibility = 'visible';
     //check if loginName is empty, if empty, user not logged in
-    if((document.getElementById("loginName") as HTMLFormElement).innerHTML != ""){
+    if((document.getElementById("loginName") as HTMLFormElement) ==null  || (document.getElementById("loginName") as HTMLFormElement).innerHTML != ""){   //null when testing
       (document.getElementById("favoriteBtn") as HTMLFormElement).style.visibility = 'visible';
     }
   }
