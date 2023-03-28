@@ -13,7 +13,7 @@ export class SidebarComponent {
 
   constructor(private http: HttpClient,) { };
   sidebarShop: any;
-  imgHeight: any;
+  imgHeight: any = 0;
   coffeeShopName: any;
   coffeeShopAddress: any;
   favData: any;
@@ -32,7 +32,9 @@ export class SidebarComponent {
 
     //set the image! 
     (<HTMLImageElement>document.getElementById("PlaceImage")).src = imageAddy;
-    this.imgHeight= this.sidebarShop.photos[0].height;
+    if (this.sidebarShop.photos != null){
+      this.imgHeight= this.sidebarShop.photos[0].height;
+    }
 
     //attributes that are outputted in side bar panel
     (document.getElementById("name") as HTMLFormElement).innerHTML = this.sidebarShop.name;
