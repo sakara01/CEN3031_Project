@@ -108,4 +108,12 @@ describe('SidebarComponent', () => {
     expect(component.coffeeShopAddress).toBeDefined();
   });
 
+  it('should check if favorite button clicked', fakeAsync(()=> {
+    spyOn(component,'favoriteThis');
+    let favoriteBtn = fixture.debugElement.nativeElement.querySelector('#favoriteBtn');
+    favoriteBtn.click();
+    tick();
+    expect(component.favoriteThis).toHaveBeenCalled();
+  }));
+
 });

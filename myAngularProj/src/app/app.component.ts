@@ -3,6 +3,7 @@ import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 /*import { ConsoleReporter } from 'jasmine';
 */

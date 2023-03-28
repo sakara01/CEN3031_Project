@@ -21,11 +21,19 @@ describe('FavoritesComponent', () => {
     expect(component).toBeTruthy();
   });
   
-   it('should check favsPane visbility on marker click', () =>{
+  it('should check favsPane visbility on marker click', () =>{
     (document.getElementById("favsPane") as HTMLFormElement).style.visibility = 'visible';
     const pane= fixture.debugElement.nativeElement.querySelector('#favsPane');
     const vis= getComputedStyle(pane).getPropertyValue("visibility");
     expect(vis).toBe("visible");
   })
+
+  it('when clicked should add to favorites list in header component', () => {
+
+  });
+
+  it('should appear if logged in', () => {
+    
+  });
   
 });

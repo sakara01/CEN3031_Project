@@ -22,7 +22,7 @@ describe('HeaderComponent', () => {
       ],
     })
     .compileComponents();
-
+    
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -46,5 +46,14 @@ describe('HeaderComponent', () => {
     searchBtn.click();
     tick();
     expect(component.searchClicked).toHaveBeenCalled();
+  }));
+
+  it('heart is visible when logged in', fakeAsync(()=> {
+    spyOn(component, 'showFavsPanel');
+    const vis = (document.getElementById("favsPane")as HTMLFormElement).style.visibility = "visible";
+    let favsButton = document.getElementById("showFavs")as HTMLFormElement;
+    favsButton.click();
+    tick();
+    expect(vis).toBe("visible");
   }));
 });
