@@ -15,7 +15,6 @@ import (
 // - checks if status is okay
 // - checks if the name of a specified coffee shop is accurate
 func TestPostHandler(t *testing.T) {
-	//mockBody := "{\"lat\":25.7617,\"lng\":-80.1918}" //put any coordinates here, will see corresponding data in debug console
 	mockBody := "{\"lat\":28.878060,\"lng\":-82.035319}" //put any coordinates here, will see corresponding data in debug console
 	myReader := strings.NewReader(mockBody)
 	req, err := http.NewRequest("POST", "/", myReader)
@@ -81,7 +80,7 @@ func TestPostHandlerEmptyLoc(t *testing.T) {
 
 func TestLoginHandlerExisting(t *testing.T) {
 	//test if existing user is found correctly
-	mockBody := "{\"username\":\"asdf\",\"password\":\"asdf\"}" //put any coordinates here, will see corresponding data in debug console
+	mockBody := "{\"username\":\"asdf\",\"password\":\"asdf\"}"
 	myReader := strings.NewReader(mockBody)
 	req, err := http.NewRequest("POST", "/login", myReader)
 	if err != nil {
@@ -109,7 +108,7 @@ func TestLoginHandlerExisting(t *testing.T) {
 
 func TestLoginHandlerNone(t *testing.T) {
 	//test if existing user is found correctly
-	mockBody := "{\"username\":\"nonexistant\",\"password\":\"nothing\"}" //put any coordinates here, will see corresponding data in debug console
+	mockBody := "{\"username\":\"nonexistant\",\"password\":\"nothing\"}"
 	myReader := strings.NewReader(mockBody)
 	req, err := http.NewRequest("POST", "/login", myReader)
 	if err != nil {
@@ -138,7 +137,7 @@ func TestLoginHandlerNone(t *testing.T) {
 
 func TestCreateHandlerNew(t *testing.T) {
 	//test if new user is added correctly
-	mockBody := "{\"username\":\"user1234\",\"password\":\"pass1234\"}" //put any coordinates here, will see corresponding data in debug console
+	mockBody := "{\"username\":\"user1234\",\"password\":\"pass1234\"}"
 	myReader := strings.NewReader(mockBody)
 	req, err := http.NewRequest("POST", "/create", myReader)
 	if err != nil {
@@ -185,7 +184,7 @@ func TestCreateHandlerNew(t *testing.T) {
 
 func TestCreateHandlerExisting(t *testing.T) {
 	//test if existing user is found correctly
-	mockBody := "{\"username\":\"asdf\",\"password\":\"asdf\"}" //put any coordinates here, will see corresponding data in debug console
+	mockBody := "{\"username\":\"asdf\",\"password\":\"asdf\"}"
 	myReader := strings.NewReader(mockBody)
 	req, err := http.NewRequest("POST", "/create", myReader)
 	if err != nil {
@@ -213,7 +212,7 @@ func TestCreateHandlerExisting(t *testing.T) {
 
 func TestFavoriteHandlerNew(t *testing.T) {
 	//test if new user is added correctly
-	mockBody := "{\"username\":\"user1234\",\"placeid\":\"nvm\",\"name\":\"Starbucks\",\"photoref\":\"https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photo_reference=AUjq9jnNU8GQYyQYyWxCxFAAom92htZkHD0kOtE6KwR_FMn9ig1u0cw1V93QifmmIZSoBVtd9GGfLOmze_z0l2Gw_Q-BbbkpHgu9x-3X_Q3kXRclgG9D9Ap__AzjjeNKtnp0Do3r_onb1AIG62dEnxD7ZQqRkzH2WH6WhRtklrx5i279odlm&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k\"}" //put any coordinates here, will see corresponding data in debug console
+	mockBody := "{\"username\":\"user1234\",\"placeid\":\"nvm\",\"name\":\"Starbucks\",\"photoref\":\"https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photo_reference=AUjq9jnNU8GQYyQYyWxCxFAAom92htZkHD0kOtE6KwR_FMn9ig1u0cw1V93QifmmIZSoBVtd9GGfLOmze_z0l2Gw_Q-BbbkpHgu9x-3X_Q3kXRclgG9D9Ap__AzjjeNKtnp0Do3r_onb1AIG62dEnxD7ZQqRkzH2WH6WhRtklrx5i279odlm&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k\"}"
 	myReader := strings.NewReader(mockBody)
 	req, err := http.NewRequest("POST", "/favorite", myReader)
 	if err != nil {
@@ -255,7 +254,7 @@ func TestFavoriteHandlerNew(t *testing.T) {
 
 func TestFavoriteHandlerExisting(t *testing.T) {
 	//test if new user is added correctly
-	mockBody := "{\"username\":\"testcase\",\"placeid\":\"DONOTREMOVE\",\"name\":\"testName\",\"photoref\":\"linktophoto\"}" //put any coordinates here, will see corresponding data in debug console
+	mockBody := "{\"username\":\"testcase\",\"placeid\":\"DONOTREMOVE\",\"name\":\"testName\",\"photoref\":\"linktophoto\"}"
 	myReader := strings.NewReader(mockBody)
 	req, err := http.NewRequest("POST", "/favorite", myReader)
 	if err != nil {
@@ -283,7 +282,7 @@ func TestFavoriteHandlerExisting(t *testing.T) {
 
 func TestRequestHandler(t *testing.T) {
 	//test if existing user is found correctly
-	mockBody := "{\"username\":\"testcase\",\"password\":\"testcase\"}" //put any coordinates here, will see corresponding data in debug console
+	mockBody := "{\"username\":\"testcase\",\"password\":\"testcase\"}"
 	myReader := strings.NewReader(mockBody)
 	req, err := http.NewRequest("POST", "/request", myReader)
 	if err != nil {
@@ -312,7 +311,7 @@ func TestRequestHandler(t *testing.T) {
 func TestCheckUser(t *testing.T) {
 	//test if existing user is found correctly
 	var username = "testcase"
-	var password = "testcase" //put any coordinates here, will see corresponding data in debug console
+	var password = "testcase"
 
 	if !checkUser(username, password) {
 		t.Errorf("checkUser failed to find user")
