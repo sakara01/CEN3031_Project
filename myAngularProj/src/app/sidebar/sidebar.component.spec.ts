@@ -116,4 +116,20 @@ describe('SidebarComponent', () => {
     expect(component.favoriteThis).toHaveBeenCalled();
   }));
 
+  it('should check if bookmark button clicked', fakeAsync(()=> {
+    spyOn(component,'bookmarkThis');
+    let bookmarkBtn = fixture.debugElement.nativeElement.querySelector('#bookmarkBtn');
+    bookmarkBtn.click();
+    tick();
+    expect(component.bookmarkThis).toHaveBeenCalled();
+  }));
+
+  it('should check if directions button clicked', fakeAsync(()=> {
+    spyOn(component,'getDirections');
+    let directionsIconBtn = fixture.debugElement.nativeElement.querySelector('#directionsIconBtn');
+    directionsIconBtn.click();
+    tick();
+    expect(component.getDirections).toHaveBeenCalled();
+  }));
+
 });
