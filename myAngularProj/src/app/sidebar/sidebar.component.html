@@ -8,10 +8,25 @@
       <img id="PlaceImage"/>
     </div>
     
+    <!-- user interaction icons at the top -->
+    <div id="IconBar">
+
+      <!-- dont have a function for directions yet but - (click)="getDirections() -->
+      <button id="directionsIconBtn" (click)="getDirections()">
+        <img id='directionsIcon' src='../assets/directions.webp'>
+      </button>
+
+      <button id="favoriteBtn" (click)="favoriteThis()" >
+        <img id='favHeart' src='../assets/brown-heart.png'>
+      </button>
+
+      <button id="bookmarkBtn" (click)="bookmarkThis()" >
+        <img id='bookmark' src='../assets/bookmark.png'>
+      </button>
+      
+    </div> 
+
     <!-- name of coffee shop -->
-    <button id="favoriteBtn" (click)="favoriteThis()" >
-      <img id='favHeart' src='../assets/brown-heart.png'>
-    </button>
     <div id="name"></div>
     
     <!-- address -->
