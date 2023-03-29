@@ -48,12 +48,11 @@ describe('HeaderComponent', () => {
     expect(component.searchClicked).toHaveBeenCalled();
   }));
 
-  it('heart is visible when logged in', fakeAsync(()=> {
+  it('should check heart button click', fakeAsync(()=> {
     spyOn(component, 'showFavsPanel');
-    const vis = (document.getElementById("favsPane")as HTMLFormElement).style.visibility = "visible";
-    let favsButton = document.getElementById("showFavs")as HTMLFormElement;
-    favsButton.click();
+    let favsBtn = fixture.debugElement.nativeElement.querySelector('#showFavs');
+    favsBtn.click();
     tick();
-    expect(vis).toBe("visible");
+    expect(component.showFavsPanel).toHaveBeenCalled();
   }));
 });
