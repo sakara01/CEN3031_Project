@@ -1,4 +1,4 @@
-describe('Test Login', () => {
+describe('Test Login & search button', () => {
   it('Logs in to Account', () => {
     cy.visit('http://localhost:4200/')
 
