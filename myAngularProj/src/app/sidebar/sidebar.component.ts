@@ -117,6 +117,9 @@ export class SidebarComponent {
       //data = username object
       console.log("idk in post now");
     });
+
+    //change img to filled heart 
+    (document.getElementById("favHeart") as HTMLFormElement)['src'] = '../assets/filled-heart.png';
     
   }
 }
