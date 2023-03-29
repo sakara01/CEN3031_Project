@@ -29,7 +29,7 @@ describe('FavoritesComponent', () => {
   })
 
   it('when clicked should add to favorites list in header component', () => {
-
+    
   });
 
   it('should appear if logged in', () => {
