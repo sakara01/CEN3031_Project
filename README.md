@@ -11,3 +11,5 @@ Members: Lauren Escarcha (back-end & front-end), Saloni Karanth (back-end & fron
 Sprint 1 Videos: https://drive.google.com/drive/folders/1-45mEiURN8e93VkLC-79uStG_kRjzPLT?usp=share_link
 
 Sprint 2 Videos: https://drive.google.com/file/d/1ZACPkNgOu586TSO4sNKCC_YodJ_A43l5/view?usp=sharing
+
+Sprint 3: https://drive.google.com/file/d/1cQSnE-dpYDkMzRlGJ9QLdL3_9jBqDq7f/view?usp=sharing
