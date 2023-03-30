@@ -11,6 +11,50 @@
     filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
 }
 
+#IconBar{
+    visibility: hidden;
+
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: center; /* puts items vertically in center */
+    justify-content: left;
+}
+
+#favoriteBtn{
+    outline: none;
+    border: none;
+    background-color: transparent;
+    /* float:left; */
+}
+
+#favoriteBtn img:active{
+    filter: opacity(50%);
+}
+
+#directionsIconBtn{
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+#directionsIconBtn img:active{
+    filter: opacity(50%);
+}
+
+#bookmarkBtn{
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+#bookmarkBtn img:active{
+    filter: opacity(50%);
+}
+
+
 #name{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 25px;
@@ -64,4 +108,24 @@ img {
     padding-right: 10px;
     padding-top: 10px;
     /* padding-left: 10px; */
+}
+
+#closeSidebarBtn{
+    position: absolute;
+    top:10px;
+    right:10px;
+}
+
+#directionsBtn{
+    z-index: 20;
+    position: absolute;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    border: 1px solid black;
+    border-radius: 2px;
+    top: 10px;
+    width:82px;
+    height:31.5px;
+    left: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }

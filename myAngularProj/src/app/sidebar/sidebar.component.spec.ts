@@ -1,5 +1,5 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-
 import { SidebarComponent } from './sidebar.component';
 
 describe('SidebarComponent', () => {
@@ -8,6 +8,9 @@ describe('SidebarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[
+        HttpClientTestingModule,
+      ],
       declarations: [ SidebarComponent ]
     })
     .compileComponents();
@@ -104,5 +107,29 @@ describe('SidebarComponent', () => {
   it('should check if cafe address displays',() =>{
     expect(component.coffeeShopAddress).toBeDefined();
   });
+
+  it('should check if favorite button clicked', fakeAsync(()=> {
+    spyOn(component,'favoriteThis');
+    let favoriteBtn = fixture.debugElement.nativeElement.querySelector('#favoriteBtn');
+    favoriteBtn.click();
+    tick();
+    expect(component.favoriteThis).toHaveBeenCalled();
+  }));
+
+  it('should check if bookmark button clicked', fakeAsync(()=> {
+    spyOn(component,'bookmarkThis');
+    let bookmarkBtn = fixture.debugElement.nativeElement.querySelector('#bookmarkBtn');
+    bookmarkBtn.click();
+    tick();
+    expect(component.bookmarkThis).toHaveBeenCalled();
+  }));
+
+  it('should check if directions button clicked', fakeAsync(()=> {
+    spyOn(component,'getDirections');
+    let directionsIconBtn = fixture.debugElement.nativeElement.querySelector('#directionsIconBtn');
+    directionsIconBtn.click();
+    tick();
+    expect(component.getDirections).toHaveBeenCalled();
+  }));
 
 });

@@ -1,0 +1,112 @@
+
+#loginModal{
+    font-family: monospace;
+    color:black;
+    visibility: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 30;
+    height: 360px;
+    width: 300px;
+    background-color: rgb(249, 249, 249);
+    border: 1px solid black;
+    border-radius: 4px;
+    margin-left: 10px;
+    margin-right: 10px;
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
+
+}
+
+#logintext {
+    text-align: center;
+    font-family: monospace;
+    font-size: 20px;
+    margin-top:22px;
+    margin-bottom: 20px;
+}
+
+.loginInput{
+    font-family: monospace;
+    height: 30px;
+    width: 200px;
+    font-size: 16px;
+    border: none;
+    background-color: rgb(249, 249, 249);
+    float:left;
+    padding-left: 6px;
+}
+
+img{
+    margin-top: 2px;
+    float: left;
+    width: 20px;
+}
+
+.inputHolder{
+    width:240px;
+    height:34px;
+    margin-top: 18px;
+    border-bottom: 1px solid rgb(47, 47, 47);
+    margin:auto;
+    padding-top: 18px;
+}
+
+#submitBtn{
+    width:160px;
+    height: 34px;
+    background-color: #A36431;
+    color:whitesmoke;
+    border: none;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+#submitBtnHolder{
+    top:30px;
+    margin:auto;
+    align-items: center;
+    height: 36px;
+    width:max-content;
+    position: relative;
+}
+
+#closeBtn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#loginStatus{
+    font-family: monospace;
+    font-size: 12px;
+    color: rgb(47, 47, 47);
+    position: relative;
+    top:50px;
+    margin:auto;
+    width:300px;
+    text-align: center;
+}
+
+#logout{
+    font-family: monospace;
+    height: 40px;
+    position: absolute;
+    right: 10px;
+    bottom:3px;   
+    font-size: 14px; 
+    color: rgba(47, 47, 47, 0.840);
+}
+
+#createAcct{
+    font-family: monospace;
+    height: 40px;
+    position: absolute;
+    width:120px;
+    left:10px;
+    bottom:3px;
+    font-size: 14px;
+    color: rgba(47, 47, 47, 0.840);
+}

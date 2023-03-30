@@ -7,10 +7,27 @@
     <div id="imgHolder">
       <img id="PlaceImage"/>
     </div>
-  
+    
+    <!-- user interaction icons at the top -->
+    <div id="IconBar">
+
+      <button id="directionsIconBtn" (click)="directionsClicked()">
+        <img id='directionsIcon' src='../assets/directions.webp'>
+      </button>
+
+      <button id="favoriteBtn" (click)="favoriteThis()" >
+        <img id='favHeart' src='../assets/brown-heart.png'>
+      </button>
+
+      <button id="bookmarkBtn" (click)="bookmarkThis()" >
+        <img id='bookmark' src='../assets/bookmark.png'>
+      </button>
+      
+    </div> 
+
     <!-- name of coffee shop -->
     <div id="name"></div>
-  
+    
     <!-- address -->
     <div class="DetailChunk">
       <div class="sideBarIcon">
@@ -58,5 +75,8 @@
         <div id="priceLevel"></div>
       </div>
     </div>
+
+    <div><button id="closeSidebarBtn" (click)="closeDetailPane()">x</button></div>
   
-  </div>
+    <!-- <div><button id="directionsBtn" (click)="directionsClicked()">directions</button></div>
+  </div> -->

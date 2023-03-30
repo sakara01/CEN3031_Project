@@ -1,0 +1,22 @@
+<div id="loginModal" >
+    <div id="logintext">Sign In</div>
+    <div class="inputHolder">
+        <img src="../../assets/userIcon.png" style="margin-top: 4px;" >
+        <input class="loginInput" type="text" placeholder="Username" id ="nameGiven">
+    </div>
+    <div class="inputHolder">
+        <img src="../../assets/lockIcon.png" >
+        <input class="loginInput" type="text" placeholder="Password" id ="passGiven">
+    </div>
+    <div id="submitBtnHolder">
+        <input id="submitBtn" type="submit" value="Sign In" (click)="getLoginUser()"> 
+    </div>
+    <div><button id="closeBtn" (click)="closeModal()">X</button></div>
+    <div id="loginStatus"></div>
+    <div style="border-top: 1px solid rgba(47, 47, 47, 0.467); position:absolute; bottom: 40px; width:100%"></div>
+    <div id="createAcct" (click)="createAcct()"><p>Create Account</p></div>
+    <div id="logout" (click)="clearModal()"><p>Log out -></p></div>
+    
+</div>
+
+<!--credit to login icon: https://www.onlinewebfonts.com/icon/311846-->

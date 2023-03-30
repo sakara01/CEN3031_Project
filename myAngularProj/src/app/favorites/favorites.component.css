@@ -1,0 +1,50 @@
+/* favs bar to hold all fav shops */
+#favsPane{
+    background-color: rgb(255, 255, 255);
+    position:absolute;
+    top:50px;
+    left:0;
+    z-index: 40;
+    visibility: hidden;
+    overflow-y: scroll;
+    filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3));
+}
+
+.imgHolder{
+    margin-left: 10px;
+    float:left;
+    max-height: 90px;
+    max-width: 140px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    border-radius: 3px;
+    border: 1px solid black;
+}
+.shopimage{
+    width: 140px;
+    border-radius: 3px;
+    border: 1px solid black;
+}
+
+.shop{
+    width:360px;
+    padding-top: 14px;
+    padding-bottom: 6px;
+    display: inline-block;
+}
+
+.shopname{
+    position: relative;
+    float:left;
+    padding:2px 0px 5px 10px;
+    max-width: 190px;
+    font-size: 20px;
+
+}
+
+#closeFavs{
+    position: absolute;
+    top:10px;
+    right:10px;
+    height: 20px;
+}

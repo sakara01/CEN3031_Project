@@ -1,7 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
+import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 /*import { ConsoleReporter } from 'jasmine';
 */
@@ -19,11 +21,13 @@ export class AppComponent implements OnInit {
   public coffeeShop: any;
   public nearbyPlaces: any;  //declare as global so markerClicked() can access it
 
+  appSidebarData: any;  //test parent to child communication
 
-  constructor(private http: HttpClient, private sidebar: SidebarComponent) {}
+  constructor(private http: HttpClient, private sidebar: SidebarComponent, private header: HeaderComponent) {}
 
   display: any;
-  center: any;
+  public center: any;
+  route: any;
   zoom = 14;
   markerOptions: google.maps.MarkerOptions = 
   { draggable: false ,
@@ -70,14 +74,16 @@ export class AppComponent implements OnInit {
       //find the marker the user clicked on
       if (this.nearbyPlaces[i].geometry.location.lat == myMarker.lat){
         this.coffeeShop = this.nearbyPlaces[i];
+        this.appSidebarData = this.coffeeShop; //so other functions in sidebar component can use it
         this.sidebar.sidebarShop=this.coffeeShop;  //send coffee shop data to sidebar component
-        console.log(this.sidebar.sidebarShop);
+        console.log(this.appSidebarData);
         this.sidebar.openSidebar();    
-
-        //show coffee shop details in console
-        console.log(this.sidebar.sidebarShop);
       } 
     }
+    this.route = [
+      { lat: this.coffeeShop.geometry.location.lat, lng: this.coffeeShop.geometry.location.lng },
+      { lat: this.center.lat, lng: this.center.lng },
+      ];
   }
 
   
@@ -100,8 +106,8 @@ export class AppComponent implements OnInit {
     //gets user location
     navigator.geolocation.getCurrentPosition((position) => {
       this.center = { lat: position.coords.latitude, lng: position.coords.longitude };
+      //console.log(this.center);
       this.zoom = 14;
-
       const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
 
       //sends body data (user coordinates) to BACKEND
@@ -123,9 +129,32 @@ export class AppComponent implements OnInit {
           this.markers.push(this.nearbyPlaces[i].geometry.location);
         }
       });
+    
     })
   }
- 
+
+  // tried to get geocoder to work
+  dummyFunc(address: string){
+    alert("Sorry, Geocoding development in progress");
+    /*
+    var coords : any
+    var geocoder = new google.maps.Geocoder();
+    var request: google.maps.GeocoderRequest = { address: address }
+    
+    geocoder
+    .geocode(request)
+    .then((result) => {
+      const { results } = result;
+      console.log(results[0].geometry.viewport.getNorthEast);
+      return results;
+    })
+    .catch((e) => {
+      alert("Geocode was not successful for the following reason: " + e);
+    });
+    */
+  }
+  
+
   resizePage(){  //set container and detail pane height and width on window load.
     document.getElementById("detailPane") as HTMLFormElement;
     let winHeight=window.innerHeight;
@@ -133,6 +162,8 @@ export class AppComponent implements OnInit {
     (document.getElementById("container")as HTMLFormElement).style.height = (winHeight-44).toString()+"px";
     (document.getElementById("detailPane")as HTMLFormElement).style.height = (winHeight-50).toString()+"px";
     (document.getElementById("detailPane")as HTMLFormElement).style.width = (240 + winWidth/10).toString()+"px";
+    (document.getElementById("favsPane")as HTMLFormElement).style.height = (winHeight-50).toString()+"px";
+    (document.getElementById("favsPane")as HTMLFormElement).style.width = (240 + winWidth/10).toString()+"px";
   }
 
 

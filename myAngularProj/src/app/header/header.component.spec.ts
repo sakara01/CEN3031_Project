@@ -1,6 +1,10 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { By } from '@angular/platform-browser';
+import { LoginComponent } from '../login/login.component';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { FavoritesComponent } from 'app/favorites/favorites.component';
+
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -8,10 +12,17 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
+      imports: [
+        HttpClientTestingModule,
+      ],
+      declarations: [ HeaderComponent, LoginComponent, FavoritesComponent ],
+      providers: [
+        { provide: LoginComponent, useValue: {} },
+        { provide: FavoritesComponent, useValue: {} }
+      ],
     })
     .compileComponents();
-
+    
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -35,5 +46,13 @@ describe('HeaderComponent', () => {
     searchBtn.click();
     tick();
     expect(component.searchClicked).toHaveBeenCalled();
+  }));
+
+  it('should check heart button click', fakeAsync(()=> {
+    spyOn(component, 'showFavsPanel');
+    let favsBtn = fixture.debugElement.nativeElement.querySelector('#showFavs');
+    favsBtn.click();
+    tick();
+    expect(component.showFavsPanel).toHaveBeenCalled();
   }));
 });
