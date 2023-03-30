@@ -2,7 +2,7 @@
 ## Lauren Escarcha, Karen Tong, Saloni Karanth, Justus Geslani
 
 
-Link to video: 
+Link to video: https://drive.google.com/file/d/1cQSnE-dpYDkMzRlGJ9QLdL3_9jBqDq7f/view?usp=sharing
 
 
 ## User Stories Completed
