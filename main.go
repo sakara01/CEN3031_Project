@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
@@ -45,6 +46,7 @@ func main() { //starts server using go's http package
 	mux.HandleFunc("/create", createHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/favorite", favoriteHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/request", requestHandler).Methods("POST", "OPTIONS")
+	mux.HandleFunc("/directions", directionsHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/", postHandler).Methods("POST", "OPTIONS")
 	http.ListenAndServe(":8080", mux)
 }
@@ -254,6 +256,60 @@ func favoriteHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		shopData = []byte(`{"status": "alreadyFav"}`)
 	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(shopData)
+
+}
+
+func directionsHandler(w http.ResponseWriter, r *http.Request) {
+	(w).Header().Add("Access-Control-Allow-Origin", "*")
+	(w).Header().Add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS")
+	(w).Header().Add("Access-Control-Allow-Headers", "access-control-allow-origin, Content-Type")
+	(w).Header().Add("Access-Control-Allow-Credentials", "true")
+
+	//for some reason this version of stringifying and decoding works much better and doesnt cause cors errors.
+	buf := new(strings.Builder)
+	_, err := io.Copy(buf, r.Body)
+	if err != nil {
+		panic(err)
+	}
+
+	urlStr := buf.String()
+	fmt.Println(urlStr)
+
+	var myUrl = fmt.Sprintf("%s", urlStr)
+
+	//request nearby places data from Places API
+	client := &http.Client{}
+	// Create a GET request
+	req, err := http.NewRequest("GET", myUrl, nil)
+	if err != nil {
+		fmt.Println("Failed to create request:", err)
+		return
+	}
+
+	// Send the GET request
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Println("Failed to send request:", err)
+		return
+	}
+	defer resp.Body.Close()
+
+	// Read the response body
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Failed to read response body:", err)
+		return
+	}
+
+	// Print the response body
+	//fmt.Println(string(body))
+
+	var shopData []byte
+
+	shopData = []byte(body)
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(shopData)

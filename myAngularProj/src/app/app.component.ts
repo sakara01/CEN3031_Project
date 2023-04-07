@@ -21,7 +21,9 @@ export class AppComponent implements OnInit {
   public coffeeShop: any;
   public nearbyPlaces: any;  //declare as global so markerClicked() can access it
 
-  appSidebarData: any;  //test parent to child communication
+  appSidebarData: any;  // parent to child communication
+  userLoc: any;  //parent to child communication
+
 
   constructor(private http: HttpClient, private sidebar: SidebarComponent, private header: HeaderComponent) {}
 
@@ -76,14 +78,17 @@ export class AppComponent implements OnInit {
         this.coffeeShop = this.nearbyPlaces[i];
         this.appSidebarData = this.coffeeShop; //so other functions in sidebar component can use it
         this.sidebar.sidebarShop=this.coffeeShop;  //send coffee shop data to sidebar component
-        console.log(this.appSidebarData);
+        //console.log(this.appSidebarData);
         this.sidebar.openSidebar();    
       } 
     }
+    /*
     this.route = [
       { lat: this.coffeeShop.geometry.location.lat, lng: this.coffeeShop.geometry.location.lng },
       { lat: this.center.lat, lng: this.center.lng },
       ];
+      */
+     //let destination = `${this.coffeeShop.geometry.location.lat}, ${this.coffeeShop.geometry.location.lng}`
   }
 
   
@@ -106,8 +111,8 @@ export class AppComponent implements OnInit {
     //gets user location
     navigator.geolocation.getCurrentPosition((position) => {
       this.center = { lat: position.coords.latitude, lng: position.coords.longitude };
-      //console.log(this.center);
       this.zoom = 14;
+      this.userLoc = `${position.coords.latitude},${position.coords.longitude}`
       const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
 
       //sends body data (user coordinates) to BACKEND
