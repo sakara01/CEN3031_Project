@@ -8,26 +8,27 @@
       <img id="PlaceImage"/>
     </div>
     
-    <!-- user interaction icons at the top -->
+    <!-- name of coffee shop -->
+    <div id="name"></div>
+    
+    <!-- user interaction icons -->
     <div id="IconBar">
-
       <button id="directionsIconBtn" (click)="directionsClicked()">
         <img id='directionsIcon' src='../assets/directions.webp'>
+        <span> Directions</span>
       </button>
 
       <button id="favoriteBtn" (click)="favoriteThis()" >
         <img id='favHeart' src='../assets/brown-heart.png'>
+        <span> Favorites</span>
       </button>
 
       <button id="bookmarkBtn" (click)="bookmarkThis()" >
         <img id='bookmark' src='../assets/bookmark.png'>
+        <span> Save</span>
       </button>
-      
-    </div> 
-
-    <!-- name of coffee shop -->
-    <div id="name"></div>
-    
+    </div>
+  
     <!-- address -->
     <div class="DetailChunk">
       <div class="sideBarIcon">
