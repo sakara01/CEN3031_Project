@@ -1,12 +1,13 @@
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
-import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ElementRef} from '@angular/core';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
+import { MapDirectionsService } from '@angular/google-maps';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
-/*import { ConsoleReporter } from 'jasmine';
-*/
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,19 +16,40 @@ import { FavoritesComponent } from './favorites/favorites.component';
 export class AppComponent implements OnInit {
   @Input() label='';
   @Output() clicked= new EventEmitter()
+
   
   title = 'myAngularFile';
 
   public coffeeShop: any;
   public nearbyPlaces: any;  //declare as global so markerClicked() can access it
-
   appSidebarData: any;  //test parent to child communication
-
-  constructor(private http: HttpClient, private sidebar: SidebarComponent, private header: HeaderComponent) {}
 
   display: any;
   public center: any;
   route: any;
+  public dest: any;
+  public orig: any;
+  currentLat: any;
+  currentLng: any;
+  selectedLocation: any;
+
+  constructor(private http: HttpClient, private sidebar: SidebarComponent, private header: HeaderComponent,
+    private mapDirectionsService: MapDirectionsService, 
+  ) {
+    const request: google.maps.DirectionsRequest = {
+      destination: {},
+      origin: {},
+      travelMode: google.maps.TravelMode.WALKING
+    };
+    console.log(this.center);
+    this.directionsResults$ = this.mapDirectionsService.route(request).pipe(map(response => response.result));
+  }
+
+  //center_test: google.maps.LatLngLiteral = {lat: 24, lng: 12};
+
+  directionsResults$: Observable<google.maps.DirectionsResult|undefined>;
+
+
   zoom = 14;
   markerOptions: google.maps.MarkerOptions = 
   { draggable: false ,
@@ -38,10 +60,35 @@ export class AppComponent implements OnInit {
     icon: '../assets/map-marker (1).gif'
   };
 
+  routeOptions: google.maps.DirectionsRendererOptions = 
+  {
+    markerOptions: {visible: false}
+  };
+
+  calcRoute(dest: google.maps.LatLngLiteral) {
+    const request: google.maps.DirectionsRequest = {
+      destination: {lat: dest.lat, lng: dest.lng},
+      origin: {lat: this.center.lat, lng: this.center.lng},
+      travelMode: google.maps.TravelMode.WALKING,
+    };
+    console.log(this.center)
+    console.log(dest)
+    this.directionsResults$ = this.mapDirectionsService.route(request).pipe(map(response => response.result));
+  }
+
+
   ngOnInit(): void {
     this.getUserLocation();
     //this.watchPosition();
     this.resizePage();
+    navigator.geolocation.getCurrentPosition((position)=> {
+      this.center = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      this.currentLat = position.coords.latitude;
+      this.currentLng = position.coords.longitude;
+    })
   }
 
   watchPosition() {
@@ -80,13 +127,16 @@ export class AppComponent implements OnInit {
         this.sidebar.openSidebar();    
       } 
     }
+    this.dest = myMarker;
+    this.calcRoute(myMarker);
     this.route = [
       { lat: this.coffeeShop.geometry.location.lat, lng: this.coffeeShop.geometry.location.lng },
       { lat: this.center.lat, lng: this.center.lng },
       ];
+
+    
   }
 
-  
 
   /*
   //finds user location, but we are doing that in the getUserLocation func

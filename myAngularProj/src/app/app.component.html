@@ -21,10 +21,15 @@
         [options]="userMarker"
         >
       </map-marker>
-      <map-polyline
+      <!-- <map-polyline
         [path]="route"
         >
-      </map-polyline>
+      </map-polyline> -->
+      <map-directions-renderer
+        *ngIf="(directionsResults$ | async) as directionsResults"
+        [directions]="directionsResults"
+        [options]="routeOptions"></map-directions-renderer>
+
 </google-map>
 
 <app-sidebar [sidebarData]="appSidebarData"></app-sidebar>
