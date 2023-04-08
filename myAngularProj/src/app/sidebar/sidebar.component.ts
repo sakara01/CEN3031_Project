@@ -10,6 +10,8 @@ import { FavoritesComponent } from 'app/favorites/favorites.component';
 export class SidebarComponent {
 
   @Input() sidebarData: any;
+  @Input() userLoc: any;
+
 
   constructor(private http: HttpClient,) { };
   sidebarShop: any;
@@ -96,7 +98,19 @@ export class SidebarComponent {
   }
 
   directionsClicked(){
-    console.log("directions clicked");
+    //send request to backend
+    const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
+
+    //this.userLoc contains origin
+    let destination = `${this.sidebarData.geometry.location.lat},${this.sidebarData.geometry.location.lng}`
+    let apiUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${this.userLoc}&destination=${destination}&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k`;
+
+    this.http.post('http://localhost:8080/directions', apiUrl, { headers: header }).subscribe((data: any) => {
+      (document.getElementById("directionsHolder") as HTMLFormElement).style.visibility = 'visible';
+      (document.getElementById("distance") as HTMLFormElement).innerHTML = data.routes[0].legs[0].distance.text;
+      (document.getElementById("duration") as HTMLFormElement).innerHTML = data.routes[0].legs[0].duration.text;
+
+    });
   }
 
   favoriteThis(){

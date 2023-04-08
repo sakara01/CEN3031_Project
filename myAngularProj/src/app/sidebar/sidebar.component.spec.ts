@@ -125,11 +125,11 @@ describe('SidebarComponent', () => {
   }));
 
   it('should check if directions button clicked', fakeAsync(()=> {
-    spyOn(component,'getDirections');
+    spyOn(component, 'directionsClicked');
     let directionsIconBtn = fixture.debugElement.nativeElement.querySelector('#directionsIconBtn');
     directionsIconBtn.click();
     tick();
-    expect(component.getDirections).toHaveBeenCalled();
+    expect(component.directionsClicked).toHaveBeenCalled();
   }));
 
 });
