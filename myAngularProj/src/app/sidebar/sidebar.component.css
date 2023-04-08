@@ -12,15 +12,15 @@
 }
 
 #IconBar{
-    visibility: hidden;
+    /*visibility: hidden;*/
 
     margin-right: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 
-    display: flex;
-    align-items: center; /* puts items vertically in center */
-    justify-content: left;
+    /*display: flex;
+    align-items: center;  puts items vertically in center
+    justify-content: left;*/
 }
 
 #favoriteBtn{
@@ -28,6 +28,7 @@
     border: none;
     background-color: transparent;
     /* float:left; */
+    margin-left: 20px;
 }
 
 #favoriteBtn img:active{
@@ -38,6 +39,7 @@
     outline: none;
     border: none;
     background-color: transparent;
+    margin-left: 20px;
 }
 
 #directionsIconBtn img:active{
@@ -48,6 +50,7 @@
     outline: none;
     border: none;
     background-color: transparent;
+    margin-left: 20px;
 }
 
 #bookmarkBtn img:active{
