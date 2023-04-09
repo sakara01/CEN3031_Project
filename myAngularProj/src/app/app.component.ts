@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
     const request: google.maps.DirectionsRequest = {
       destination: {},
       origin: {},
-      travelMode: google.maps.TravelMode.WALKING
+      travelMode: google.maps.TravelMode.DRIVING
     };
     console.log(this.center);
     this.directionsResults$ = this.mapDirectionsService.route(request).pipe(map(response => response.result));
@@ -71,7 +71,7 @@ export class AppComponent implements OnInit {
     const request: google.maps.DirectionsRequest = {
       destination: {lat: dest.lat, lng: dest.lng},
       origin: {lat: this.center.lat, lng: this.center.lng},
-      travelMode: google.maps.TravelMode.WALKING,
+      travelMode: google.maps.TravelMode.DRIVING,
     };
     console.log(this.center)
     console.log(dest)
