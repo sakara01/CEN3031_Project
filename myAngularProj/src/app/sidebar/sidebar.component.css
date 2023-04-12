@@ -179,3 +179,18 @@ img {
     visibility: hidden;
     margin-bottom: 20px;
 }
+
+#searchAreaText{
+    font-size: 20px;
+    position: relative;
+    margin-top: 20px;
+    margin-left: 10px;
+    
+}
+
+#searchAreaHolder{
+    visibility: hidden;
+    margin-bottom: 20px;
+}
+
+
