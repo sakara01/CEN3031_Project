@@ -160,4 +160,8 @@ export class SidebarComponent {
     (document.getElementById("favHeart") as HTMLFormElement)['src'] = '../assets/filled-heart.png';
     
   }
+  
+  searchAreaBtnClicked() {
+    (document.getElementById("searchAreaHolder") as HTMLFormElement).style.visibility = 'visible';
+  }
 }
