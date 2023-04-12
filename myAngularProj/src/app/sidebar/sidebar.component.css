@@ -28,7 +28,7 @@
     border: none;
     background-color: transparent;
     /* float:left; */
-    margin-left: 20px;
+    margin-left: 8px;
 }
 
 #favoriteBtn img:active{
@@ -39,7 +39,7 @@
     outline: none;
     border: none;
     background-color: transparent;
-    margin-left: 20px;
+    margin-left: 8px;
 }
 
 #directionsIconBtn img:active{
@@ -50,7 +50,7 @@
     outline: none;
     border: none;
     background-color: transparent;
-    margin-left: 20px;
+    margin-left: 8px;
 }
 
 #bookmarkBtn img:active{
