@@ -91,7 +91,6 @@ export class SidebarComponent {
       (document.getElementById("IconBar") as HTMLFormElement).style.visibility = 'visible';
       (document.getElementById("directionsIcon") as HTMLFormElement).style.visibility = 'visible';
       (document.getElementById("favoriteBtn") as HTMLFormElement).style.visibility = 'visible';
-      (document.getElementById("bookmarkBtn") as HTMLFormElement).style.visibility = 'visible';
       (<HTMLImageElement>document.getElementById("favHeart")).src = '../assets/brown-heart.png';
     }
     else {
@@ -99,7 +98,6 @@ export class SidebarComponent {
       (document.getElementById("IconBar") as HTMLFormElement).style.visibility = 'visible';
       (document.getElementById("directionsIcon") as HTMLFormElement).style.visibility = 'visible';
       (document.getElementById("favoriteBtn") as HTMLFormElement).style.visibility = 'hidden';
-      (document.getElementById("bookmarkBtn") as HTMLFormElement).style.visibility = 'hidden';
     }
   }
 

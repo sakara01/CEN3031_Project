@@ -46,16 +46,6 @@
     filter: opacity(50%);
 }
 
-#bookmarkBtn{
-    outline: none;
-    border: none;
-    background-color: transparent;
-    margin-left: 8px;
-}
-
-#bookmarkBtn img:active{
-    filter: opacity(50%);
-}
 
 #name{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
