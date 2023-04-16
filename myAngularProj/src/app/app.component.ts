@@ -67,7 +67,7 @@ export class AppComponent implements OnInit {
     markerOptions: {visible: false}
   };
 
-  calcRoute(dest: google.maps.LatLngLiteral) {
+  calcRoute(dest: google.maps.LatLngLiteral): google.maps.LatLngLiteral {
     const request: google.maps.DirectionsRequest = {
       destination: {lat: dest.lat, lng: dest.lng},
       origin: {lat: this.center.lat, lng: this.center.lng},
@@ -76,6 +76,7 @@ export class AppComponent implements OnInit {
     console.log(this.center)
     console.log(dest)
     this.directionsResults$ = this.mapDirectionsService.route(request).pipe(map(response => response.result));
+    return dest
   }
 
 
@@ -156,7 +157,7 @@ export class AppComponent implements OnInit {
 
   //finds local cafes in the area based on user location
   //bc local cafes are stored in 'body' variable, which is read in this function
-  public getUserLocation() {  //gets user's location and sends to backend
+  public getUserLocation(): any {  //gets user's location and sends to backend
 
     //gets user location
     navigator.geolocation.getCurrentPosition((position) => {
@@ -186,6 +187,7 @@ export class AppComponent implements OnInit {
       });
     
     })
+    return this.nearbyPlaces
   }
 
   // tried to get geocoder to work
