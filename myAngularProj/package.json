@@ -23,6 +23,7 @@
     "@types/googlemaps": "^3.43.3",
     "cypress": "^12.7.0",
     "google-maps": "^4.3.3",
+    "ngx-google-places-autocomplete": "^2.0.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

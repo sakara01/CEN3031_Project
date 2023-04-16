@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import { FavoritesComponent } from '../favorites/favorites.component';
 import { LoginComponent } from '../login/login.component';
+import { Address } from 'ngx-google-places-autocomplete/objects/address';
 
 
 @Component({
@@ -18,6 +19,16 @@ export class HeaderComponent implements OnInit {
 
   userData: any;
   favTransfer: any = 'idk';
+
+  options: any = {
+    componentRestrictions: {}
+  }  
+
+  handleAddressChange(address: Address) {
+    console.log(address.formatted_address)
+    console.log(address.geometry.location.lat())
+    console.log(address.geometry.location.lng())
+  }
 
   ngOnInit(): void {
     let winWidth= window.innerWidth;
