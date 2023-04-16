@@ -9,7 +9,10 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LoginComponent } from './login/login.component';
 import { FavoritesComponent } from './favorites/favorites.component';
-import { BookmarkComponent } from './bookmarks/boookmark.component';
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -18,7 +21,6 @@ import { BookmarkComponent } from './bookmarks/boookmark.component';
     SidebarComponent,
     LoginComponent,
     FavoritesComponent,
-    BookmarkComponent
   ],
   imports: [
     BrowserModule,
@@ -29,16 +31,8 @@ import { BookmarkComponent } from './bookmarks/boookmark.component';
   exports:[
     LoginComponent,
     FavoritesComponent,
-    BookmarkComponent
   ],
-  providers: [
-    AppComponent,
-    HeaderComponent,
-    SidebarComponent,
-    LoginComponent,
-    FavoritesComponent,
-    BookmarkComponent
-  ],
+  providers: [AppComponent,HeaderComponent,SidebarComponent,LoginComponent,FavoritesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

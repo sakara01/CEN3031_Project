@@ -4,7 +4,6 @@ import { Component } from "@angular/core"
 import { LoginComponent } from '../login/login.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FavoritesComponent } from 'app/favorites/favorites.component';
-import { BookmarkComponent } from 'app/bookmarks/boookmark.component';
 import { TestBed, async } from '@angular/core/testing';
 
 describe('HeaderComponent', () => {
@@ -14,9 +13,9 @@ describe('HeaderComponent', () => {
             HttpClientTestingModule,
           ],
           declarations: [
-            HeaderComponent, LoginComponent, FavoritesComponent, BookmarkComponent
+            HeaderComponent, LoginComponent, FavoritesComponent
           ],
-          providers:[LoginComponent, FavoritesComponent, BookmarkComponent]
+          providers:[LoginComponent,FavoritesComponent]
         }).compileComponents();
       }));
 
