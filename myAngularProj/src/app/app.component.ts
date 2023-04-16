@@ -218,7 +218,7 @@ export class AppComponent implements OnInit {
     (document.getElementById("detailPane")as HTMLFormElement).style.height = (winHeight-50).toString()+"px";
     (document.getElementById("detailPane")as HTMLFormElement).style.width = (240 + winWidth/10).toString()+"px";
     (document.getElementById("favsPane")as HTMLFormElement).style.height = (winHeight-50).toString()+"px";
-    (document.getElementById("favsPane")as HTMLFormElement).style.width = (240 + winWidth/10).toString()+"px";
+    (document.getElementById("bookmarksPane")as HTMLFormElement).style.height = (winHeight-50).toString()+"px";
   }
 
 

@@ -53,7 +53,7 @@ h5{
     z-index: 4000;
     position: absolute;
     top:1px;
-    right: 380px;
+    right: 440px;
 }
 
 #showFavs{
@@ -61,10 +61,23 @@ h5{
     z-index: 4000;
     position: absolute;
     top:10px;
-    right: 330px;
+    right: 340px;
     background-color: transparent;
     border: none;
 }
 #showFavs img:active{
+    filter: opacity(50%);
+}
+
+#showBookmarks{
+    visibility: hidden;
+    z-index: 4000;
+    position: absolute;
+    top:10px;
+    right: 390px;
+    background-color: transparent;
+    border: none;
+}
+#showBookmarks img:active{
     filter: opacity(50%);
 }

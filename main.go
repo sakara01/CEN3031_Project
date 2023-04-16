@@ -36,6 +36,13 @@ type Favorite struct {
 	Photoref string `json:"photoref"`
 }
 
+type Bookmark struct {
+	Username string `json:"username"`
+	Placeid  string `json:"placeid"`
+	Name     string `json:"name"`
+	Photoref string `json:"photoref"`
+}
+
 type AllShops struct {
 	AllMyShops []Shop `json:"allMyShops"`
 }
@@ -45,6 +52,7 @@ func main() { //starts server using go's http package
 	mux.HandleFunc("/login", loginHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/create", createHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/favorite", favoriteHandler).Methods("POST", "OPTIONS")
+	mux.HandleFunc("/bookmarked", bookmarkHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/request", requestHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/directions", directionsHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/", postHandler).Methods("POST", "OPTIONS")
@@ -262,6 +270,36 @@ func favoriteHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func bookmarkHandler(w http.ResponseWriter, r *http.Request) {
+	(w).Header().Add("Access-Control-Allow-Origin", "*")
+	(w).Header().Add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS")
+	(w).Header().Add("Access-Control-Allow-Headers", "access-control-allow-origin, Content-Type")
+	(w).Header().Add("Access-Control-Allow-Credentials", "true")
+
+	//for some reason this version of stringifying and decoding works much better and doesnt cause cors errors.
+	buf := new(strings.Builder)
+	_, err := io.Copy(buf, r.Body)
+	if err != nil {
+		panic(err)
+	}
+
+	loginString := buf.String()
+	var myBookmark Bookmark
+
+	json.Unmarshal([]byte(loginString), &myBookmark)
+	var shopData []byte
+
+	if addBookmark(myBookmark) {
+		shopData = []byte(`{"status": "bookmarkAdded"}`)
+	} else {
+		shopData = []byte(`{"status": "alreadyBookmarked"}`)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(shopData)
+
+}
+
 func directionsHandler(w http.ResponseWriter, r *http.Request) {
 	(w).Header().Add("Access-Control-Allow-Origin", "*")
 	(w).Header().Add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS")
@@ -342,6 +380,35 @@ func addFavorite(myFav Favorite) bool {
 			panic(err)
 		}
 		//return true if favorite successfully added
+		return true
+	}
+	return false
+}
+
+func addBookmark(myBookmark Bookmark) bool {
+	f, err := os.OpenFile("users.txt", os.O_APPEND|os.O_CREATE, 0600)
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+
+	var matched bool = false
+
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		line := scanner.Bytes()
+		lineStr := strings.Split(string(line), "|")
+		if lineStr[0] == myBookmark.Username && lineStr[1] == myBookmark.Placeid && lineStr[2] == myBookmark.Name {
+			matched = true
+		}
+	}
+
+	if matched == true {
+		return false
+	} else if matched == false {
+		if _, err = f.WriteString(myBookmark.Username + "|" + myBookmark.Placeid + "|" + myBookmark.Name + "|" + myBookmark.Photoref + "\n"); err != nil {
+			panic(err)
+		}
 		return true
 	}
 	return false

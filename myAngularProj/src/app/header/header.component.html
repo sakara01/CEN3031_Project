@@ -1,19 +1,33 @@
 <app-login (login)="updateName($event)"></app-login>
 
 <div id="header">
+
     <h5 style="background-color: #A36431;">Caffinder</h5>
+
     <p id="loginName"></p>
+
+    <!-- favs -->
     <button id="showFavs" (click)="showFavsPanel()">
         <img src = "../../assets/heart.png" style="width: 30px;"/>
     </button>
+
+    <!-- bookmarks -->
+    <button id="showBookmarks" (click)="showBookmarksPanel()">
+        <img src = "../../assets/bookmark.png" style="width: 30px;"/>
+    </button>
+
     <button id="loginButton" (click)="startLoginComp()" style="background-color: transparent; border-color: transparent;">
         <img src = "../../assets/user.png" style="width: 30px;"/>
     </button>
+
     <input type="text" id="addressInput" name="address" >
+
     <button id="searchBtn" (click)="searchClicked()">
         <img src="../../assets/search.png" style ="width:20px">
     </button>
+
 </div>
 
 <app-favorites [transfer]="favTransfer"></app-favorites>
+<app-bookmark [transfer]="bookmarkTransfer"></app-bookmark>
 
