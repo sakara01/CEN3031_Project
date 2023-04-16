@@ -148,16 +148,8 @@ export class SidebarComponent {
     
   }
 
-  bookmarkThis(){
-    let usernameRaw = (document.getElementById("nameGiven") as HTMLInputElement).value;
-    let name = this.sidebarData.name;
-    let placeid = this.sidebarData.place_id;
-    let photoref = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photo_reference=" + this.sidebarData.photos[0].photo_reference +"&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k";
 
-    //todo: implentation
-
-    //change img to filled heart 
-    (document.getElementById("favHeart") as HTMLFormElement)['src'] = '../assets/filled-heart.png';
-    
+  searchAreaBtnClicked() {
+    (document.getElementById("searchAreaHolder") as HTMLFormElement).style.visibility = 'visible';
   }
 }
