@@ -87,7 +87,19 @@ export class SidebarComponent {
     (document.getElementById("detailPane") as HTMLFormElement).style.visibility = 'visible';
     //check if loginName is empty, if empty, user not logged in
     if((document.getElementById("loginName") as HTMLFormElement) ==null  || (document.getElementById("loginName") as HTMLFormElement).innerHTML != ""){   //null when testing
+      console.log("user is logged in");
       (document.getElementById("IconBar") as HTMLFormElement).style.visibility = 'visible';
+      (document.getElementById("directionsIcon") as HTMLFormElement).style.visibility = 'visible';
+      (document.getElementById("favoriteBtn") as HTMLFormElement).style.visibility = 'visible';
+      (document.getElementById("bookmarkBtn") as HTMLFormElement).style.visibility = 'visible';
+      (<HTMLImageElement>document.getElementById("favHeart")).src = '../assets/brown-heart.png';
+    }
+    else {
+      console.log("not logged in");
+      (document.getElementById("IconBar") as HTMLFormElement).style.visibility = 'visible';
+      (document.getElementById("directionsIcon") as HTMLFormElement).style.visibility = 'visible';
+      (document.getElementById("favoriteBtn") as HTMLFormElement).style.visibility = 'hidden';
+      (document.getElementById("bookmarkBtn") as HTMLFormElement).style.visibility = 'hidden';
     }
   }
 
@@ -114,27 +126,21 @@ export class SidebarComponent {
   }
 
   favoriteThis(){
+    //change img to filled heart 
+    (<HTMLImageElement>document.getElementById("favHeart")).src = '../assets/filled-heart.png';
+    
     let usernameRaw = (document.getElementById("nameGiven") as HTMLInputElement).value;
     let name = this.sidebarData.name;
     let placeid = this.sidebarData.place_id;
     let photoref = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photo_reference=" + this.sidebarData.photos[0].photo_reference +"&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k";
 
-    //let name = (document.getElementById("name") as HTMLFormElement).innerHTML;
-    //let placeid = (document.getElementById("placeid") as HTMLFormElement).innerHTML;
-    //let photoref = (document.getElementById("PlaceImage") as HTMLImageElement).src;
     this.favData = { username: usernameRaw, name: name, placeid: placeid, photoref: photoref};
     console.log(this.favData)
 
     const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
 
     this.http.post('http://localhost:8080/favorite', this.favData, { headers: header }).subscribe((data: any) => {
-      //data = username object
-      console.log("idk in post now");
     });
-
-    //change img to filled heart 
-    (document.getElementById("favHeart") as HTMLFormElement)['src'] = '../assets/filled-heart.png';
-    
   }
 
   getDirections(){
@@ -148,16 +154,4 @@ export class SidebarComponent {
     
   }
 
-  bookmarkThis(){
-    let usernameRaw = (document.getElementById("nameGiven") as HTMLInputElement).value;
-    let name = this.sidebarData.name;
-    let placeid = this.sidebarData.place_id;
-    let photoref = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photo_reference=" + this.sidebarData.photos[0].photo_reference +"&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k";
-
-    //todo: implentation
-
-    //change img to filled heart 
-    (document.getElementById("favHeart") as HTMLFormElement)['src'] = '../assets/filled-heart.png';
-    
-  }
 }

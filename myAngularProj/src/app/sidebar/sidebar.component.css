@@ -12,7 +12,7 @@
 }
 
 #IconBar{
-    /*visibility: hidden;*/
+    visibility: hidden;
 
     margin-right: 20px;
     margin-top: 5px;
@@ -159,7 +159,7 @@ img {
 #drivingText{
     font-size: 20px;
     position: relative;
-    margin-top: 20px;
+    margin-top: 28px;
     margin-left: 10px;
 }
 
