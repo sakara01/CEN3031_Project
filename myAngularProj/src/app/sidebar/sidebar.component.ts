@@ -155,7 +155,4 @@ export class SidebarComponent {
   }
 
 
-  searchAreaBtnClicked() {
-    (document.getElementById("searchAreaHolder") as HTMLFormElement).style.visibility = 'visible';
-  }
 }
