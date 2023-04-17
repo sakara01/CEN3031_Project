@@ -263,6 +263,12 @@ export class AppComponent implements OnInit {
     let center = { lat: lat, lng: lng };
     this.nearbySearch(center)
   }
+
+  public searchBar(address: google.maps.LatLngLiteral) {
+    console.log(address)
+    this.center = address
+    this.nearbySearch(address)
+  }
   
 
   resizePage(){  //set container and detail pane height and width on window load.

@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   @Input() label=''; title="header";
   @Output() header= new EventEmitter()
   @Output() searchAreaClicked = new EventEmitter<string>();
+  @Output() searchBarClicked = new EventEmitter<google.maps.LatLngLiteral>();
 
   
   constructor(private login: LoginComponent, private http: HttpClient, private favorites: FavoritesComponent) {}
@@ -30,6 +31,7 @@ export class HeaderComponent implements OnInit {
     console.log(address.formatted_address)
     console.log(address.geometry.location.lat())
     console.log(address.geometry.location.lng())
+    this.searchClicked({lat: address.geometry.location.lat(), lng: address.geometry.location.lng()})
   }
 
   ngOnInit(): void {
@@ -38,10 +40,12 @@ export class HeaderComponent implements OnInit {
     (document.getElementById("header")as HTMLFormElement).style.width = winWidth.toString()+"px";
   }
 
-  searchClicked(){
+  searchClicked(address: google.maps.LatLngLiteral){
     console.log("search clicked");
-    let address = (document.getElementById("addressInput")as HTMLInputElement).value;
-    this.header.emit(address);
+    //let address = (document.getElementById("addressInput")as HTMLInputElement).value;
+    //this.header.emit(address);
+    this.searchBarClicked.emit(address);
+    
   }
   
   startLoginComp(){
