@@ -85,6 +85,9 @@ export class SidebarComponent {
 
   openDetailPane() {
     (document.getElementById("detailPane") as HTMLFormElement).style.visibility = 'visible';
+    (document.getElementById("directionsHolder") as HTMLFormElement).style.visibility = 'hidden';
+    (document.getElementById("directionsHolder") as HTMLFormElement).style.height = '10px';
+
     //check if loginName is empty, if empty, user not logged in
     if((document.getElementById("loginName") as HTMLFormElement) ==null  || (document.getElementById("loginName") as HTMLFormElement).innerHTML != ""){   //null when testing
       console.log("user is logged in");
@@ -117,6 +120,7 @@ export class SidebarComponent {
 
     this.http.post('http://localhost:8080/directions', apiUrl, { headers: header }).subscribe((data: any) => {
       (document.getElementById("directionsHolder") as HTMLFormElement).style.visibility = 'visible';
+      (document.getElementById("directionsHolder") as HTMLFormElement).style.height = '102px';
       (document.getElementById("distance") as HTMLFormElement).innerHTML = data.routes[0].legs[0].distance.text;
       (document.getElementById("duration") as HTMLFormElement).innerHTML = data.routes[0].legs[0].duration.text;
 
@@ -154,3 +158,9 @@ export class SidebarComponent {
 
 
 }
+
+
+
+//distance icon by onlinewebfonts
+//car icon by kindpng
+//clock icon by kindpng

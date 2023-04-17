@@ -91,6 +91,7 @@ h5{
     right: 0;
     top:55px;
     background-color: rgb(250, 250, 250);
-    border-radius: 20px;
+    border-radius: 16px;
+    border-width: 1.4px;
     border-color: black;
 }
