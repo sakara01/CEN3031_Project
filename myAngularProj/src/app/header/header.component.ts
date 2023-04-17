@@ -14,6 +14,8 @@ export class HeaderComponent implements OnInit {
 
   @Input() label=''; title="header";
   @Output() header= new EventEmitter()
+  @Output() searchAreaClicked = new EventEmitter<string>();
+
   
   constructor(private login: LoginComponent, private http: HttpClient, private favorites: FavoritesComponent) {}
 
@@ -72,5 +74,9 @@ export class HeaderComponent implements OnInit {
        this.favorites.favShops = data;
        this.favorites.setFavorites();
     });
+  }
+
+  doSearchArea(){
+    this.searchAreaClicked.emit("clicked")
   }
 }

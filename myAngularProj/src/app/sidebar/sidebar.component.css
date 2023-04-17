@@ -15,8 +15,8 @@
     visibility: hidden;
 
     margin-right: 20px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 2px;
+    margin-bottom: 18px;
 
     /*display: flex;
     align-items: center;  puts items vertically in center
@@ -146,7 +146,7 @@ img {
 }
 
 #drivingText{
-    font-size: 20px;
+    font-size: 18px;
     position: relative;
     margin-top: 28px;
     margin-left: 10px;

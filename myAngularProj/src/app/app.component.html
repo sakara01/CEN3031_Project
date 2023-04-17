@@ -1,9 +1,8 @@
 <!--ONLY PUT BODY ELEMENTS HERE, no javascript-->
-<app-header (header)="dummyFunc($event)"></app-header>
+<app-header (header)="dummyFunc($event)" (searchAreaClicked)="searchThisArea()"></app-header>
 
 <div id="container">
-  <google-map 
-              id="map"
+  <google-map #map
               width="100%"
               height="100%"
               [center]="center"

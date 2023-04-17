@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
-import { Component, Input, OnInit, Output, EventEmitter, ElementRef} from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
 import { MapDirectionsService } from '@angular/google-maps';
 import { HeaderComponent } from './header/header.component';
@@ -11,12 +11,45 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  template: `
+      <google-map #map
+                width="100%"
+                height="100%"
+                [center]="center"
+                [zoom]="zoom">
+
+        <map-marker
+          *ngFor="let marker of markers"
+          [position]="marker"
+          [options]="markerOptions"
+          (mapClick)="markerClicked(marker)"
+        >
+        </map-marker>
+        <map-marker
+          [position]="center"
+          [options]="userMarker"
+          >
+        </map-marker>
+        <!-- <map-polyline
+          [path]="route"
+          >
+        </map-polyline> -->
+        <map-directions-renderer
+          *ngIf="(directionsResults$ | async) as directionsResults"
+          [directions]="directionsResults"
+          [options]="routeOptions"></map-directions-renderer>
+
+  </google-map>
+  `,
 })
 export class AppComponent implements OnInit {
+  @ViewChild(GoogleMap) mapElement!: GoogleMap;
+  private cn: google.maps.LatLngLiteral = { lat: 0, lng: 0 }; // Initial center coordinates
+  private zm: number = 10; // Initial zoom level
+
   @Input() label='';
   @Output() clicked= new EventEmitter()
-
   
   title = 'myAngularFile';
 
@@ -94,6 +127,7 @@ export class AppComponent implements OnInit {
     })
   }
 
+
   watchPosition() {
     let desLat = 0;
     let desLon = 0;
@@ -141,19 +175,8 @@ export class AppComponent implements OnInit {
     
       */
      //let destination = `${this.coffeeShop.geometry.location.lat}, ${this.coffeeShop.geometry.location.lng}`
+     //this.sendCenter()
   }
-
-
-  /*
-  //finds user location, but we are doing that in the getUserLocation func
-  //Not needed, but dont delete
-  public getMethod() {
-    this.http.get('http://localhost:8080').subscribe((data) => {
-      console.log(data);
-      this.getJsonValue = data;
-    });
-  }
-  */
 
   //finds local cafes in the area based on user location
   //bc local cafes are stored in 'body' variable, which is read in this function
@@ -164,30 +187,34 @@ export class AppComponent implements OnInit {
       this.center = { lat: position.coords.latitude, lng: position.coords.longitude };
       this.zoom = 14;
       this.userLoc = `${position.coords.latitude},${position.coords.longitude}`
-      const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
-
-      //sends body data (user coordinates) to BACKEND
-      //posts to backend and returns JSON of nearby coffee shops
-      this.http.post('http://localhost:8080/', this.center, { headers: header }).subscribe((data) => {
-        //data = JSON of all nearby places sent by Places API
-
-        //convert JSON into nearbyPlaces objects
-        //JSON > string > objects
-        let placesString: string = JSON.stringify(data)
-        var placesObj = JSON.parse(placesString)
-
-        //array to hold all of the placesObj objects
-        this.nearbyPlaces= placesObj.results;
-
-        // console.log(this.nearbyPlaces[0]);
-
-        for (let i = 0; i < this.nearbyPlaces.length; i++) {
-          this.markers.push(this.nearbyPlaces[i].geometry.location);
-        }
-      });
-    
+      
+      this.nearbySearch(this.center)
     })
     return this.nearbyPlaces
+  }
+
+  public nearbySearch(center: any){
+    const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
+
+    //sends body data (user coordinates) to BACKEND
+    //posts to backend and returns JSON of nearby coffee shops
+    this.http.post('http://localhost:8080/', center, { headers: header }).subscribe((data) => {
+      //data = JSON of all nearby places sent by Places API
+
+      //convert JSON into nearbyPlaces objects
+      //JSON > string > objects
+      let placesString: string = JSON.stringify(data)
+      var placesObj = JSON.parse(placesString)
+
+      //array to hold all of the placesObj objects
+      this.nearbyPlaces= placesObj.results;
+
+      // console.log(this.nearbyPlaces[0]);
+
+      for (let i = 0; i < this.nearbyPlaces.length; i++) {
+        this.markers.push(this.nearbyPlaces[i].geometry.location);
+      }
+    });
   }
 
   // tried to get geocoder to work
@@ -209,6 +236,32 @@ export class AppComponent implements OnInit {
       alert("Geocode was not successful for the following reason: " + e);
     });
     */
+  }
+
+  /*
+  public sendCenter(lat: any,lng: any){
+    let center = { lat: lat, lng: lng };
+    console.log(this.center)
+    console.log(center)
+    this.nearbySearch(center)
+  }
+
+  public onMapDrag(){
+    console.log("map dragged")
+    let center = this.mapElement.getCenter()
+    var lat = center!.lat(); // Get the latitude of the map's center
+    var lng = center!.lng();
+    console.log(lat)
+    this.sendCenter(lat,lng)
+  }
+  */
+
+  public searchThisArea(){
+    let centerfunc = this.mapElement.getCenter()
+    var lat = centerfunc!.lat(); // Get the latitude of the map's center
+    var lng = centerfunc!.lng();
+    let center = { lat: lat, lng: lng };
+    this.nearbySearch(center)
   }
   
 

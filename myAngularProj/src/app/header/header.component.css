@@ -80,3 +80,17 @@ h5{
 #showFavs img:active{
     filter: opacity(50%);
 }
+
+#searchAreaBtn{
+    height: 40px;
+    width:140px;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top:55px;
+    background-color: rgb(250, 250, 250);
+    border-radius: 20px;
+    border-color: black;
+}
