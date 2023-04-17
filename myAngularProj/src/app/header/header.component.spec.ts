@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { LoginComponent } from '../login/login.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FavoritesComponent } from 'app/favorites/favorites.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 
 describe('HeaderComponent', () => {
@@ -20,6 +21,7 @@ describe('HeaderComponent', () => {
         { provide: LoginComponent, useValue: {} },
         { provide: FavoritesComponent, useValue: {} }
       ],
+      schemas: [ NO_ERRORS_SCHEMA ],
     })
     .compileComponents();
     
@@ -41,11 +43,11 @@ describe('HeaderComponent', () => {
   })
 
   it('should check search button click', fakeAsync(()=> {
-    spyOn(component,'searchClicked');
-    let searchBtn = fixture.debugElement.nativeElement.querySelector('#searchBtn');
-    searchBtn.click();
+    spyOn(component,'doSearchArea');
+    let searchAreaBtn = fixture.debugElement.nativeElement.querySelector('#searchAreaBtn');
+    searchAreaBtn.click();
     tick();
-    expect(component.searchClicked).toHaveBeenCalled();
+    expect(component.doSearchArea).toHaveBeenCalled();
   }));
 
   it('should check heart button click', fakeAsync(()=> {
@@ -55,4 +57,13 @@ describe('HeaderComponent', () => {
     tick();
     expect(component.showFavsPanel).toHaveBeenCalled();
   }));
+  
+  it('should check login user button click', fakeAsync(()=> {
+    spyOn(component, 'startLoginComp');
+    let loginUserBtn = fixture.debugElement.nativeElement.querySelector('#loginButton');
+    loginUserBtn.click();
+    tick();
+    expect(component.startLoginComp).toHaveBeenCalled();
+  }));
+  
 });
