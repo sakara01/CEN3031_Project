@@ -31,10 +31,6 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
           [options]="userMarker"
           >
         </map-marker>
-        <!-- <map-polyline
-          [path]="route"
-          >
-        </map-polyline> -->
         <map-directions-renderer
           *ngIf="(directionsResults$ | async) as directionsResults"
           [directions]="directionsResults"
@@ -45,8 +41,6 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   @ViewChild(GoogleMap) mapElement!: GoogleMap;
-  private cn: google.maps.LatLngLiteral = { lat: 0, lng: 0 }; // Initial center coordinates
-  private zm: number = 10; // Initial zoom level
 
   @Input() label='';
   @Output() clicked= new EventEmitter()
@@ -56,7 +50,7 @@ export class AppComponent implements OnInit {
   public coffeeShop: any;
   public nearbyPlaces: any;  //declare as global so markerClicked() can access it
   appSidebarData: any;  // parent to child communication
-  userLoc: any;  //parent to child communication
+  userPinLoc: any;  //parent to child communication
 
 
   display: any;
@@ -80,7 +74,6 @@ export class AppComponent implements OnInit {
     this.directionsResults$ = this.mapDirectionsService.route(request).pipe(map(response => response.result));
   }
 
-  //center_test: google.maps.LatLngLiteral = {lat: 24, lng: 12};
 
   directionsResults$: Observable<google.maps.DirectionsResult|undefined>;
 
@@ -115,7 +108,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserLocation();
-    //this.watchPosition();
     this.resizePage();
     navigator.geolocation.getCurrentPosition((position)=> {
       this.center = {
@@ -133,10 +125,6 @@ export class AppComponent implements OnInit {
     let desLon = 0;
     let id = navigator.geolocation.watchPosition(
       (position) => {
-        //console.log(
-        //`lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`
-        //); 
-
         if (position.coords.latitude == desLat) {
           navigator.geolocation.clearWatch(id);
         }
@@ -166,16 +154,7 @@ export class AppComponent implements OnInit {
     }
     this.dest = myMarker;
     this.calcRoute(myMarker);
-    /*
-    this.route = [
-      { lat: this.coffeeShop.geometry.location.lat, lng: this.coffeeShop.geometry.location.lng },
-      { lat: this.center.lat, lng: this.center.lng },
-      ];
-
     
-      */
-     //let destination = `${this.coffeeShop.geometry.location.lat}, ${this.coffeeShop.geometry.location.lng}`
-     //this.sendCenter()
   }
 
   //finds local cafes in the area based on user location
@@ -186,7 +165,9 @@ export class AppComponent implements OnInit {
     navigator.geolocation.getCurrentPosition((position) => {
       this.center = { lat: position.coords.latitude, lng: position.coords.longitude };
       this.zoom = 14;
-      this.userLoc = `${position.coords.latitude},${position.coords.longitude}`
+      this.userPinLoc = `${position.coords.latitude},${position.coords.longitude}`
+      console.log("userPinloc: ")
+      console.log(this.userPinLoc)
       
       this.nearbySearch(this.center)
     })
@@ -217,45 +198,6 @@ export class AppComponent implements OnInit {
     });
   }
 
-  // tried to get geocoder to work
-  dummyFunc(address: string){
-    alert("Sorry, Geocoding development in progress");
-    /*
-    var coords : any
-    var geocoder = new google.maps.Geocoder();
-    var request: google.maps.GeocoderRequest = { address: address }
-    
-    geocoder
-    .geocode(request)
-    .then((result) => {
-      const { results } = result;
-      console.log(results[0].geometry.viewport.getNorthEast);
-      return results;
-    })
-    .catch((e) => {
-      alert("Geocode was not successful for the following reason: " + e);
-    });
-    */
-  }
-
-  /*
-  public sendCenter(lat: any,lng: any){
-    let center = { lat: lat, lng: lng };
-    console.log(this.center)
-    console.log(center)
-    this.nearbySearch(center)
-  }
-
-  public onMapDrag(){
-    console.log("map dragged")
-    let center = this.mapElement.getCenter()
-    var lat = center!.lat(); // Get the latitude of the map's center
-    var lng = center!.lng();
-    console.log(lat)
-    this.sendCenter(lat,lng)
-  }
-  */
-
   public searchThisArea(){
     let centerfunc = this.mapElement.getCenter()
     var lat = centerfunc!.lat(); // Get the latitude of the map's center
@@ -267,6 +209,7 @@ export class AppComponent implements OnInit {
   public searchBar(address: google.maps.LatLngLiteral) {
     console.log(address)
     this.center = address
+    this.userPinLoc = `${address.lat},${address.lng}`  //to send to sidebar component, to send to backend to get directions
     this.nearbySearch(address)
   }
   
@@ -281,7 +224,6 @@ export class AppComponent implements OnInit {
     (document.getElementById("favsPane")as HTMLFormElement).style.height = (winHeight-50).toString()+"px";
     (document.getElementById("favsPane")as HTMLFormElement).style.width = (240 + winWidth/10).toString()+"px";
   }
-
 
 }
 

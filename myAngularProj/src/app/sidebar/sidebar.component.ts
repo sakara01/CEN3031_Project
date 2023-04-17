@@ -10,7 +10,7 @@ import { FavoritesComponent } from 'app/favorites/favorites.component';
 export class SidebarComponent {
 
   @Input() sidebarData: any;
-  @Input() userLoc: any;
+  @Input() userPinLoc: any;
 
 
   constructor(private http: HttpClient,) { };
@@ -48,8 +48,6 @@ export class SidebarComponent {
     //check if user total rating is available
     if (this.sidebarShop.user_ratings_total != null) {
       (document.getElementById("totalRatings") as HTMLFormElement).innerHTML = this.sidebarShop.user_ratings_total;
-      // (document.getElementById("totalText1") as HTMLFormElement).style.visibility = 'visible';
-      // (document.getElementById("totalText2") as HTMLFormElement).style.visibility = 'visible';
     } 
     else {
       (document.getElementById("totalText1") as HTMLFormElement).style.visibility = 'hidden';
@@ -114,9 +112,9 @@ export class SidebarComponent {
     //send request to backend
     const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
 
-    //this.userLoc contains origin
+    //this.userPinLoc contains origin
     let destination = `${this.sidebarData.geometry.location.lat},${this.sidebarData.geometry.location.lng}`
-    let apiUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${this.userLoc}&destination=${destination}&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k`;
+    let apiUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${this.userPinLoc}&destination=${destination}&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k`;
 
     this.http.post('http://localhost:8080/directions', apiUrl, { headers: header }).subscribe((data: any) => {
       (document.getElementById("directionsHolder") as HTMLFormElement).style.visibility = 'visible';
@@ -158,7 +156,6 @@ export class SidebarComponent {
 
 
 }
-
 
 
 //distance icon by onlinewebfonts

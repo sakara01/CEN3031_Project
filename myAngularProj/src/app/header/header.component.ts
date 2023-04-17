@@ -42,10 +42,7 @@ export class HeaderComponent implements OnInit {
 
   searchClicked(address: google.maps.LatLngLiteral){
     console.log("search clicked");
-    //let address = (document.getElementById("addressInput")as HTMLInputElement).value;
-    //this.header.emit(address);
     this.searchBarClicked.emit(address);
-    
   }
   
   startLoginComp(){
@@ -72,8 +69,7 @@ export class HeaderComponent implements OnInit {
     this.userData = { username: nameGiven, password: passGiven};
     (document.getElementById("favsPane")as HTMLFormElement).style.visibility = "visible";
     console.log("should set pane to visible");
-    //sends body data (user coordinates) to BACKEND
-    //posts to backend and returns JSON of nearby coffee shops
+    
     this.http.post('http://localhost:8080/request', this.userData, { headers: header }).subscribe((data: any) => {
        this.favorites.favShops = data;
        this.favorites.setFavorites();

@@ -1,5 +1,5 @@
 <!--ONLY PUT BODY ELEMENTS HERE, no javascript-->
-<app-header (header)="dummyFunc($event)" (searchAreaClicked)="searchThisArea()" (searchBarClicked)="searchBar($event)"></app-header>
+<app-header (searchAreaClicked)="searchThisArea()" (searchBarClicked)="searchBar($event)"></app-header>
 
 <div id="container">
   <google-map #map
@@ -31,7 +31,7 @@
 
 </google-map>
 
-<app-sidebar [sidebarData]="appSidebarData" [userLoc] ="userLoc"></app-sidebar>
+<app-sidebar [sidebarData]="appSidebarData" [userPinLoc] ="userPinLoc"></app-sidebar>
 
 <router-outlet></router-outlet>
 

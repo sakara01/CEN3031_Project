@@ -58,42 +58,6 @@ func enableCors(w *http.ResponseWriter) { //allows frontend and backend to commu
 	(*w).Header().Add("Access-Control-Allow-Credentials", "true")
 }
 
-// DONT REALLY NEED THIS, but dont delete, since we'll find the user location in postHandler()
-// finds user location from input (url)
-// for example, right now it's centered at the Metropolitan Museum of Art
-/*
-func getHandler(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
-
-	//geoLocationUrl := "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k"
-
-	url := "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Metropolitan%20Museum%20of%20Art%20Art&inputtype=textquery&fields=formatted_address,name,rating,opening_hours,geometry&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k"
-	method := "GET"
-
-	client := &http.Client{}
-	req, err := http.NewRequest(method, url, nil)
-
-	if err != nil {
-		panic(err)
-	}
-	res, err := client.Do(req)
-	if err != nil {
-		panic(err)
-	}
-	defer res.Body.Close()
-
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		panic(err)
-	}
-	//fmt.Println(string(body))
-
-	w.Header().Set("Content-Type", "application/json")
-
-	w.Write(body) //writes json data to localhost:8080
-}
-*/
-
 // finds user location
 // then gets the nearby places around location coordinates
 // filter nearby places in the url
@@ -139,9 +103,6 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Write(body) //writes json data to localhost:8080
 
-	/* NO longer needed
-	coordinates := Location{123.2, 456.3} //make this Places API data
-	*/
 }
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
@@ -304,9 +265,6 @@ func directionsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Print the response body
-	//fmt.Println(string(body))
-
 	var shopData []byte
 
 	shopData = []byte(body)
@@ -362,7 +320,7 @@ func returnUserData(username string) []byte {
 	for scanner.Scan() {
 		line := scanner.Bytes()
 		lineStr := strings.Split(string(line), "|")
-		if lineStr[0] == username { //replace sakara with dynamically receieved username
+		if lineStr[0] == username {
 			myCafe.Placeid = lineStr[1]
 			myCafe.Name = lineStr[2]
 			myCafe.Photoref = lineStr[3]
