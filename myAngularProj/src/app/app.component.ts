@@ -70,7 +70,6 @@ export class AppComponent implements OnInit {
       origin: {},
       travelMode: google.maps.TravelMode.DRIVING
     };
-    console.log(this.center);
     this.directionsResults$ = this.mapDirectionsService.route(request).pipe(map(response => response.result));
   }
 
@@ -99,8 +98,6 @@ export class AppComponent implements OnInit {
       origin: {lat: this.center.lat, lng: this.center.lng},
       travelMode: google.maps.TravelMode.DRIVING,
     };
-    console.log(this.center)
-    console.log(dest)
     this.directionsResults$ = this.mapDirectionsService.route(request).pipe(map(response => response.result));
     return dest
   }
@@ -148,7 +145,6 @@ export class AppComponent implements OnInit {
         this.coffeeShop = this.nearbyPlaces[i];
         this.appSidebarData = this.coffeeShop; //so other functions in sidebar component can use it
         this.sidebar.sidebarShop=this.coffeeShop;  //send coffee shop data to sidebar component
-        //console.log(this.appSidebarData);
         this.sidebar.openSidebar();    
       } 
     }
@@ -166,9 +162,6 @@ export class AppComponent implements OnInit {
       this.center = { lat: position.coords.latitude, lng: position.coords.longitude };
       this.zoom = 14;
       this.userPinLoc = `${position.coords.latitude},${position.coords.longitude}`
-      console.log("userPinloc: ")
-      console.log(this.userPinLoc)
-      
       this.nearbySearch(this.center)
     })
     return this.nearbyPlaces
@@ -190,8 +183,6 @@ export class AppComponent implements OnInit {
       //array to hold all of the placesObj objects
       this.nearbyPlaces= placesObj.results;
 
-      // console.log(this.nearbyPlaces[0]);
-
       for (let i = 0; i < this.nearbyPlaces.length; i++) {
         this.markers.push(this.nearbyPlaces[i].geometry.location);
       }
@@ -207,7 +198,6 @@ export class AppComponent implements OnInit {
   }
 
   public searchBar(address: google.maps.LatLngLiteral) {
-    console.log(address)
     this.center = address
     this.userPinLoc = `${address.lat},${address.lng}`  //to send to sidebar component, to send to backend to get directions
     this.nearbySearch(address)

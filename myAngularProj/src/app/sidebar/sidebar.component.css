@@ -114,6 +114,15 @@ img {
     position: absolute;
     top:10px;
     right:10px;
+    width: 30px;
+    background: white;
+    border-radius: 2px;
+    border-width: 0px;
+    height: 22px;
+}
+
+#closeSidebarBtn img{
+    width: 20px
 }
 
 #directionsBtn{

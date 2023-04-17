@@ -82,20 +82,19 @@ export class SidebarComponent {
   }
 
   openDetailPane() {
+    (document.getElementById("favsPane")as HTMLFormElement).style.visibility = "hidden";
     (document.getElementById("detailPane") as HTMLFormElement).style.visibility = 'visible';
     (document.getElementById("directionsHolder") as HTMLFormElement).style.visibility = 'hidden';
     (document.getElementById("directionsHolder") as HTMLFormElement).style.height = '10px';
 
     //check if loginName is empty, if empty, user not logged in
     if((document.getElementById("loginName") as HTMLFormElement) ==null  || (document.getElementById("loginName") as HTMLFormElement).innerHTML != ""){   //null when testing
-      console.log("user is logged in");
       (document.getElementById("IconBar") as HTMLFormElement).style.visibility = 'visible';
       (document.getElementById("directionsIcon") as HTMLFormElement).style.visibility = 'visible';
       (document.getElementById("favoriteBtn") as HTMLFormElement).style.visibility = 'visible';
       (<HTMLImageElement>document.getElementById("favHeart")).src = '../assets/brown-heart.png';
     }
     else {
-      console.log("not logged in");
       (document.getElementById("IconBar") as HTMLFormElement).style.visibility = 'visible';
       (document.getElementById("directionsIcon") as HTMLFormElement).style.visibility = 'visible';
       (document.getElementById("favoriteBtn") as HTMLFormElement).style.visibility = 'hidden';
@@ -135,7 +134,6 @@ export class SidebarComponent {
     let photoref = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photo_reference=" + this.sidebarData.photos[0].photo_reference +"&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k";
 
     this.favData = { username: usernameRaw, name: name, placeid: placeid, photoref: photoref};
-    console.log(this.favData)
 
     const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
 

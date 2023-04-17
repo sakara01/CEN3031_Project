@@ -28,9 +28,6 @@ export class HeaderComponent implements OnInit {
   }  
 
   handleAddressChange(address: Address) {
-    console.log(address.formatted_address)
-    console.log(address.geometry.location.lat())
-    console.log(address.geometry.location.lng())
     this.searchClicked({lat: address.geometry.location.lat(), lng: address.geometry.location.lng()})
   }
 
@@ -41,7 +38,6 @@ export class HeaderComponent implements OnInit {
   }
 
   searchClicked(address: google.maps.LatLngLiteral){
-    console.log("search clicked");
     this.searchBarClicked.emit(address);
   }
   
@@ -68,7 +64,6 @@ export class HeaderComponent implements OnInit {
     let passGiven = (document.getElementById("passGiven")as HTMLInputElement).value;
     this.userData = { username: nameGiven, password: passGiven};
     (document.getElementById("favsPane")as HTMLFormElement).style.visibility = "visible";
-    console.log("should set pane to visible");
     
     this.http.post('http://localhost:8080/request', this.userData, { headers: header }).subscribe((data: any) => {
        this.favorites.favShops = data;
