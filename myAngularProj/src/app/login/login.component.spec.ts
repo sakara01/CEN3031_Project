@@ -31,6 +31,14 @@ describe('LoginComponent', () => {
     expect(component.publicUsername).toBe("empty");
     expect(component.userData).toBe(undefined);
   });
+  
+  it('should check Sign In button click', fakeAsync(()=> {
+    spyOn(component, 'getLoginUser');
+    let signInBtn = fixture.debugElement.nativeElement.querySelector('#submitBtn');
+    signInBtn.click();
+    tick();
+    expect(component.getLoginUser).toHaveBeenCalled();
+  }));
 
   it('should check click options to Create Account, Log Out, Close Window', fakeAsync(()=>{
     spyOn(component,'createAcct');
