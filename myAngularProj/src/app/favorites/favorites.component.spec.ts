@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FavoritesComponent } from './favorites.component';
 
 describe('FavoritesComponent', () => {
@@ -8,6 +8,7 @@ describe('FavoritesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
       declarations: [ FavoritesComponent ]
     })
     .compileComponents();
@@ -27,13 +28,12 @@ describe('FavoritesComponent', () => {
     const vis= getComputedStyle(pane).getPropertyValue("visibility");
     expect(vis).toBe("visible");
   })
-
-  it('when clicked should add to favorites list in header component', () => {
-    
-  });
-
-  it('should appear if logged in', () => {
-    
+  
+  it('should check option to close window in favsPane', ()=> {
+    (document.getElementById("closeFavs") as HTMLFormElement).style.visibility = 'visible';
+    const pane= fixture.debugElement.nativeElement.querySelector('#closeFavs');
+    const vis= getComputedStyle(pane).getPropertyValue("visibility");
+    expect(vis).toBe("visible");
   });
   
 });
