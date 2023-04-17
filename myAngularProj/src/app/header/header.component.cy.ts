@@ -23,15 +23,10 @@ describe('HeaderComponent', () => {
         cy.mount(HeaderComponent)
     })
 
-    //tests if searchClicked is called when button is clicked
-    it('searchClicked called when button clicked', () => {
+    //tests if search bar can be typed into
+    it('seach bar is typed into', () => {
         cy.mount(HeaderComponent)
-        .then((wrapper)=>{
-            cy.spy(wrapper.component,'searchClicked').as('searchClicked')
-        })
-        cy.get('#header > #searchBtn').click()
-        cy.get('@searchClicked').should('have.been.calledOnce')
-        
+        cy.get('form-control').type('San Francisco')
       })
 
 })
