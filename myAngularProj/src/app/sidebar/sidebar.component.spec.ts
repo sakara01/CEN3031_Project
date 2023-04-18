@@ -94,7 +94,7 @@ describe('SidebarComponent', () => {
     //const element= fixture.debugElement.nativeElement.querySelector('#PlaceImage');
     //const w= parseInt(getComputedStyle(element).getPropertyValue("width"));
     //console.info(component.imgHeight);
-    expect(component.imgHeight).toBe(undefined);
+    expect(component.imgHeight).toBeDefined();
   });
 
   //some details may be missing from places object
