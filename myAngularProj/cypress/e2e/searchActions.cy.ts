@@ -1,5 +1,5 @@
-describe('type into search bar', () => {
-    //tests if search bar can be typed into
+describe('drag map and click search button', () => {
+    //test when user drags map and clicks search area button
     it('seach area button is clicked', () => {
         cy.visit('http://localhost:4200/')
 
@@ -13,4 +13,18 @@ describe('type into search bar', () => {
     })
 
 })
+
+describe('type into search bar', () => {
+    //test when user drags map and clicks search area button
+    it('typing into search bar', () => {
+        cy.visit('http://localhost:4200/')
+
+        cy.get('.form-control').type('San Francisco')
+        // cy.get('#container').click(200,80) // clicks on the satellite button
+        cy.get('.pac-matched').first().click() // satellite 
+    })
+
+})
+
+
 
