@@ -54,6 +54,25 @@ INCLUDE SCREENSHOTS OF RUNNING PROJECT
 
 ## Testing
 
+To run cypress testing, open up a new terminal into the `myAngularProj` directory, and run the command:
+
+```
+$ npx cypress open
+
+```
+
+From there, the E2E and Component Testing are available and can be ran.
+
+To run jasmine/karma tests, open up a new terminal into the `myAngularProj` directory, and run the command:
+
+```
+$ npm test
+
+```
+
+From there, the component tests are ran.
+
+
 <a name="Sources"/>
 
 ## Sources
