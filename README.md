@@ -16,6 +16,7 @@ A web paged map where users can easily find the locations, ratings, and populari
 
 <a name="Setup"/>
 ## Setup
+
 To run this project, clone the repository and install dependencies locally:
 
 ```
