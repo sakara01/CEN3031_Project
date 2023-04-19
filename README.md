@@ -58,10 +58,9 @@ INCLUDE SCREENSHOTS OF RUNNING PROJECT
 
 ## Sources
 
-- [Google Autocomplete API Tutorial](https://www.ultimateakash.com/blog-details/Ii0zYGAKYAo=/How-To-Integrate-Google-Places-Autocomplete-in-Angular-2022)
-- [How to Access Place Photos](https://developers.google.com/maps/documentation/places/web-service/photos)
-
 <a name="Team"/>
+
+- [Google Maps Directions Service](https://developers.google.com/maps/documentation/javascript/directions)
 
 ## Team
 Lauren Escarcha, Karen Tong, Saloni Karanth, Justus Geslani
