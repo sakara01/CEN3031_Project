@@ -1,15 +1,47 @@
-# CEN3031_Project
+# Caffinder
+A web paged map where users can easily find the locations, ratings, and popularity of coffee shops in any area. Caffinder is the perfect tool to help others looking for a good study-grind place while also drawing the much deserved attention to local businesses.
 
-Project Name: Caffinder
+## Table of Contents
+[Features](#Features)  
+[Technologies](#Technologies) 
+[Setup](#Setup) 
+[Sources](#Sources) 
+[Team](#Team) 
 
-Project Description: Caffinder helps students find the perfect cafe to grab a fresh cup of coffee and study to their heart’s content. Users can easily find the locations, ratings, and popularity of coffee shops in the area.
+<a name="Features"/>
+## Features
 
-For Sprint 2:
+<a name="Technologies"/>
+## Technologies
 
-Members: Lauren Escarcha (back-end & front-end), Saloni Karanth (back-end & front-end), Karen Tong (front-end), and Justus Geslani (front-end)
+## Setup
+To run this project, clone the repository and install dependencies locally:
 
-Sprint 1 Videos: https://drive.google.com/drive/folders/1-45mEiURN8e93VkLC-79uStG_kRjzPLT?usp=share_link
+```
+$ cd .\myAngularProj\
+$ npm install --force
+$ npm i ngx-google-places-autocomplete --force
+```
 
-Sprint 2 Videos: https://drive.google.com/file/d/1ZACPkNgOu586TSO4sNKCC_YodJ_A43l5/view?usp=sharing
+In the same terminal with the open `myAngularProj` directory, run the frontend:
 
-Sprint 3: https://drive.google.com/file/d/1cQSnE-dpYDkMzRlGJ9QLdL3_9jBqDq7f/view?usp=sharing
+```
+$ ng s
+```
+
+Open a second, seperate terminal which should open into the directory and run the backend:
+
+```
+$ go run main.go
+```
+
+Find the running project on `http://localhost:4200/`.
+
+INCLUDE SCREENSHOTS OF RUNNING PROJECT
+
+## Testing
+
+## Sources
+
+## Team
+Lauren Escarcha, Karen Tong, Saloni Karanth, Justus Geslani
