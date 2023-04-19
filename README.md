@@ -58,7 +58,6 @@ To run cypress testing, open up a new terminal into the `myAngularProj` director
 
 ```
 $ npx cypress open
-
 ```
 
 From there, the E2E and Component Testing are available and can be ran.
@@ -67,7 +66,6 @@ To run jasmine/karma tests, open up a new terminal into the `myAngularProj` dire
 
 ```
 $ npm test
-
 ```
 
 From there, the component tests are ran.
