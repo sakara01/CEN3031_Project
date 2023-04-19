@@ -20,6 +20,7 @@ A web paged map where users can easily find the locations, ratings, and populari
 - Go: 1.19.5
 - [Google Maps API](https://developers.google.com/maps)
 - [Google Routes API](https://developers.google.com/maps/documentation/routes/overview)
+- [Google Places API](https://developers.google.com/maps/documentation/places/web-service)
 - [Google Autocomplete API](https://developers.google.com/maps/documentation/javascript/place-autocomplete)
 
 <a name="Setup"/>
