@@ -14,6 +14,7 @@ A web paged map where users can easily find the locations, ratings, and populari
 <a name="Technologies"/>
 ## Technologies
 
+<a name="Setup"/>
 ## Setup
 To run this project, clone the repository and install dependencies locally:
 
@@ -39,9 +40,12 @@ Find the running project on `http://localhost:4200/`.
 
 INCLUDE SCREENSHOTS OF RUNNING PROJECT
 
+<a name="Testing"/>
 ## Testing
 
+<a name="Sources"/>
 ## Sources
 
+<a name="Team"/>
 ## Team
 Lauren Escarcha, Karen Tong, Saloni Karanth, Justus Geslani
