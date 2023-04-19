@@ -53,5 +53,6 @@ INCLUDE SCREENSHOTS OF RUNNING PROJECT
 ## Sources
 
 <a name="Team"/>
+
 ## Team
 Lauren Escarcha, Karen Tong, Saloni Karanth, Justus Geslani
