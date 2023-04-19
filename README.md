@@ -68,6 +68,12 @@ To run jasmine/karma tests, open up a new terminal into the `myAngularProj` dire
 $ npm test
 ```
 
+Or use the following alternative command to run jasmine/karma tests:
+
+```
+$ ng test
+```
+
 From there, the component tests are ran.
 
 
