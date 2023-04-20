@@ -47,4 +47,12 @@
     top:10px;
     right:10px;
     height: 20px;
+    width: 30px;
+    background: white;
+    border-radius: 2px;
+    border-width: 0px;
+}
+
+#closeFavs img{
+    width: 20px;
 }

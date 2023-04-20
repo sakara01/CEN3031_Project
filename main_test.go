@@ -343,3 +343,38 @@ func TestReturnUserData(t *testing.T) {
 		t.Errorf("returnUserData failed to return correct outputgot %v want %v", returned2, string(testcasebytes))
 	}
 }
+
+func TestDirectionsHandler(t *testing.T) {
+	//test if existing user is found correctly
+	var origin = `29.638818,-82.336869`
+	var destination = `29.6332719,-82.3497063`
+	var apiUrl = fmt.Sprintf("https://maps.googleapis.com/maps/api/directions/json?origin=%s&destination=%s&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k", origin, destination)
+
+	myReader := strings.NewReader(apiUrl)
+	req, err := http.NewRequest("POST", "/directions", myReader)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(directionsHandler)
+
+	handler.ServeHTTP(rr, req) //sends mock request to backend
+
+	//to check if status code is okay
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v, want %v", status, http.StatusOK)
+	}
+	expected := `"distance":{"text":"1.1mi","value":1755},"duration":{"text":"5mins","value":329}`
+	body := strings.ReplaceAll(strings.ReplaceAll(rr.Body.String(), " ", ""), "\n", "")
+	result1 := strings.Index(body, `"distance"`)
+	shopNameGot := body[result1 : result1+80] //get substring of body from index onward
+
+	fmt.Println(expected, shopNameGot)
+
+	if shopNameGot != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			string(rr.Body.Bytes()), expected)
+	}
+
+}

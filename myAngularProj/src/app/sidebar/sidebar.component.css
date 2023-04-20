@@ -13,45 +13,45 @@
 
 #IconBar{
     visibility: hidden;
-
-    margin-right: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-
     display: flex;
-    align-items: center; /* puts items vertically in center */
-    justify-content: left;
+    margin-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 18px;
 }
 
 #favoriteBtn{
     outline: none;
     border: none;
     background-color: transparent;
-    /* float:left; */
+    margin-left: 8px;
+    display: flex;
 }
 
 #favoriteBtn img:active{
     filter: opacity(50%);
 }
 
+#favHeart{
+    width: 22px;
+    height: 20px;
+    padding-top: 2px;
+}
+
 #directionsIconBtn{
+    display: flex;
     outline: none;
     border: none;
     background-color: transparent;
+    margin-left: 8px;
 }
 
 #directionsIconBtn img:active{
     filter: opacity(50%);
 }
 
-#bookmarkBtn{
-    outline: none;
-    border: none;
-    background-color: transparent;
-}
-
-#bookmarkBtn img:active{
-    filter: opacity(50%);
+.iconText{
+    padding-top: 4px;
+    padding-left: 4px;
 }
 
 
@@ -114,18 +114,103 @@ img {
     position: absolute;
     top:10px;
     right:10px;
+    width: 30px;
+    background: white;
+    border-radius: 2px;
+    border-width: 0px;
+    height: 22px;
+}
+
+#closeSidebarBtn img{
+    width: 20px
 }
 
 #directionsBtn{
     z-index: 20;
-    position: absolute;
+    margin-left: 10px;
+    margin-top: 20px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     border: 1px solid black;
     border-radius: 2px;
-    top: 10px;
-    width:82px;
+    width:130px;
     height:31.5px;
-    left: 10px;
     padding-left: 10px;
     padding-right: 10px;
+    background-color: transparent;
 }
+
+#directionsBtn:hover{
+    background-color: grey;
+}
+
+#searchAreaBtn {
+
+    z-index: 20;
+    margin-left: 30px;
+    margin-top: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    border: 1px solid black;
+    border-radius: 2px;
+    width:130px;
+    height:31.5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: transparent;
+}
+
+#searchAreaBtn:hover{
+    background-color: grey;
+}
+
+#drivingHolder{
+    display: flex;
+    width: max-content;
+    margin-left: 14px;
+}
+
+.displayName,.displayNum{
+    padding-right: 10px;
+}
+
+.divholders{
+    display: flex;
+    width:max-content;
+    height: 20px;
+}
+
+.divholders img{
+    padding-right:10px;
+}
+
+#directionsHolder{
+    visibility: hidden;
+    margin-bottom: 20px;
+    margin-top: 34px;
+    height: 70px;
+}
+
+#flexHolder{
+    display: flex;
+    margin: auto;
+    width: max-content;
+    padding-top: 16px;
+}
+
+#spacer{
+    width:10px;
+}
+
+#searchAreaText{
+    font-size: 20px;
+    position: relative;
+    margin-top: 20px;
+    margin-left: 10px;
+    height: 10px;
+}
+
+#searchAreaHolder{
+    visibility: hidden;
+    height: 10px;
+}
+
+

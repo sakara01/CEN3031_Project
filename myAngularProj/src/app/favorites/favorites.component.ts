@@ -16,15 +16,15 @@ export class FavoritesComponent {
   favShops: any;
   
   setFavorites(){
-    console.log(this.favShops);
     (document.getElementById("favsPane")as HTMLFormElement).style.visibility = "visible";
 
     let img = new Image();
-    /*
-    (document.getElementById("name1")as HTMLElement).innerHTML = this.favShops.allMyShops[0].name;
-    (<HTMLImageElement>document.getElementById("shop3Image")).src = this.favShops.allMyShops[2].photoref;
-    */
 
+    //set favorites display to empty before repopulating
+    (document.getElementById("favsPane") as HTMLFormElement).innerHTML = `<div style="height:16px"><button id="closeFavs">
+                                                                              <img src="../../assets/close.png">
+                                                                          </button></div>`  
+    
     for (let i =0; i< this.favShops.allMyShops.length; i++){
       (document.getElementById("favsPane") as HTMLFormElement).innerHTML += `<div class="shop" >
                                                                                 <div class="imgHolder">

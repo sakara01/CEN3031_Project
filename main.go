@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
@@ -45,6 +46,7 @@ func main() { //starts server using go's http package
 	mux.HandleFunc("/create", createHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/favorite", favoriteHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/request", requestHandler).Methods("POST", "OPTIONS")
+	mux.HandleFunc("/directions", directionsHandler).Methods("POST", "OPTIONS")
 	mux.HandleFunc("/", postHandler).Methods("POST", "OPTIONS")
 	http.ListenAndServe(":8080", mux)
 }
@@ -55,42 +57,6 @@ func enableCors(w *http.ResponseWriter) { //allows frontend and backend to commu
 	(*w).Header().Add("Access-Control-Allow-Headers", "access-control-allow-origin, Content-Type")
 	(*w).Header().Add("Access-Control-Allow-Credentials", "true")
 }
-
-// DONT REALLY NEED THIS, but dont delete, since we'll find the user location in postHandler()
-// finds user location from input (url)
-// for example, right now it's centered at the Metropolitan Museum of Art
-/*
-func getHandler(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
-
-	//geoLocationUrl := "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k"
-
-	url := "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Metropolitan%20Museum%20of%20Art%20Art&inputtype=textquery&fields=formatted_address,name,rating,opening_hours,geometry&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k"
-	method := "GET"
-
-	client := &http.Client{}
-	req, err := http.NewRequest(method, url, nil)
-
-	if err != nil {
-		panic(err)
-	}
-	res, err := client.Do(req)
-	if err != nil {
-		panic(err)
-	}
-	defer res.Body.Close()
-
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		panic(err)
-	}
-	//fmt.Println(string(body))
-
-	w.Header().Set("Content-Type", "application/json")
-
-	w.Write(body) //writes json data to localhost:8080
-}
-*/
 
 // finds user location
 // then gets the nearby places around location coordinates
@@ -137,9 +103,6 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Write(body) //writes json data to localhost:8080
 
-	/* NO longer needed
-	coordinates := Location{123.2, 456.3} //make this Places API data
-	*/
 }
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
@@ -260,6 +223,57 @@ func favoriteHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func directionsHandler(w http.ResponseWriter, r *http.Request) {
+	(w).Header().Add("Access-Control-Allow-Origin", "*")
+	(w).Header().Add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS")
+	(w).Header().Add("Access-Control-Allow-Headers", "access-control-allow-origin, Content-Type")
+	(w).Header().Add("Access-Control-Allow-Credentials", "true")
+
+	//for some reason this version of stringifying and decoding works much better and doesnt cause cors errors.
+	buf := new(strings.Builder)
+	_, err := io.Copy(buf, r.Body)
+	if err != nil {
+		panic(err)
+	}
+
+	urlStr := buf.String()
+	fmt.Println(urlStr)
+
+	var myUrl = fmt.Sprintf("%s", urlStr)
+
+	//request nearby places data from Places API
+	client := &http.Client{}
+	// Create a GET request
+	req, err := http.NewRequest("GET", myUrl, nil)
+	if err != nil {
+		fmt.Println("Failed to create request:", err)
+		return
+	}
+
+	// Send the GET request
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Println("Failed to send request:", err)
+		return
+	}
+	defer resp.Body.Close()
+
+	// Read the response body
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Failed to read response body:", err)
+		return
+	}
+
+	var shopData []byte
+
+	shopData = []byte(body)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(shopData)
+
+}
+
 func addFavorite(myFav Favorite) bool {
 	f, err := os.OpenFile("users.txt", os.O_APPEND|os.O_CREATE, 0600)
 	if err != nil {
@@ -306,7 +320,7 @@ func returnUserData(username string) []byte {
 	for scanner.Scan() {
 		line := scanner.Bytes()
 		lineStr := strings.Split(string(line), "|")
-		if lineStr[0] == username { //replace sakara with dynamically receieved username
+		if lineStr[0] == username {
 			myCafe.Placeid = lineStr[1]
 			myCafe.Name = lineStr[2]
 			myCafe.Photoref = lineStr[3]

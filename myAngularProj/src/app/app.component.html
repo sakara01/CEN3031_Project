@@ -1,9 +1,8 @@
 <!--ONLY PUT BODY ELEMENTS HERE, no javascript-->
-<app-header (header)="dummyFunc($event)"></app-header>
+<app-header (searchAreaClicked)="searchThisArea()" (searchBarClicked)="searchBar($event)"></app-header>
 
 <div id="container">
-  <google-map 
-              id="map"
+  <google-map #map
               width="100%"
               height="100%"
               [center]="center"
@@ -21,13 +20,18 @@
         [options]="userMarker"
         >
       </map-marker>
-      <map-polyline
+      <!-- <map-polyline
         [path]="route"
         >
-      </map-polyline>
+      </map-polyline> -->
+      <map-directions-renderer
+        *ngIf="(directionsResults$ | async) as directionsResults"
+        [directions]="directionsResults"
+        [options]="routeOptions"></map-directions-renderer>
+
 </google-map>
 
-<app-sidebar [sidebarData]="appSidebarData"></app-sidebar>
+<app-sidebar [sidebarData]="appSidebarData" [userPinLoc] ="userPinLoc"></app-sidebar>
 
 <router-outlet></router-outlet>
 

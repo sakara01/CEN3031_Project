@@ -8,26 +8,24 @@
       <img id="PlaceImage"/>
     </div>
     
-    <!-- user interaction icons at the top -->
+    <!-- name of coffee shop -->
+    <div id="name"></div>
+    
+    <!-- user interaction icons -->
     <div id="IconBar">
-
       <button id="directionsIconBtn" (click)="directionsClicked()">
         <img id='directionsIcon' src='../assets/directions.webp'>
+        <span class="iconText"> Directions</span>
       </button>
 
       <button id="favoriteBtn" (click)="favoriteThis()" >
         <img id='favHeart' src='../assets/brown-heart.png'>
+        <span class="iconText"> Favorites</span>
       </button>
 
-      <button id="bookmarkBtn" (click)="bookmarkThis()" >
-        <img id='bookmark' src='../assets/bookmark.png'>
-      </button>
       
-    </div> 
-
-    <!-- name of coffee shop -->
-    <div id="name"></div>
-    
+    </div>
+  
     <!-- address -->
     <div class="DetailChunk">
       <div class="sideBarIcon">
@@ -76,7 +74,31 @@
       </div>
     </div>
 
-    <div><button id="closeSidebarBtn" (click)="closeDetailPane()">x</button></div>
+    <div><button id="closeSidebarBtn" (click)="closeDetailPane()">
+      <img src="../../assets/close.png">
+    </button></div>
+
+    <div id="directionsHolder">
+    <div id="drivingHolder">
+      <img id="drivingIcon" src="../../assets/car.png" width="20px">
+      <div id="spacer"></div>
+      <div id="drivingText">Driving</div>
+    </div>
+    <div id="flexHolder">
+      <div class="divholders">
+        <img src="../../assets/distance.png" style="width: 27px; height:23px">
+        <div class="displayName" id="distanceText">Distance:</div>
+        <div class="displayNum" id="distance">int</div>
+      </div>
+      <div id="spacer" style="width: 16px"></div>
+      <div class="divholders">
+        <img src="../../assets/clock_black.png" style="width: 18px; height:18px">
+        <div class="displayName" id="durationText">Time:</div>
+        <div class="displayNum" id="duration">int</div>
+      </div>
+    </div>
+    
+
+  </div>
   
-    <!-- <div><button id="directionsBtn" (click)="directionsClicked()">directions</button></div>
-  </div> -->
+    <div id="searchAreaHolder"> <div id="searchAreaText">Enter address (top right) in search bar</div> </div>

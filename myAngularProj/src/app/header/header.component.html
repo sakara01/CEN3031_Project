@@ -9,10 +9,13 @@
     <button id="loginButton" (click)="startLoginComp()" style="background-color: transparent; border-color: transparent;">
         <img src = "../../assets/user.png" style="width: 30px;"/>
     </button>
-    <input type="text" id="addressInput" name="address" >
-    <button id="searchBtn" (click)="searchClicked()">
-        <img src="../../assets/search.png" style ="width:20px">
-    </button>
+    
+    <input class="form-control"
+                ngx-google-places-autocomplete
+                [options]="options"
+                (onAddressChange)="handleAddressChange($event)"
+    />
+    <button id="searchAreaBtn" (click)="doSearchArea()"> Search This Area</button>
 </div>
 
 <app-favorites [transfer]="favTransfer"></app-favorites>

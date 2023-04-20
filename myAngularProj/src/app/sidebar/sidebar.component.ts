@@ -10,6 +10,8 @@ import { FavoritesComponent } from 'app/favorites/favorites.component';
 export class SidebarComponent {
 
   @Input() sidebarData: any;
+  @Input() userPinLoc: any;
+
 
   constructor(private http: HttpClient,) { };
   sidebarShop: any;
@@ -46,8 +48,6 @@ export class SidebarComponent {
     //check if user total rating is available
     if (this.sidebarShop.user_ratings_total != null) {
       (document.getElementById("totalRatings") as HTMLFormElement).innerHTML = this.sidebarShop.user_ratings_total;
-      // (document.getElementById("totalText1") as HTMLFormElement).style.visibility = 'visible';
-      // (document.getElementById("totalText2") as HTMLFormElement).style.visibility = 'visible';
     } 
     else {
       (document.getElementById("totalText1") as HTMLFormElement).style.visibility = 'hidden';
@@ -82,45 +82,65 @@ export class SidebarComponent {
   }
 
   openDetailPane() {
+    (document.getElementById("favsPane")as HTMLFormElement).style.visibility = "hidden";
     (document.getElementById("detailPane") as HTMLFormElement).style.visibility = 'visible';
+    (document.getElementById("directionsHolder") as HTMLFormElement).style.visibility = 'hidden';
+    (document.getElementById("directionsHolder") as HTMLFormElement).style.height = '10px';
+
     //check if loginName is empty, if empty, user not logged in
     if((document.getElementById("loginName") as HTMLFormElement) ==null  || (document.getElementById("loginName") as HTMLFormElement).innerHTML != ""){   //null when testing
       (document.getElementById("IconBar") as HTMLFormElement).style.visibility = 'visible';
+      (document.getElementById("directionsIcon") as HTMLFormElement).style.visibility = 'visible';
+      (document.getElementById("favoriteBtn") as HTMLFormElement).style.visibility = 'visible';
+      (<HTMLImageElement>document.getElementById("favHeart")).src = '../assets/brown-heart.png';
+    }
+    else {
+      (document.getElementById("IconBar") as HTMLFormElement).style.visibility = 'visible';
+      (document.getElementById("directionsIcon") as HTMLFormElement).style.visibility = 'visible';
+      (document.getElementById("favoriteBtn") as HTMLFormElement).style.visibility = 'hidden';
     }
   }
 
   closeDetailPane(){
     (document.getElementById("detailPane") as HTMLFormElement).style.visibility = 'hidden';
     (document.getElementById("IconBar") as HTMLFormElement).style.visibility = 'hidden';
-
+    (document.getElementById("directionsIcon") as HTMLFormElement).style.visibility = 'hidden';
+    (document.getElementById("directionsHolder") as HTMLFormElement).style.visibility = 'hidden'; 
+    (document.getElementById("favoriteBtn") as HTMLFormElement).style.visibility = 'hidden';
   }
 
   directionsClicked(){
-    console.log("directions clicked");
+    //send request to backend
+    const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
+
+    //this.userPinLoc contains origin
+    let destination = `${this.sidebarData.geometry.location.lat},${this.sidebarData.geometry.location.lng}`
+    let apiUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${this.userPinLoc}&destination=${destination}&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k`;
+
+    this.http.post('http://localhost:8080/directions', apiUrl, { headers: header }).subscribe((data: any) => {
+      (document.getElementById("directionsHolder") as HTMLFormElement).style.visibility = 'visible';
+      (document.getElementById("directionsHolder") as HTMLFormElement).style.height = '102px';
+      (document.getElementById("distance") as HTMLFormElement).innerHTML = data.routes[0].legs[0].distance.text;
+      (document.getElementById("duration") as HTMLFormElement).innerHTML = data.routes[0].legs[0].duration.text;
+
+    });
   }
 
   favoriteThis(){
+    //change img to filled heart 
+    (<HTMLImageElement>document.getElementById("favHeart")).src = '../assets/filled-heart.png';
+    
     let usernameRaw = (document.getElementById("nameGiven") as HTMLInputElement).value;
     let name = this.sidebarData.name;
     let placeid = this.sidebarData.place_id;
     let photoref = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photo_reference=" + this.sidebarData.photos[0].photo_reference +"&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k";
 
-    //let name = (document.getElementById("name") as HTMLFormElement).innerHTML;
-    //let placeid = (document.getElementById("placeid") as HTMLFormElement).innerHTML;
-    //let photoref = (document.getElementById("PlaceImage") as HTMLImageElement).src;
     this.favData = { username: usernameRaw, name: name, placeid: placeid, photoref: photoref};
-    console.log(this.favData)
 
     const header = new HttpHeaders().set('access-control-allow-origin', "*");  //allow cors request
 
     this.http.post('http://localhost:8080/favorite', this.favData, { headers: header }).subscribe((data: any) => {
-      //data = username object
-      console.log("idk in post now");
     });
-
-    //change img to filled heart 
-    (document.getElementById("favHeart") as HTMLFormElement)['src'] = '../assets/filled-heart.png';
-    
   }
 
   getDirections(){
@@ -134,16 +154,10 @@ export class SidebarComponent {
     
   }
 
-  bookmarkThis(){
-    let usernameRaw = (document.getElementById("nameGiven") as HTMLInputElement).value;
-    let name = this.sidebarData.name;
-    let placeid = this.sidebarData.place_id;
-    let photoref = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photo_reference=" + this.sidebarData.photos[0].photo_reference +"&key=AIzaSyCug_XiU8cTDBlULG_BXe0UhYMgBkSSd9k";
 
-    //todo: implentation
-
-    //change img to filled heart 
-    (document.getElementById("favHeart") as HTMLFormElement)['src'] = '../assets/filled-heart.png';
-    
-  }
 }
+
+
+//distance icon by onlinewebfonts
+//car icon by kindpng
+//clock icon by kindpng

@@ -41,34 +41,15 @@ export class LoginComponent {
     this.http.post('http://localhost:8080/login', this.userData, { headers: header }).subscribe((data: any) => {
       if (data.status == "userExists"){
         (document.getElementById("loginStatus")as HTMLElement).innerHTML = "Logged in Successfully!";
-        //this.favorites.favShops= this.favShops; //send data to favorites component
         this.login.emit(this.publicUsername);
         setTimeout(()=> {
           (document.getElementById("loginModal")as HTMLElement).style.visibility = "hidden";
         },800);
-        //this.favorites.setFavorites();  //update the favorites panel to reflect real data
       }else{
         //user does not exist
         (document.getElementById("loginStatus")as HTMLElement).innerHTML = "Username or password incorrect, please try again.";
       }
-      /*
-      this.favShops = data
-      console.log(this.favShops)
       
-      if (this.favShops.allMyShops == "noUser"){
-        console.log("No username like that");
-        (document.getElementById("loginStatus")as HTMLElement).innerHTML = "Username or password incorrect, please try again.";
-      }else {
-        //User exists
-        (document.getElementById("loginStatus")as HTMLElement).innerHTML = "Logged in Successfully!";
-        this.favorites.favShops= this.favShops; //send data to favorites component
-        this.login.emit(this.publicUsername);
-        setTimeout(()=> {
-          (document.getElementById("loginModal")as HTMLElement).style.visibility = "hidden";
-        },1000);
-        this.favorites.setFavorites();  //update the favorites panel to reflect real data
-      }
-      */
     });
   }
 
@@ -107,7 +88,6 @@ export class LoginComponent {
         (document.getElementById("loginStatus")as HTMLElement).innerHTML = "User Added! Login now";
         (document.getElementById("nameGiven")as HTMLInputElement).value = "";
         (document.getElementById("passGiven")as HTMLInputElement).value = "";
-        //setTimeout(this.getLoginUser,1000);
       }
     });
   }
