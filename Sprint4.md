@@ -23,7 +23,7 @@ Link to video:
 - Header Component: 
 	- Create component
 	- Checks title and color of header
-	- Checks if the function searchClicked() is called when the search button is clicked.
+	- Checks if the function doSearchArea() is called when the search area button is clicked.
 	- Checks if favorites button is available when logged in
 	- Checks if the function startLoginComp() is called when the login user button is clicked.
 
@@ -40,8 +40,6 @@ Link to video:
 - Favorites Component:
 	- Create component
 	- Checks visibility of Favorites Panel is set to visible when component function is called
-	- Check if when favorites button clicked, favorites list is added to
-	- Checks visibility of Favorites Panel when logged in
 	- Check the display to close the window in the Favorites Panel
 
 
