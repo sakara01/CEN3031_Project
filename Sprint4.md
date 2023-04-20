@@ -15,6 +15,7 @@ Link to video:
 - Implemented Google Autocomplete API 
 - Implemented Search This Area and Search Bar functionality
 - Added backend test for the new features
+- Fixed broken Angular unit tests and added new unit tests for new features
 - Added new end to end cypress tests for APIs implemented
 - Improved appearance of existing front end components
 
