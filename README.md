@@ -30,7 +30,7 @@ Favorites Panel
 
 Search Bar Autocompletion
 
-<img width="1128" alt="Screenshot 2023-04-19 202629" src="https://user-images.githubusercontent.com/91928954/233226904-61df9dcb-01f8-4ef0-b26d-221e63e45f2b.png">
+<img width="564" alt="Screenshot 2023-04-19 202629" src="https://user-images.githubusercontent.com/91928954/233226904-61df9dcb-01f8-4ef0-b26d-221e63e45f2b.png">
 
 <a name="Technologies"/>
 
