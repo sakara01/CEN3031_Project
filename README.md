@@ -12,6 +12,26 @@ A web paged map where users can easily find the locations, ratings, and populari
 
 ## Features
 
+Home Page
+
+<img width="564" alt="Screenshot 2023-04-19 201812" src="https://user-images.githubusercontent.com/91928954/233226211-479a9a1e-a956-49b5-a379-ea64f578810b.png">
+
+Login Screen
+
+<img width="564" alt="Screenshot 2023-04-19 202115" src="https://user-images.githubusercontent.com/91928954/233226423-20d526d2-f954-4ba1-aa59-595cba369858.png">
+
+SideBar Component
+
+<img width="564" alt="Screenshot 2023-04-19 202336" src="https://user-images.githubusercontent.com/91928954/233226618-7c34de76-e159-401a-8686-42a36954266b.png">
+
+Favorites Panel
+
+<img width="564" alt="Screenshot 2023-04-19 202439" src="https://user-images.githubusercontent.com/91928954/233226724-213fb628-db41-4075-b8d6-a420bcf6b94b.png">
+
+Search Bar Autocompletion
+
+<img width="1128" alt="Screenshot 2023-04-19 202629" src="https://user-images.githubusercontent.com/91928954/233226904-61df9dcb-01f8-4ef0-b26d-221e63e45f2b.png">
+
 <a name="Technologies"/>
 
 ## Technologies
