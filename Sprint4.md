@@ -2,7 +2,7 @@
 ## Lauren Escarcha, Karen Tong, Saloni Karanth, Justus Geslani
 
 
-Link to video: 
+Link to video: [https://drive.google.com/file/d/1FalQrUTuXv53Mlj5rHUjn0An-rYuP7ZH/view?usp=sharing](https://drive.google.com/file/d/1FalQrUTuXv53Mlj5rHUjn0An-rYuP7ZH/view?usp=sharing)
 
 ## User Stories Completed
 - As a user who wants to visit coffee shops at different places/cities, I want to be able to search for a place and view the coffee shops around it.
