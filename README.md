@@ -49,8 +49,6 @@ $ go run main.go
 
 Find the running project on `http://localhost:4200/`.
 
-INCLUDE SCREENSHOTS OF RUNNING PROJECT
-
 <a name="Testing"/>
 
 ## Testing
