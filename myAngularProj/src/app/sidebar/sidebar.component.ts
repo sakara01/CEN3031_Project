@@ -105,8 +105,8 @@ export class SidebarComponent {
     (document.getElementById("detailPane") as HTMLFormElement).style.visibility = 'hidden';
     (document.getElementById("IconBar") as HTMLFormElement).style.visibility = 'hidden';
     (document.getElementById("directionsIcon") as HTMLFormElement).style.visibility = 'hidden';
-    (document.getElementById("directionsHolder") as HTMLFormElement).style.visibility = 'hidden';
-
+    (document.getElementById("directionsHolder") as HTMLFormElement).style.visibility = 'hidden'; 
+    (document.getElementById("favoriteBtn") as HTMLFormElement).style.visibility = 'hidden';
   }
 
   directionsClicked(){
