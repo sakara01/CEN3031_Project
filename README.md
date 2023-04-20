@@ -1,4 +1,4 @@
-# Caffinder
+# Caffinder ☕
 A web paged map where users can easily find the locations, ratings, and popularity of coffee shops in any area. Caffinder is the perfect tool to help others looking for a good study-grind place while also drawing the much deserved attention to local businesses.
 
 ## Table of Contents
